@@ -22,11 +22,9 @@ export default function Nav() {
         left: 0,
         right: 0,
         zIndex: 50,
-        mixBlendMode: 'multiply',
-        transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
-        background: scrolled ? 'rgba(244,239,229,0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(24,21,15,0.08)' : 'none',
+        transition: 'background 0.4s ease',
+        background: theme === 'dark' ? 'rgba(24,21,15,0.97)' : 'rgba(244,239,229,0.97)',
+        borderBottom: '1px solid var(--rule)',
       }}
     >
       <div
@@ -76,17 +74,16 @@ export default function Nav() {
               <a
                 href={link.href}
                 style={{
-                  color: 'var(--ink)',
+                  color: 'var(--taupe)',
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
                   fontWeight: 300,
-                  opacity: 0.75,
-                  transition: 'opacity 0.2s ease',
+                  transition: 'color 0.2s ease',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.75')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--taupe)')}
               >
                 {link.label}
               </a>

@@ -1,49 +1,60 @@
-'use client';
-
-import { useEffect } from 'react';
+'use client'
+import { useEffect, useRef } from 'react'
 
 export default function Cursor() {
+  const dotRef  = useRef(null)
+  const ringRef = useRef(null)
+  const mouse   = useRef({ x: -100, y: -100 })
+  const ring    = useRef({ x: -100, y: -100 })
+  const rafId   = useRef(null)
+
   useEffect(() => {
-    const dot = document.createElement('div');
-    dot.className = 'cursor-dot';
+    const dot  = dotRef.current
+    const rng  = ringRef.current
+    if (!dot || !rng) return
 
-    const ring = document.createElement('div');
-    ring.className = 'cursor-ring';
+    const onMove = (e) => {
+      mouse.current.x = e.clientX
+      mouse.current.y = e.clientY
+      dot.style.left = e.clientX + 'px'
+      dot.style.top  = e.clientY + 'px'
+    }
 
-    document.body.appendChild(dot);
-    document.body.appendChild(ring);
+    const onLeave = () => {
+      dot.style.opacity = '0'
+      rng.style.opacity = '0'
+    }
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-    let rafId;
+    const onEnter = () => {
+      dot.style.opacity = '1'
+      rng.style.opacity = '0.4'
+    }
 
-    const onMouseMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = mouseX + 'px';
-      dot.style.top = mouseY + 'px';
-    };
+    const loop = () => {
+      ring.current.x += (mouse.current.x - ring.current.x) * 0.08
+      ring.current.y += (mouse.current.y - ring.current.y) * 0.08
+      rng.style.left = ring.current.x + 'px'
+      rng.style.top  = ring.current.y + 'px'
+      rafId.current = requestAnimationFrame(loop)
+    }
 
-    const animateRing = () => {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      rafId = requestAnimationFrame(animateRing);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    rafId = requestAnimationFrame(animateRing);
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseleave', onLeave)
+    document.addEventListener('mouseenter', onEnter)
+    rafId.current = requestAnimationFrame(loop)
 
     return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(rafId);
-      if (dot.parentNode) dot.parentNode.removeChild(dot);
-      if (ring.parentNode) ring.parentNode.removeChild(ring);
-    };
-  }, []);
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseleave', onLeave)
+      document.removeEventListener('mouseenter', onEnter)
+      cancelAnimationFrame(rafId.current)
+    }
+  }, [])
 
-  return null;
+  return (
+    <>
+      <div ref={dotRef}  className="cur-dot"  aria-hidden="true" />
+      <div ref={ringRef} className="cur-ring" aria-hidden="true" />
+    </>
+  )
 }
