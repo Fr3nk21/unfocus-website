@@ -1,0 +1,228 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useTheme } from './ThemeProvider';
+
+export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <nav
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        mixBlendMode: 'multiply',
+        transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
+        background: scrolled ? 'rgba(244,239,229,0.85)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(24,21,15,0.08)' : 'none',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 2rem',
+          height: '72px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {/* Logo */}
+        <a
+          href="/"
+          style={{
+            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontSize: '1.125rem',
+            color: 'var(--ink)',
+            textDecoration: 'none',
+            fontWeight: 500,
+            letterSpacing: '-0.01em',
+          }}
+        >
+          Francesco Bugugnoli
+        </a>
+
+        {/* Desktop nav */}
+        <ul
+          style={{
+            display: 'flex',
+            listStyle: 'none',
+            gap: '2.5rem',
+            margin: 0,
+            padding: 0,
+            alignItems: 'center',
+          }}
+          className="hidden-mobile"
+        >
+          {[
+            { label: 'Work', href: '#portfolio' },
+            { label: 'About', href: '#about' },
+            { label: 'Services', href: '#services' },
+          ].map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                style={{
+                  color: 'var(--ink)',
+                  textDecoration: 'none',
+                  fontSize: '0.875rem',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  fontWeight: 300,
+                  opacity: 0.75,
+                  transition: 'opacity 0.2s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.75')}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a
+              href="#contact"
+              style={{
+                color: 'var(--sienna)',
+                textDecoration: 'none',
+                fontSize: '0.875rem',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                fontWeight: 400,
+                position: 'relative',
+                paddingBottom: '2px',
+              }}
+            >
+              Contact
+              <span
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '1px',
+                  background: 'var(--sienna)',
+                  transformOrigin: 'left',
+                  transition: 'transform 0.3s ease',
+                }}
+              />
+            </a>
+          </li>
+          <li>
+            <button onClick={toggleTheme} aria-label="Toggle colour theme" className="theme-toggle">
+              <span className={theme === 'light' ? 'active' : ''}>L</span>
+              <span className="divider">·</span>
+              <span className={theme === 'dark' ? 'active' : ''}>D</span>
+            </button>
+          </li>
+        </ul>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          style={{
+            display: 'none',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '8px',
+            flexDirection: 'column',
+            gap: '5px',
+          }}
+          className="show-mobile"
+        >
+          <span
+            style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--ink)',
+              transition: 'transform 0.3s ease',
+              transform: menuOpen ? 'rotate(45deg) translate(4px,4px)' : 'none',
+            }}
+          />
+          <span
+            style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--ink)',
+              opacity: menuOpen ? 0 : 1,
+              transition: 'opacity 0.3s ease',
+            }}
+          />
+          <span
+            style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--ink)',
+              transition: 'transform 0.3s ease',
+              transform: menuOpen ? 'rotate(-45deg) translate(4px,-4px)' : 'none',
+            }}
+          />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div
+          style={{
+            background: 'var(--ivory)',
+            borderTop: '1px solid rgba(24,21,15,0.08)',
+            padding: '1.5rem 2rem',
+          }}
+        >
+          {[
+            { label: 'Work', href: '#portfolio' },
+            { label: 'About', href: '#about' },
+            { label: 'Services', href: '#services' },
+            { label: 'Contact', href: '#contact' },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'block',
+                padding: '0.75rem 0',
+                color: link.label === 'Contact' ? 'var(--sienna)' : 'var(--ink)',
+                textDecoration: 'none',
+                fontSize: '1.125rem',
+                fontFamily: 'var(--font-playfair), Georgia, serif',
+                borderBottom: '1px solid rgba(24,21,15,0.06)',
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .show-mobile { display: none !important; }
+          .hidden-mobile { display: flex !important; }
+        }
+      `}</style>
+    </nav>
+  );
+}

@@ -1,26 +1,226 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ivory: #F4EFE5;
+  --color-cream: #EDE7DB;
+  --color-parchment: #E2D9CA;
+  --color-ink: #18150F;
+  --color-charcoal: #2E2B24;
+  --color-taupe: #8A7F72;
+  --color-sienna: #9E5F38;
+
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-dmsans);
+  --font-italic: var(--font-imfell);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root, .light {
+  --ivory:      #F4EFE5;
+  --cream:      #EDE7DB;
+  --parchment:  #E2D9CA;
+  --ink:        #18150F;
+  --charcoal:   #2E2B24;
+  --taupe:      #8A7F72;
+  --sienna:     #9E5F38;
+  --rule:       rgba(24,21,15,0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --ivory:      #18150F;
+  --cream:      #1E1B14;
+  --parchment:  #252018;
+  --ink:        #F0EBE1;
+  --charcoal:   #F4EFE5;
+  --taupe:      #A89E91;
+  --sienna:     #C47A4A;
+  --rule:       rgba(244,239,229,0.1);
 }
 
+.dark .stats-section,
+.dark .contact-section {
+  background: #111009 !important;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ticker-track,
+.cursor-dot,
+.cursor-ring,
+[class*="animate"],
+.reveal,
+.clip-reveal {
+  transition: none !important;
+}
+
+@keyframes tickerRoll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes clipReveal {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes scrollTick {
+  0%,  100% { opacity: 0; }
+  20%, 80%  { opacity: 1; }
+  50%       { transform: translateY(12px); }
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-dmsans), system-ui, sans-serif;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Custom cursor */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--sienna);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s ease;
+}
+
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--sienna);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, opacity 0.2s ease;
+  opacity: 0.7;
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clip-reveal.visible {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* Service row underline */
+.service-line {
+  position: relative;
+}
+
+.service-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--sienna);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-line:hover::after {
+  transform: scaleX(1);
+}
+
+/* Button fill animation */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--sienna);
+  transform: translateY(101%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.btn-primary:hover::before {
+  transform: translateY(0);
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Portfolio thumbnail zoom */
+.portfolio-thumb img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-thumb:hover img {
+  transform: scale(1.04);
+}
+
+/* Theme toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding: 4px 0;
+}
+.theme-toggle span { color: var(--taupe); transition: color 0.3s; }
+.theme-toggle span.active { color: var(--sienna); }
+.theme-toggle .divider { opacity: 0.3; }
+
+/* Ticker */
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerRoll 20s linear infinite;
 }
