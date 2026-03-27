@@ -285,25 +285,25 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="btn-primary"
               style={{
-                alignSelf: 'flex-start',
-                padding: '0.875rem 2.5rem',
-                backgroundColor: 'var(--ivory)',
-                color: 'var(--ink)',
+                marginTop: '1rem',
+                width: '100%',
+                padding: '1rem 2rem',
+                backgroundColor: 'var(--sienna)',
+                color: '#F4EFE5',
+                border: 'none',
                 fontSize: '0.8rem',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
+                fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                border: '1px solid var(--ivory)',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-dmsans), system-ui, sans-serif',
-                transition: 'color 0.4s ease',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                cursor: 'none',
+                transition: 'opacity 0.3s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ivory)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ink)')}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.82'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
             >
-              <span>Send Message</span>
+              Send Enquiry
             </button>
           </form>
         </div>

@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: 'var(--ink)',
+        backgroundColor: '#0E0C08',
         borderTop: '1px solid rgba(244,239,229,0.1)',
       }}
     >
@@ -26,7 +26,7 @@ export default function Footer() {
             style={{
               fontFamily: 'var(--font-playfair), Georgia, serif',
               fontSize: '1.125rem',
-              color: 'var(--ivory)',
+              color: 'rgba(244,239,229,0.7)',
               fontWeight: 500,
               marginBottom: '0.25rem',
               letterSpacing: '-0.01em',
@@ -39,7 +39,7 @@ export default function Footer() {
               fontSize: '0.7rem',
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
-              color: 'var(--taupe)',
+              color: 'rgba(244,239,229,0.3)',
               fontVariant: 'small-caps',
               fontWeight: 300,
             }}
@@ -68,7 +68,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                color: 'var(--taupe)',
+                color: 'rgba(244,239,229,0.35)',
                 textDecoration: 'none',
                 fontSize: '0.8rem',
                 letterSpacing: '0.08em',
@@ -77,7 +77,7 @@ export default function Footer() {
                 transition: 'color 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sienna)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--taupe)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(244,239,229,0.35)')}
             >
               {link.label}
             </a>
@@ -98,7 +98,7 @@ export default function Footer() {
           <span
             style={{
               fontSize: '0.8rem',
-              color: 'var(--taupe)',
+              color: 'rgba(244,239,229,0.25)',
               fontWeight: 300,
             }}
           >
