@@ -23,6 +23,9 @@
   --taupe:      #8A7F72;
   --sienna:     #9E5F38;
   --rule:       rgba(24,21,15,0.12);
+  --stats-bg:   #2E2B24;
+  --stats-num:  #F4EFE5;
+  --stats-label: #8A7F72;
 }
 
 .dark {
@@ -34,6 +37,9 @@
   --taupe:      #A89E91;
   --sienna:     #C47A4A;
   --rule:       rgba(244,239,229,0.1);
+  --stats-bg:   #111009;
+  --stats-num:  #F4EFE5;
+  --stats-label: #A89E91;
 }
 
 .dark .stats-section,

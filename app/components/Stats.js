@@ -12,7 +12,7 @@ export default function Stats() {
     <section
       className="stats-section"
       style={{
-        backgroundColor: 'var(--charcoal)',
+        backgroundColor: 'var(--stats-bg)',
         padding: '5rem 2rem',
       }}
     >
@@ -40,7 +40,7 @@ export default function Stats() {
                   fontFamily: 'var(--font-playfair), Georgia, serif',
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 700,
-                  color: 'var(--ivory)',
+                  color: 'var(--stats-num)',
                   lineHeight: 1,
                   marginBottom: '0.5rem',
                   letterSpacing: '-0.02em',
@@ -53,7 +53,7 @@ export default function Stats() {
                   fontSize: '0.75rem',
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: 'var(--taupe)',
+                  color: 'var(--stats-label)',
                   fontWeight: 300,
                 }}
               >

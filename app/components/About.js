@@ -8,7 +8,7 @@ export default function About() {
       id="about"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '7rem 2rem',
+        padding: '5rem 2rem',
       }}
     >
       <div
@@ -18,7 +18,7 @@ export default function About() {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '5rem',
-          alignItems: 'center',
+          alignItems: 'start',
         }}
         className="about-grid"
       >
@@ -107,26 +107,29 @@ export default function About() {
                 color: 'var(--taupe)',
                 fontVariant: 'small-caps',
                 fontWeight: 400,
+                marginBottom: '1rem',
               }}
             >
               The Maker
             </p>
           </RevealWrapper>
 
-          <RevealWrapper clip>
+          <RevealWrapper>
             <h2
               className="about-heading"
               style={{
+                fontFamily: 'var(--font-playfair), Georgia, serif',
+                fontSize: 'clamp(38px, 3.8vw, 58px)',
+                fontWeight: 400,
+                lineHeight: 1.1,
+                letterSpacing: '-0.015em',
                 color: 'var(--ink)',
+                marginTop: '0.75rem',
+                marginBottom: '1.5rem',
               }}
             >
               Italian eye.{' '}
-              <em
-                style={{
-                  fontStyle: 'italic',
-                  color: 'var(--sienna)',
-                }}
-              >
+              <em style={{ fontStyle: 'italic', color: 'var(--sienna)' }}>
                 Melbourne
               </em>{' '}
               soul.
