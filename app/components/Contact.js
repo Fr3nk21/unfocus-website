@@ -216,6 +216,7 @@ export default function Contact() {
 
             <div>
               <select
+                id="service-input"
                 name="service"
                 defaultValue=""
                 style={{

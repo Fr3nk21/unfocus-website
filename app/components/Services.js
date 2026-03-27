@@ -1,38 +1,15 @@
 'use client';
 
 import RevealWrapper from './RevealWrapper';
+import { scrollToContactWithService } from '../lib/contactUtils';
 
 const services = [
-  {
-    index: '01',
-    title: 'Social Media Video',
-    description: 'Short-form vertical content optimised for Instagram, TikTok, and YouTube Shorts.',
-  },
-  {
-    index: '02',
-    title: 'Hospitality & Food',
-    description: 'Atmosphere, texture, and flavour rendered in cinematic light.',
-  },
-  {
-    index: '03',
-    title: 'Corporate Video',
-    description: 'Brand films, testimonials, and internal comms that mean something.',
-  },
-  {
-    index: '04',
-    title: 'Event Coverage',
-    description: 'Weddings, launches, and brand activations preserved beautifully.',
-  },
-  {
-    index: '05',
-    title: 'Legacy Video',
-    description: 'Family histories and milestone moments preserved for generations.',
-  },
-  {
-    index: '06',
-    title: 'Commercial Photography',
-    description: 'Still imagery for menus, campaigns, and social assets.',
-  },
+  { index: '01', title: 'Social Media Video',     description: 'Short-form vertical content optimised for Instagram, TikTok, and YouTube Shorts.', prefill: 'Social Media Video' },
+  { index: '02', title: 'Hospitality & Food',     description: 'Atmosphere, texture, and flavour rendered in cinematic light.',                    prefill: 'Hospitality & Food' },
+  { index: '03', title: 'Corporate Video',         description: 'Brand films, testimonials, and internal comms that mean something.',                prefill: 'Corporate Video' },
+  { index: '04', title: 'Event Coverage',          description: 'Weddings, launches, and brand activations preserved beautifully.',                  prefill: 'Event Coverage' },
+  { index: '05', title: 'Legacy Video',            description: 'Family histories and milestone moments preserved for generations.',                  prefill: 'Legacy Video' },
+  { index: '06', title: 'Commercial Photography',  description: 'Still imagery for menus, campaigns, and social assets.',                           prefill: 'Commercial Photography' },
 ];
 
 export default function Services() {
@@ -101,8 +78,13 @@ export default function Services() {
         <div>
           {services.map((service) => (
             <RevealWrapper key={service.index}>
-              <div
+              <article
                 className="service-line"
+                role="button"
+                tabIndex={0}
+                onClick={() => scrollToContactWithService(service.prefill)}
+                onKeyDown={(e) => e.key === 'Enter' && scrollToContactWithService(service.prefill)}
+                aria-label={`Enquire about ${service.title}`}
                 style={{
                   display: 'grid',
                   gridTemplateColumns: '3rem 1fr auto auto',
@@ -116,13 +98,13 @@ export default function Services() {
                   const title = e.currentTarget.querySelector('[data-title]');
                   const arrow = e.currentTarget.querySelector('[data-arrow]');
                   if (title) title.style.color = 'var(--sienna)';
-                  if (arrow) arrow.style.transform = 'translateX(6px)';
+                  if (arrow) arrow.style.transform = 'translateY(6px)';
                 }}
                 onMouseLeave={(e) => {
                   const title = e.currentTarget.querySelector('[data-title]');
                   const arrow = e.currentTarget.querySelector('[data-arrow]');
                   if (title) title.style.color = 'var(--ink)';
-                  if (arrow) arrow.style.transform = 'translateX(0)';
+                  if (arrow) arrow.style.transform = 'translateY(0)';
                 }}
               >
                 <span
@@ -173,9 +155,9 @@ export default function Services() {
                     display: 'inline-block',
                   }}
                 >
-                  →
+                  ↓
                 </span>
-              </div>
+              </article>
             </RevealWrapper>
           ))}
           {/* Last border */}

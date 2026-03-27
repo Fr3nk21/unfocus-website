@@ -1,8 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
+import YoutubeModal from './YoutubeModal';
 
 export default function Hero() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <section
       style={{
@@ -193,7 +197,10 @@ export default function Hero() {
               ))}
 
               {/* Play button */}
-              <div
+              <button
+                className="play-circle"
+                aria-label="Play showreel"
+                onClick={() => setModalOpen(true)}
                 style={{
                   width: '72px',
                   height: '72px',
@@ -203,6 +210,7 @@ export default function Hero() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
+                  background: 'none',
                   transition: 'border-color 0.3s ease, transform 0.3s ease',
                 }}
                 onMouseEnter={(e) => {
@@ -223,7 +231,7 @@ export default function Hero() {
                 >
                   <path d="M1 1.5L19 11L1 20.5V1.5Z" fill="rgba(244,239,229,0.7)" />
                 </svg>
-              </div>
+              </button>
             </div>
 
             {/* Caption */}
@@ -286,6 +294,8 @@ export default function Hero() {
           }
         }
       `}</style>
+
+      <YoutubeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }
