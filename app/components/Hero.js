@@ -116,27 +116,28 @@ export default function Hero() {
 
           <RevealWrapper>
             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-              <a
-                href="#portfolio"
+              <button
+                onClick={() => setModalOpen(true)}
                 className="btn-primary"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
                   padding: '0.875rem 2rem',
-                  backgroundColor: 'var(--ink)',
-                  color: 'var(--ivory)',
-                  textDecoration: 'none',
                   fontSize: '0.875rem',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   fontWeight: 400,
                   border: '1px solid var(--ink)',
-                  transition: 'color 0.4s ease',
+                  background: 'none',
+                  cursor: 'none',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: 'var(--ink)',
+                  color: 'var(--ivory)',
                 }}
               >
                 <span>View Showreel</span>
-              </a>
+              </button>
               <a
                 href="#services"
                 style={{
@@ -168,7 +169,7 @@ export default function Hero() {
           <div style={{ position: 'relative' }}>
             <div
               style={{
-                backgroundColor: 'var(--charcoal)',
+                backgroundColor: '#1C1A14',
                 aspectRatio: '4/5',
                 position: 'relative',
                 display: 'flex',
