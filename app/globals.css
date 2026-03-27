@@ -41,6 +41,16 @@
   background: #111009 !important;
 }
 
+/* Contact section always uses light text (bg is always dark) */
+.dark .contact-section {
+  --ivory: #F4EFE5;
+}
+
+.contact-section h2,
+.contact-section .contact-heading {
+  color: var(--ivory) !important;
+}
+
 *, *::before, *::after {
   transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -198,6 +208,78 @@ body::after {
   transform: scale(1.04);
 }
 
+/* Testimonial */
+.testimonial {
+  padding: 120px 56px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.testimonial::before {
+  content: '\201C';
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 220px;
+  color: rgba(158, 95, 56, 0.07);
+  line-height: 1;
+  pointer-events: none;
+  font-weight: 700;
+  z-index: 0;
+}
+
+.testimonial blockquote {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--charcoal);
+  margin-bottom: 44px;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial blockquote p {
+  margin: 0;
+}
+
+.testimonial blockquote footer,
+.testimonial cite {
+  position: relative;
+  z-index: 1;
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  font-weight: 400;
+}
+
+/* About section */
+.about-heading {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(38px, 3.8vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-top: 16px;
+  margin-bottom: 28px;
+}
+
+.ornament {
+  margin-bottom: 16px;
+}
+
+.about-text-col {
+  padding-top: 20px;
+}
+
 /* Theme toggle */
 .theme-toggle {
   background: none;
@@ -205,16 +287,24 @@ body::after {
   cursor: none;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  padding: 4px 0;
+  gap: 6px;
+  padding: 4px;
+  margin-left: 8px;
 }
-.theme-toggle span { color: var(--taupe); transition: color 0.3s; }
-.theme-toggle span.active { color: var(--sienna); }
-.theme-toggle .divider { opacity: 0.3; }
+.toggle-icon {
+  display: flex;
+  align-items: center;
+  color: var(--taupe);
+  transition: color 0.3s ease;
+}
+.toggle-icon.active {
+  color: var(--sienna);
+}
+.toggle-divider {
+  color: var(--taupe);
+  opacity: 0.3;
+  font-size: 12px;
+}
 
 /* Ticker */
 .ticker-track {

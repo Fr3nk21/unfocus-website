@@ -96,16 +96,16 @@ export default function About() {
         </RevealWrapper>
 
         {/* Right: text */}
-        <div>
+        <div className="about-text-col">
           <RevealWrapper>
             <p
+              className="ornament"
               style={{
                 fontSize: '0.7rem',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
                 color: 'var(--taupe)',
                 fontVariant: 'small-caps',
-                marginBottom: '1.25rem',
                 fontWeight: 400,
               }}
             >
@@ -115,14 +115,9 @@ export default function About() {
 
           <RevealWrapper clip>
             <h2
+              className="about-heading"
               style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 'clamp(2rem, 4vw, 3.25rem)',
-                lineHeight: 1.12,
-                fontWeight: 700,
                 color: 'var(--ink)',
-                marginBottom: '2rem',
-                letterSpacing: '-0.02em',
               }}
             >
               Italian eye.{' '}
