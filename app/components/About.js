@@ -24,7 +24,7 @@ export default function About() {
       >
         {/* Left: portrait placeholder */}
         <RevealWrapper>
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', maxWidth: '400px', margin: '0 auto' }}>
             {/* Offset ornamental frame */}
             <div
               style={{
@@ -35,49 +35,21 @@ export default function About() {
                 zIndex: 0,
               }}
             />
-            <div
+            <img
+              src="/images/portrait-francesco-bugugnoli.webp"
+              alt="Francesco Bugugnoli — Videographer and Photographer, Melbourne"
               style={{
-                backgroundColor: 'var(--charcoal)',
                 width: '100%',
                 maxWidth: '400px',
                 aspectRatio: '4/5',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                display: 'block',
                 position: 'relative',
                 zIndex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                margin: '0 auto',
               }}
-            >
-              {/* Corner brackets */}
-              {[0, 1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  style={{
-                    position: 'absolute',
-                    width: '24px',
-                    height: '24px',
-                    borderColor: 'rgba(244,239,229,0.25)',
-                    borderStyle: 'solid',
-                    borderWidth: 0,
-                    ...(i === 0 && { top: '12px', left: '12px', borderTopWidth: '1px', borderLeftWidth: '1px' }),
-                    ...(i === 1 && { top: '12px', right: '12px', borderTopWidth: '1px', borderRightWidth: '1px' }),
-                    ...(i === 2 && { bottom: '12px', left: '12px', borderBottomWidth: '1px', borderLeftWidth: '1px' }),
-                    ...(i === 3 && { bottom: '12px', right: '12px', borderBottomWidth: '1px', borderRightWidth: '1px' }),
-                  }}
-                />
-              ))}
-              <span
-                style={{
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(244,239,229,0.3)',
-                  fontWeight: 300,
-                }}
-              >
-                Portrait
-              </span>
-            </div>
+            />
 
             {/* Label below */}
             <p
