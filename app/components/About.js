@@ -8,7 +8,7 @@ export default function About() {
       id="about"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '5rem 2rem',
+        padding: '9rem 2rem',
       }}
     >
       <div
@@ -43,7 +43,7 @@ export default function About() {
                 maxWidth: '400px',
                 aspectRatio: '4/5',
                 objectFit: 'cover',
-                objectPosition: 'center',
+                objectPosition: 'center 20%',
                 display: 'block',
                 position: 'relative',
                 zIndex: 1,

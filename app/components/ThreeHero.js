@@ -20,12 +20,12 @@ export default function ThreeHero() {
     }
     resize();
 
-    const count = window.innerWidth < 768 ? 100 : 200;
+    const count = window.innerWidth < 768 ? 100 : 400;
     const particles = Array.from({ length: count }, () => ({
       baseX: Math.random() * canvas.width,
       baseY: Math.random() * canvas.height,
-      size: Math.random() * 2.5 + 0.8,
-      opacity: Math.random() * 0.45 + 0.15,
+      size: Math.random() * 3.75 + 1.2,
+      opacity: Math.random() * 0.45 + 0.3,
       speed: Math.random() * 0.4 + 0.15,
       phase: Math.random() * Math.PI * 2,
       phaseY: Math.random() * Math.PI * 2,

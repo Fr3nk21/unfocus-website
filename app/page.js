@@ -17,10 +17,10 @@ export default function Page() {
       <main>
         <Hero />
         <Ticker />
-        <About />
+        <Portfolio />
         <Stats />
         <Services />
-        <Portfolio />
+        <About />
         <Testimonial />
         <Partners />
         <Contact />

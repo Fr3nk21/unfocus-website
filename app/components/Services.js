@@ -18,7 +18,7 @@ export default function Services() {
       id="services"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '7rem 2rem',
+        padding: '9rem 2rem',
         borderTop: '1px solid var(--parchment)',
       }}
     >

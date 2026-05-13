@@ -16,7 +16,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const sections = ['portfolio', 'about', 'services', 'contact'];
+    const sections = ['portfolio', 'stats', 'services', 'about', 'testimonial', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -89,44 +89,31 @@ export default function Nav() {
             { label: 'Work', href: '#portfolio' },
             { label: 'About', href: '#about' },
             { label: 'Services', href: '#services' },
-          ].map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                style={{
-                  color: activeSection === link.href.replace('#', '') ? 'var(--ink)' : 'var(--taupe)',
-                  textDecoration: 'none',
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  fontWeight: activeSection === link.href.replace('#', '') ? 400 : 300,
-                  transition: 'color 0.2s ease',
-                  borderBottom: activeSection === link.href.replace('#', '') ? '1px solid var(--ink)' : '1px solid transparent',
-                  paddingBottom: '2px',
-                }}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href="#contact"
-              style={{
-                color: 'var(--sienna)',
-                textDecoration: 'none',
-                fontSize: '0.875rem',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                fontWeight: activeSection === 'contact' ? 500 : 400,
-                paddingBottom: '2px',
-                borderBottom: activeSection === 'contact' ? '1px solid var(--sienna)' : '1px solid transparent',
-                transition: 'color 0.2s ease',
-              }}
-            >
-              Contact
-            </a>
-          </li>
+            { label: 'Contact', href: '#contact' },
+          ].map((link) => {
+            const sectionId = link.href.replace('#', '');
+            const isActive = activeSection === sectionId;
+            return (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  style={{
+                    color: isActive ? 'var(--ink)' : 'var(--taupe)',
+                    textDecoration: 'none',
+                    fontSize: '0.875rem',
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    fontWeight: isActive ? 400 : 300,
+                    transition: 'color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink)')}
+                  onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--taupe)'; }}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
           <li>
             <button onClick={toggleTheme} aria-label="Toggle colour theme" className="theme-toggle">
               <span className={theme === 'light' ? 'toggle-icon active' : 'toggle-icon'}>

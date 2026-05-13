@@ -125,22 +125,20 @@ export default function Hero() {
             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => setModalOpen(true)}
-                className="btn-primary"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  padding: '0.875rem 2rem',
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.06em',
+                  padding: '0.85rem 2rem',
+                  fontSize: '0.8rem',
+                  letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   fontWeight: 400,
-                  border: '1px solid var(--ink)',
-                  background: 'none',
+                  border: 'none',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  backgroundColor: 'var(--ink)',
+                  backgroundColor: 'var(--sienna)',
                   color: 'var(--ivory)',
+                  borderRadius: '0px',
                 }}
               >
                 <span>View Showreel</span>
@@ -148,7 +146,7 @@ export default function Hero() {
               <a
                 href="#services"
                 style={{
-                  color: 'var(--sienna)',
+                  color: 'var(--taupe)',
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   letterSpacing: '0.04em',
@@ -156,12 +154,14 @@ export default function Hero() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
-                  transition: 'gap 0.3s ease',
+                  transition: 'color 0.2s ease, gap 0.3s ease',
                 }}
                 onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--sienna)';
                   e.currentTarget.style.gap = '0.7rem';
                 }}
                 onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--taupe)';
                   e.currentTarget.style.gap = '0.4rem';
                 }}
               >

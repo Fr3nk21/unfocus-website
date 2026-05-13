@@ -16,16 +16,6 @@ const portfolioItems = [
     vertical: false,
   },
   {
-    id: 'v-fratellino',
-    aspect: '16/9',
-    category: 'Video',
-    title: 'Fratellino',
-    sub: 'Melbourne · Hospitality Social',
-    video: '/videos/fratellino-loop.mp4',
-    youtubeId: '',
-    vertical: false,
-  },
-  {
     id: 'p-fratellino',
     aspect: '16/9',
     category: 'Photo',
@@ -50,16 +40,6 @@ const portfolioItems = [
     vertical: false,
   },
   {
-    id: 'v-liam',
-    aspect: '16/9',
-    category: 'Video',
-    title: 'Liam',
-    sub: 'Melbourne · Short Documentary',
-    video: '/videos/liam-loop.mp4',
-    youtubeId: '',
-    vertical: false,
-  },
-  {
     id: 'p-venice',
     aspect: '16/9',
     category: 'Photo',
@@ -73,6 +53,16 @@ const portfolioItems = [
       '/images/portfolio/venice/04.webp',
       '/images/portfolio/venice/05.webp',
     ],
+  },
+  {
+    id: 'v-liam',
+    aspect: '16/9',
+    category: 'Video',
+    title: 'Liam',
+    sub: 'Melbourne · Short Documentary',
+    video: '/videos/liam-loop.mp4',
+    youtubeId: '',
+    vertical: false,
   },
   {
     id: 'p-bar-ussou',
@@ -111,6 +101,16 @@ const portfolioItems = [
       '/images/portfolio/agriturismo/03.webp',
       '/images/portfolio/agriturismo/04.webp',
     ],
+  },
+  {
+    id: 'v-fratellino',
+    aspect: '16/9',
+    category: 'Video',
+    title: 'Fratellino',
+    sub: 'Melbourne · Hospitality Social',
+    video: '/videos/fratellino-loop.mp4',
+    youtubeId: '',
+    vertical: false,
   },
   {
     id: 'p-possum',
@@ -318,7 +318,7 @@ export default function Portfolio() {
       id="portfolio"
       style={{
         backgroundColor: 'var(--cream)',
-        padding: '7rem 2rem',
+        padding: '9rem 2rem',
       }}
     >
       <div
@@ -418,61 +418,28 @@ export default function Portfolio() {
                 position: 'relative',
                 overflow: 'hidden',
                 cursor: 'pointer',
-                backgroundColor: 'var(--charcoal)',
+                backgroundColor: '#1E1B14',
                 aspectRatio: '16/9',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '1rem',
-                border: '1px solid rgba(244,239,229,0.1)',
-                transition: 'border-color 0.3s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--sienna)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(244,239,229,0.1)';
+                padding: '2rem',
               }}
             >
-              <div
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  border: '1.5px solid rgba(244,239,229,0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <span style={{ fontSize: '1.5rem', color: 'rgba(244,239,229,0.5)', fontWeight: 300, lineHeight: 1 }}>+</span>
-              </div>
-              <p
+              <h3
                 style={{
                   fontFamily: 'var(--font-playfair), Georgia, serif',
-                  fontSize: '1.125rem',
-                  color: 'var(--ivory)',
+                  fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
                   fontWeight: 500,
+                  color: '#F0EBE1',
                   textAlign: 'center',
-                  margin: 0,
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.3,
                 }}
               >
-                Want to see more?
-              </p>
-              <p
-                style={{
-                  fontSize: '0.8rem',
-                  color: 'var(--taupe)',
-                  fontWeight: 300,
-                  textAlign: 'center',
-                  maxWidth: '200px',
-                  lineHeight: 1.5,
-                  margin: 0,
-                }}
-              >
-                Get in touch to view my full portfolio
-              </p>
+                More projects available<br />
+                <span style={{ color: 'var(--sienna)', fontStyle: 'italic' }}>upon request</span>
+              </h3>
             </div>
           )}
         </div>

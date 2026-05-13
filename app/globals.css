@@ -7,7 +7,7 @@
   --color-ink: #18150F;
   --color-charcoal: #2E2B24;
   --color-taupe: #8A7F72;
-  --color-sienna: #9E5F38;
+  --color-sienna: #8B4513;
 
   --font-display: var(--font-playfair);
   --font-body: var(--font-dmsans);
@@ -21,7 +21,7 @@
   --ink:        #18150F;
   --charcoal:   #2E2B24;
   --taupe:      #8A7F72;
-  --sienna:     #9E5F38;
+  --sienna:     #8B4513;
   --rule:       rgba(24,21,15,0.12);
   --stats-bg:   #2E2B24;
   --stats-num:  #F4EFE5;

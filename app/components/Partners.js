@@ -58,7 +58,7 @@ export default function Partners() {
         backgroundColor: 'var(--ivory)',
         borderTop: '1px solid var(--parchment)',
         borderBottom: '1px solid var(--parchment)',
-        padding: '3rem 0',
+        padding: '5rem 0',
         overflow: 'hidden',
       }}
     >
