@@ -1,6 +1,5 @@
 import { Playfair_Display, DM_Sans, IM_Fell_English } from 'next/font/google';
 import './globals.css';
-import Cursor from './components/Cursor';
 import ThemeProvider from './components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -110,7 +109,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          <Cursor />
           {children}
         </ThemeProvider>
         <Analytics />

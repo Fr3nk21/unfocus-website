@@ -1,39 +1,32 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import YoutubeModal from './YoutubeModal';
 import PhotoLightbox from './PhotoLightbox';
 
 const portfolioItems = [
-  // Row 1: Toyota (wide) + Fratellino video (vertical)
   {
     id: 'v-toyota',
-    colSpan: 8,
     aspect: '16/9',
     category: 'Video',
     title: 'Toyota',
     sub: 'Melbourne · Brand Testimonial',
     video: '/videos/toyota-loop.mp4',
-    poster: '/videos/toyota-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
   {
     id: 'v-fratellino',
-    colSpan: 4,
     aspect: '16/9',
     category: 'Video',
     title: 'Fratellino',
     sub: 'Melbourne · Hospitality Social',
     video: '/videos/fratellino-loop.mp4',
-    poster: '/videos/fratellino-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
-  // Row 2: Fratellino photos + Pickle Jar (wide)
   {
     id: 'p-fratellino',
-    colSpan: 4,
     aspect: '16/9',
     category: 'Photo',
     title: 'Fratellino',
@@ -48,32 +41,26 @@ const portfolioItems = [
   },
   {
     id: 'v-pickle-jar',
-    colSpan: 8,
     aspect: '16/9',
     category: 'Video',
     title: 'Pickle Jar',
     sub: 'Melbourne · Music Video',
     video: '/videos/pickle-jar-loop.mp4',
-    poster: '/videos/pickle-jar-thumb.jpg',
     youtubeId: 'R9qTTNp8zTg',
     vertical: false,
   },
-  // Row 3: Liam + Venice photos
   {
     id: 'v-liam',
-    colSpan: 6,
     aspect: '16/9',
     category: 'Video',
     title: 'Liam',
     sub: 'Melbourne · Short Documentary',
     video: '/videos/liam-loop.mp4',
-    poster: '/videos/liam-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
   {
     id: 'p-venice',
-    colSpan: 6,
     aspect: '16/9',
     category: 'Photo',
     title: 'Venice',
@@ -87,10 +74,8 @@ const portfolioItems = [
       '/images/portfolio/venice/05.webp',
     ],
   },
-  // Row 4: Bar Ussou photos + Floridia Night (wide)
   {
     id: 'p-bar-ussou',
-    colSpan: 4,
     aspect: '16/9',
     category: 'Photo',
     title: 'Bar Ussou',
@@ -105,20 +90,16 @@ const portfolioItems = [
   },
   {
     id: 'v-floridia-night',
-    colSpan: 8,
     aspect: '16/9',
     category: 'Video',
     title: 'Floridia Night',
     sub: 'Melbourne · Event Social',
     video: '/videos/floridia-night-loop.mp4',
-    poster: '/videos/floridia-night-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
-  // Row 5: Agriturismo + Possum
   {
     id: 'p-agriturismo',
-    colSpan: 6,
     aspect: '16/9',
     category: 'Photo',
     title: 'Agriturismo',
@@ -133,7 +114,6 @@ const portfolioItems = [
   },
   {
     id: 'p-possum',
-    colSpan: 6,
     aspect: '16/9',
     category: 'Photo',
     title: 'Possum',
@@ -151,15 +131,10 @@ const portfolioItems = [
 const filters = ['All', 'Video', 'Photo'];
 
 function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
-  const videoRef = useRef(null);
   const isVideo = item.category === 'Video';
   const isPhoto = item.category === 'Photo';
 
   function handleMouseEnter(e) {
-    if (isVideo && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-      videoRef.current.style.opacity = '1';
-    }
     if (isPhoto) {
       const img = e.currentTarget.querySelector('img');
       if (img) img.style.transform = 'scale(1.05)';
@@ -167,10 +142,6 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
   }
 
   function handleMouseLeave(e) {
-    if (isVideo && videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.style.opacity = '0';
-    }
     if (isPhoto) {
       const img = e.currentTarget.querySelector('img');
       if (img) img.style.transform = 'scale(1)';
@@ -189,7 +160,6 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        gridColumn: `span ${item.colSpan}`,
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -197,43 +167,24 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         aspectRatio: item.aspect,
       }}
     >
-      {/* Video items: poster + hidden video overlay */}
+      {/* Video items: autoplaying loop */}
       {isVideo && (
-        <>
-          {/* Poster thumbnail — always visible */}
-          <img
-            src={item.poster}
-            alt={item.title}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
-          {/* Video — hidden by default, fades in on hover */}
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            preload="none"
-            poster={item.poster}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: 0,
-              transition: 'opacity 0.5s ease',
-              zIndex: 1,
-            }}
-          >
-            <source src={item.video} type="video/mp4" />
-          </video>
-        </>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        >
+          <source src={item.video} type="video/mp4" />
+        </video>
       )}
 
       {/* Photo items: cover image */}
@@ -251,40 +202,6 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
             transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
           }}
         />
-      )}
-
-      {/* Play icon for videos */}
-      {isVideo && (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 2,
-            pointerEvents: 'none',
-          }}
-        >
-          <div
-            className="portfolio-play"
-            style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '50%',
-              border: '1.5px solid rgba(244,239,229,0.6)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(0,0,0,0.3)',
-              transition: 'transform 0.3s ease, border-color 0.3s ease',
-            }}
-          >
-            <svg width="14" height="16" viewBox="0 0 14 16" fill="none">
-              <path d="M1 1L13 8L1 15V1Z" fill="rgba(244,239,229,0.8)" />
-            </svg>
-          </div>
-        </div>
       )}
 
       {/* Gallery icon for photos */}
@@ -478,7 +395,7 @@ export default function Portfolio() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '1.25rem',
           }}
           className="portfolio-grid"
@@ -510,13 +427,9 @@ export default function Portfolio() {
       />
 
       <style>{`
-        .portfolio-thumb:hover .portfolio-play {
-          transform: scale(1.1);
-          border-color: var(--sienna) !important;
-        }
         @media (max-width: 768px) {
           .portfolio-grid > div {
-            grid-column: span 12 !important;
+            grid-column: span 1 !important;
           }
         }
       `}</style>

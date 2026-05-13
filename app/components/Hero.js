@@ -130,7 +130,7 @@ export default function Hero() {
                   fontWeight: 400,
                   border: '1px solid var(--ink)',
                   background: 'none',
-                  cursor: 'none',
+                  cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   backgroundColor: 'var(--ink)',
                   color: 'var(--ivory)',

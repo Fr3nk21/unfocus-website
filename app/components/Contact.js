@@ -354,7 +354,7 @@ export default function Contact() {
                 fontWeight: 500,
                 letterSpacing: '0.22em',
                 textTransform: 'uppercase',
-                cursor: status === 'sending' || status === 'sent' ? 'default' : 'none',
+                cursor: status === 'sending' || status === 'sent' ? 'default' : 'pointer',
                 transition: 'opacity 0.3s ease, background-color 0.3s ease',
                 opacity: status === 'sending' || status === 'sent' ? 0.75 : 1,
               }}
