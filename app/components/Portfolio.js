@@ -21,20 +21,20 @@ const portfolioItems = [
   {
     id: 'v-fratellino',
     colSpan: 4,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Video',
     title: 'Fratellino',
     sub: 'Melbourne · Hospitality Social',
     video: '/videos/fratellino-loop.mp4',
     poster: '/videos/fratellino-thumb.jpg',
     youtubeId: '',
-    vertical: true,
+    vertical: false,
   },
   // Row 2: Fratellino photos + Pickle Jar (wide)
   {
     id: 'p-fratellino',
     colSpan: 4,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Photo',
     title: 'Fratellino',
     sub: 'Fitzroy · Hospitality Social',
@@ -74,7 +74,7 @@ const portfolioItems = [
   {
     id: 'p-venice',
     colSpan: 6,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Photo',
     title: 'Venice',
     sub: 'Italy · Travel Social',
@@ -91,7 +91,7 @@ const portfolioItems = [
   {
     id: 'p-bar-ussou',
     colSpan: 4,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Photo',
     title: 'Bar Ussou',
     sub: 'Melbourne · Music Band',
@@ -119,7 +119,7 @@ const portfolioItems = [
   {
     id: 'p-agriturismo',
     colSpan: 6,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Photo',
     title: 'Agriturismo',
     sub: 'Italy · Travel Social',
@@ -134,7 +134,7 @@ const portfolioItems = [
   {
     id: 'p-possum',
     colSpan: 6,
-    aspect: '3/4',
+    aspect: '16/9',
     category: 'Photo',
     title: 'Possum',
     sub: 'Melbourne · Film Production',
@@ -319,20 +319,17 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         </div>
       )}
 
-      {/* Hover overlay with title */}
+      {/* Permanent gradient overlay with title */}
       <div
-        className="portfolio-overlay"
         style={{
           position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(24,21,15,0.78)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          padding: '1.75rem',
-          transform: 'translateY(100%)',
-          transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
+          padding: '3rem 1.5rem 1.25rem',
           zIndex: 3,
+          pointerEvents: 'none',
         }}
       >
         <span
@@ -342,7 +339,8 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
             textTransform: 'uppercase',
             color: 'var(--sienna)',
             fontWeight: 400,
-            marginBottom: '0.4rem',
+            marginBottom: '0.3rem',
+            display: 'block',
           }}
         >
           {item.category}
@@ -350,10 +348,10 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         <h3
           style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: '1.375rem',
+            fontSize: '1.25rem',
             fontWeight: 500,
-            color: 'var(--ivory)',
-            marginBottom: '0.25rem',
+            color: '#F4EFE5',
+            marginBottom: '0.15rem',
             letterSpacing: '-0.01em',
           }}
         >
@@ -361,8 +359,8 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         </h3>
         <p
           style={{
-            fontSize: '0.8rem',
-            color: 'var(--taupe)',
+            fontSize: '0.75rem',
+            color: 'rgba(244,239,229,0.6)',
             fontWeight: 300,
             margin: 0,
           }}
@@ -512,9 +510,6 @@ export default function Portfolio() {
       />
 
       <style>{`
-        .portfolio-thumb:hover .portfolio-overlay {
-          transform: translateY(0) !important;
-        }
         .portfolio-thumb:hover .portfolio-play {
           transform: scale(1.1);
           border-color: var(--sienna) !important;
