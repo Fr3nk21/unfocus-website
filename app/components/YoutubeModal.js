@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 
-export default function YoutubeModal({ isOpen, onClose }) {
+export default function YoutubeModal({ isOpen, onClose, videoId, title = 'Video', vertical = false }) {
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === 'Escape') onClose()
@@ -16,7 +16,7 @@ export default function YoutubeModal({ isOpen, onClose }) {
     }
   }, [isOpen, onClose])
 
-  if (!isOpen) return null
+  if (!isOpen || !videoId) return null
 
   return (
     <div
@@ -24,10 +24,10 @@ export default function YoutubeModal({ isOpen, onClose }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Showreel video"
+      aria-label={title}
     >
       <div
-        className="yt-container"
+        className={vertical ? 'yt-container yt-vertical' : 'yt-container'}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -37,10 +37,10 @@ export default function YoutubeModal({ isOpen, onClose }) {
         >
           ✕
         </button>
-        <div className="yt-frame-wrap">
+        <div className={vertical ? 'yt-frame-wrap yt-frame-vertical' : 'yt-frame-wrap'}>
           <iframe
-            src="https://www.youtube.com/embed/Io7IUvqVMqo?autoplay=1&rel=0&modestbranding=1"
-            title="Francesco Bugugnoli — Showreel"
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+            title={title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
