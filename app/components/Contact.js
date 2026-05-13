@@ -111,7 +111,7 @@ export default function Contact() {
               }}
             >
               Whether you have a brief or just an idea, I&apos;d love to hear
-              about your project. Based in Richmond, available across all
+              about your project. Based in Melbourne, available across all
               Melbourne and greater Victoria.
             </p>
 
@@ -123,30 +123,6 @@ export default function Contact() {
                 gap: '0.75rem',
               }}
             >
-              <div>
-                <span
-                  style={{
-                    fontSize: '0.65rem',
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    color: 'var(--taupe)',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                  }}
-                >
-                  Studio
-                </span>
-                <span
-                  style={{
-                    fontSize: '0.9375rem',
-                    color: 'rgba(244,239,229,0.8)',
-                    fontWeight: 300,
-                  }}
-                >
-                  Richmond, VIC 3121, Australia
-                </span>
-              </div>
-
               <div>
                 <span
                   style={{
@@ -197,34 +173,6 @@ export default function Contact() {
                 </a>
               </div>
 
-              <div>
-                <span
-                  style={{
-                    fontSize: '0.65rem',
-                    letterSpacing: '0.18em',
-                    textTransform: 'uppercase',
-                    color: 'var(--taupe)',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                  }}
-                >
-                  Email
-                </span>
-                <a
-                  href="mailto:hello@francescobugugnoli.com"
-                  style={{
-                    fontSize: '0.9375rem',
-                    color: 'var(--sienna)',
-                    fontWeight: 300,
-                    textDecoration: 'none',
-                    transition: 'opacity 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                >
-                  hello@francescobugugnoli.com
-                </a>
-              </div>
             </address>
           </div>
 

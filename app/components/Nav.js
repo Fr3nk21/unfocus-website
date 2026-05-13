@@ -6,12 +6,32 @@ import { useTheme } from './ThemeProvider';
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = ['portfolio', 'about', 'services', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-50% 0px -50% 0px' }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -74,16 +94,16 @@ export default function Nav() {
               <a
                 href={link.href}
                 style={{
-                  color: 'var(--taupe)',
+                  color: activeSection === link.href.replace('#', '') ? 'var(--ink)' : 'var(--taupe)',
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
-                  fontWeight: 300,
+                  fontWeight: activeSection === link.href.replace('#', '') ? 400 : 300,
                   transition: 'color 0.2s ease',
+                  borderBottom: activeSection === link.href.replace('#', '') ? '1px solid var(--ink)' : '1px solid transparent',
+                  paddingBottom: '2px',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--taupe)')}
               >
                 {link.label}
               </a>
@@ -98,24 +118,13 @@ export default function Nav() {
                 fontSize: '0.875rem',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                fontWeight: 400,
-                position: 'relative',
+                fontWeight: activeSection === 'contact' ? 500 : 400,
                 paddingBottom: '2px',
+                borderBottom: activeSection === 'contact' ? '1px solid var(--sienna)' : '1px solid transparent',
+                transition: 'color 0.2s ease',
               }}
             >
               Contact
-              <span
-                style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: '1px',
-                  background: 'var(--sienna)',
-                  transformOrigin: 'left',
-                  transition: 'transform 0.3s ease',
-                }}
-              />
             </a>
           </li>
           <li>
