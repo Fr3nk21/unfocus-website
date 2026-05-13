@@ -90,16 +90,15 @@ export default function Hero() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Visual{' '}
+              Stories told in{' '}
               <em
                 style={{
                   fontStyle: 'italic',
                   color: 'var(--sienna)',
                 }}
               >
-                craft
-              </em>{' '}
-              that moves people
+                light.
+              </em>
             </h1>
           </RevealWrapper>
 
@@ -115,9 +114,7 @@ export default function Hero() {
                 opacity: 0.85,
               }}
             >
-              Italian-born storyteller based in Melbourne. I create video
-              and photography for hospitality, corporate, and social media
-              brands that deserve to be seen clearly.
+              Video and photography for hospitality, corporate, and social brands. Based in Melbourne.
             </p>
           </RevealWrapper>
 
@@ -165,7 +162,7 @@ export default function Hero() {
                   e.currentTarget.style.gap = '0.4rem';
                 }}
               >
-                Services →
+                What I do →
               </a>
             </div>
           </RevealWrapper>

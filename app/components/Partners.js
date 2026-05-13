@@ -80,7 +80,7 @@ export default function Partners() {
             textAlign: 'center',
           }}
         >
-          Trusted by
+          Clients
         </p>
       </div>
       <div className="partners-track-container" style={{ overflow: 'hidden' }}>

@@ -82,7 +82,7 @@ export default function About() {
                 marginBottom: '1rem',
               }}
             >
-              The Maker
+              About
             </p>
           </RevealWrapper>
 
@@ -104,7 +104,7 @@ export default function About() {
               <em style={{ fontStyle: 'italic', color: 'var(--sienna)' }}>
                 Melbourne
               </em>{' '}
-              soul.
+              stories.
             </h2>
           </RevealWrapper>
 
@@ -118,10 +118,7 @@ export default function About() {
                 fontWeight: 300,
               }}
             >
-              Born in northern Italy, I grew up surrounded by architecture,
-              food, and a culture that treats aesthetics as a daily practice.
-              Moving to Melbourne only deepened that sensibility — this city
-              has a visual energy unlike anywhere else.
+              Born in northern Italy. Raised around architecture, food, and a culture where aesthetics are not optional. Melbourne gave me a new lens — same eye, different light.
             </p>
           </RevealWrapper>
 
@@ -135,9 +132,7 @@ export default function About() {
                 fontWeight: 300,
               }}
             >
-              My approach to visual storytelling is rooted in light, texture,
-              and the quiet moments between action. Every frame is considered.
-              Every edit is intentional.
+              Every frame is considered. Every edit, intentional. I work with light, texture, and the quiet moments between action.
             </p>
           </RevealWrapper>
 
@@ -160,11 +155,7 @@ export default function About() {
                 fontWeight: 300,
               }}
             >
-              Working primarily with hospitality venues, corporate brands, and
-              individuals across Melbourne, I create content that doesn&apos;t
-              just look good — it performs. From Richmond to Fitzroy, South
-              Yarra to Collingwood, I bring a European eye to Melbourne
-              stories.
+              Hospitality venues, corporate brands, individuals. From Richmond to Fitzroy, South Yarra to Collingwood. Content that doesn&apos;t just look good — it performs.
             </p>
           </RevealWrapper>
         </div>

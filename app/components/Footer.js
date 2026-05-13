@@ -44,7 +44,7 @@ export default function Footer() {
               fontWeight: 300,
             }}
           >
-            Videographer & Photographer
+            Video · Photo · Melbourne
           </p>
         </div>
 

@@ -4,12 +4,12 @@ import RevealWrapper from './RevealWrapper';
 import { scrollToContactWithService } from '../lib/contactUtils';
 
 const services = [
-  { index: '01', title: 'Social Media Video',     description: 'Short-form vertical content optimised for Instagram, TikTok, and YouTube Shorts.', prefill: 'Social Media Video' },
-  { index: '02', title: 'Hospitality & Food',     description: 'Atmosphere, texture, and flavour rendered in cinematic light.',                    prefill: 'Hospitality & Food' },
-  { index: '03', title: 'Corporate Video',         description: 'Brand films, testimonials, and internal comms that mean something.',                prefill: 'Corporate Video' },
-  { index: '04', title: 'Event Coverage',          description: 'Weddings, launches, and brand activations preserved beautifully.',                  prefill: 'Event Coverage' },
-  { index: '05', title: 'Legacy Video',            description: 'Family histories and milestone moments preserved for generations.',                  prefill: 'Legacy Video' },
-  { index: '06', title: 'Commercial Photography',  description: 'Still imagery for menus, campaigns, and social assets.',                           prefill: 'Commercial Photography' },
+  { index: '01', title: 'Social Media Video',     description: 'Short-form content for Instagram, TikTok, and YouTube Shorts.',      prefill: 'Social Media Video' },
+  { index: '02', title: 'Hospitality & Food',     description: 'Atmosphere and flavour in cinematic light.',                         prefill: 'Hospitality & Food' },
+  { index: '03', title: 'Corporate Video',         description: 'Brand films, testimonials, internal comms.',                        prefill: 'Corporate Video' },
+  { index: '04', title: 'Event Coverage',          description: 'Launches, activations, and milestones. Preserved beautifully.',     prefill: 'Event Coverage' },
+  { index: '05', title: 'Legacy Video',            description: 'Family stories and important moments. For generations.',            prefill: 'Legacy Video' },
+  { index: '06', title: 'Commercial Photography',  description: 'Stills for menus, campaigns, and social.',                         prefill: 'Commercial Photography' },
 ];
 
 export default function Services() {
@@ -58,7 +58,7 @@ export default function Services() {
               letterSpacing: '-0.02em',
             }}
           >
-            Crafted for every format
+            Six ways I can help.
           </h2>
           <p
             style={{
@@ -69,8 +69,7 @@ export default function Services() {
               maxWidth: '480px',
             }}
           >
-            From one-second reels to full documentary productions — every
-            project receives the same level of craft and intention.
+            Every project receives the same level of craft and intention.
           </p>
         </RevealWrapper>
 

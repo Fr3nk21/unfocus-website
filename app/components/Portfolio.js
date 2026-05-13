@@ -349,7 +349,7 @@ export default function Portfolio() {
                 fontWeight: 400,
               }}
             >
-              Selected work
+              Portfolio
             </p>
             <h2
               style={{
@@ -361,7 +361,7 @@ export default function Portfolio() {
                 lineHeight: 1.15,
               }}
             >
-              Recent projects
+              Recent work
             </h2>
           </div>
 

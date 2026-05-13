@@ -89,15 +89,16 @@ export default function Contact() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Let&apos;s make something{' '}
+              Let&apos;s{' '}
               <em
                 style={{
                   fontStyle: 'italic',
                   color: 'var(--sienna)',
                 }}
               >
-                great
-              </em>
+                work
+              </em>{' '}
+              together.
             </h2>
 
             <p
@@ -110,9 +111,7 @@ export default function Contact() {
                 maxWidth: '400px',
               }}
             >
-              Whether you have a brief or just an idea, I&apos;d love to hear
-              about your project. Based in Melbourne, available across all
-              Melbourne and greater Victoria.
+              Have a project in mind? I&apos;d love to hear about it.
             </p>
 
             <address
@@ -143,7 +142,7 @@ export default function Contact() {
                     fontWeight: 300,
                   }}
                 >
-                  Melbourne Metro &amp; Greater Victoria
+                  Melbourne &amp; Greater Victoria
                 </span>
               </div>
 
