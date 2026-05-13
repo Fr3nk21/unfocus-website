@@ -42,8 +42,8 @@ export default function ThreeHero() {
         positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
         positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
 
-        sizes[i]    = Math.random() * 2.5 + 0.5;
-        opacities[i] = Math.random() * 0.4 + 0.1;
+        sizes[i]    = Math.random() * 3.5 + 1.0;
+        opacities[i] = Math.random() * 0.5 + 0.2;
       }
 
       const geometry = new THREE.BufferGeometry();
@@ -56,11 +56,11 @@ export default function ThreeHero() {
       const material = new THREE.ShaderMaterial({
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending,
+        blending: THREE.NormalBlending,
         uniforms: {
           uTime:       { value: 0 },
           uMouse:      { value: new THREE.Vector2(0, 0) },
-          uColor:      { value: new THREE.Color(isDark ? '#C4956C' : '#A0714F') },
+          uColor:      { value: new THREE.Color(isDark ? '#C4956C' : '#8B6240') },
           uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
         },
         vertexShader: `
@@ -151,7 +151,7 @@ export default function ThreeHero() {
     const observer = new MutationObserver(() => {
       if (!points) return;
       const isDark = htmlEl.classList.contains('dark');
-      points.material.uniforms.uColor.value.set(isDark ? '#C4956C' : '#A0714F');
+      points.material.uniforms.uColor.value.set(isDark ? '#C4956C' : '#8B6240');
     });
     observer.observe(htmlEl, { attributes: true, attributeFilter: ['class'] });
 
@@ -176,9 +176,9 @@ export default function ThreeHero() {
       style={{
         position: 'absolute',
         inset: 0,
-        zIndex: 0,
+        zIndex: 1,
         pointerEvents: 'none',
-        opacity: 0.6,
+        opacity: 0.85,
       }}
     />
   );

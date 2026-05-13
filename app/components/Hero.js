@@ -25,9 +25,10 @@ export default function Hero() {
         position: 'relative',
         paddingTop: '72px',
         overflow: 'hidden',
-        backgroundColor: 'var(--ivory)',
+        backgroundColor: 'transparent',
       }}
     >
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--ivory)', zIndex: 0 }} />
       {showThree && ThreeHero && <ThreeHero />}
 
       {/* Vertical text far left */}
@@ -35,7 +36,7 @@ export default function Hero() {
         style={{
           position: 'absolute',
           left: '1.25rem',
-          zIndex: 1,
+          zIndex: 2,
           top: '50%',
           transform: 'translateY(-50%)',
           writingMode: 'vertical-rl',
@@ -63,7 +64,7 @@ export default function Hero() {
           alignItems: 'center',
           width: '100%',
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
         }}
         className="hero-grid"
       >
@@ -278,7 +279,7 @@ export default function Hero() {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '0.5rem',
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <div
