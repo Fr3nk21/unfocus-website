@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
 import RevealWrapper from './RevealWrapper';
 import YoutubeModal from './YoutubeModal';
 
-const ThreeHero = dynamic(() => import('./ThreeHero'), {
-  ssr: false,
-  loading: () => null,
-});
-
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [showThree, setShowThree] = useState(false);
+  const [ThreeHero, setThreeHero] = useState(null);
+
+  useEffect(() => {
+    import('./ThreeHero').then((mod) => {
+      setThreeHero(() => mod.default);
+      setShowThree(true);
+    });
+  }, []);
 
   return (
     <section
@@ -25,7 +28,7 @@ export default function Hero() {
         backgroundColor: 'var(--ivory)',
       }}
     >
-      <ThreeHero />
+      {showThree && ThreeHero && <ThreeHero />}
 
       {/* Vertical text far left */}
       <div

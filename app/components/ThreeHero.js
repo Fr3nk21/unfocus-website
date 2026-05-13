@@ -108,11 +108,12 @@ export default function ThreeHero() {
       points = new THREE.Points(geometry, material);
       scene.add(points);
 
-      const clock = new THREE.Clock();
+      const timer = new THREE.Timer();
 
       function animate() {
         animationId = requestAnimationFrame(animate);
-        const elapsed = clock.getElapsedTime();
+        timer.update();
+        const elapsed = timer.getElapsed();
         material.uniforms.uTime.value = elapsed;
 
         material.uniforms.uMouse.value.x += (mouseX - material.uniforms.uMouse.value.x) * 0.05;
