@@ -3,182 +3,98 @@
 import { useEffect, useRef } from 'react';
 
 export default function ThreeHero() {
-  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
+    const ctx = canvas.getContext('2d');
     let animationId;
-    let renderer, scene, camera, points;
-    let mouseX = 0;
-    let mouseY = 0;
-    let width = containerRef.current.clientWidth;
-    let height = containerRef.current.clientHeight;
+    let mouseX = -9999;
+    let mouseY = -9999;
 
-    async function init() {
-      const THREE = await import('three');
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
 
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
-      camera.position.z = 30;
+    const count = window.innerWidth < 768 ? 100 : 200;
+    const particles = Array.from({ length: count }, () => ({
+      baseX: Math.random() * canvas.width,
+      baseY: Math.random() * canvas.height,
+      size: Math.random() * 2.5 + 0.8,
+      opacity: Math.random() * 0.45 + 0.15,
+      speed: Math.random() * 0.4 + 0.15,
+      phase: Math.random() * Math.PI * 2,
+      phaseY: Math.random() * Math.PI * 2,
+    }));
 
-      renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-        powerPreference: 'low-power',
-      });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      containerRef.current.appendChild(renderer.domElement);
+    let t = 0;
 
-      const isMobile = window.innerWidth < 768;
-      const count = isMobile ? 300 : 800;
-      const positions = new Float32Array(count * 3);
-      const sizes = new Float32Array(count);
-      const opacities = new Float32Array(count);
+    function animate() {
+      animationId = requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      t += 0.007;
 
-      for (let i = 0; i < count; i++) {
-        positions[i * 3]     = (Math.random() - 0.5) * 50;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 30;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      for (const p of particles) {
+        const x = p.baseX + Math.sin(t * p.speed + p.phase) * 28;
+        const y = p.baseY + Math.cos(t * p.speed * 0.7 + p.phaseY) * 18;
 
-        sizes[i]    = Math.random() * 3.5 + 1.0;
-        opacities[i] = Math.random() * 0.5 + 0.2;
+        const dx = x - mouseX;
+        const dy = y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const repulse = Math.max(0, 90 - dist) / 90;
+        const nx = dist > 0 ? dx / dist : 0;
+        const ny = dist > 0 ? dy / dist : 0;
+        const fx = x + nx * repulse * 45;
+        const fy = y + ny * repulse * 45;
+
+        ctx.beginPath();
+        ctx.arc(fx, fy, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(139, 98, 64, ${p.opacity})`;
+        ctx.fill();
       }
-
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('aSize',    new THREE.BufferAttribute(sizes, 1));
-      geometry.setAttribute('aOpacity', new THREE.BufferAttribute(opacities, 1));
-
-      const isDark = document.documentElement.classList.contains('dark');
-
-      const material = new THREE.ShaderMaterial({
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.NormalBlending,
-        uniforms: {
-          uTime:       { value: 0 },
-          uMouse:      { value: new THREE.Vector2(0, 0) },
-          uColor:      { value: new THREE.Color(isDark ? '#C4956C' : '#8B6240') },
-          uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-        },
-        vertexShader: `
-          attribute float aSize;
-          attribute float aOpacity;
-          uniform float uTime;
-          uniform vec2 uMouse;
-          uniform float uPixelRatio;
-          varying float vOpacity;
-
-          void main() {
-            vec3 pos = position;
-
-            pos.x += sin(pos.y * 0.3 + uTime * 0.4) * 0.5;
-            pos.y += cos(pos.x * 0.2 + uTime * 0.3) * 0.4;
-            pos.z += sin(pos.x * 0.15 + pos.y * 0.15 + uTime * 0.2) * 0.3;
-
-            vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-            vec2 screenPos = mvPos.xy / mvPos.w;
-            float dist = distance(screenPos, uMouse * 0.5);
-            float influence = smoothstep(8.0, 0.0, dist) * 2.0;
-            pos.x += (screenPos.x - uMouse.x * 0.5) * influence * 0.3;
-            pos.y += (screenPos.y - uMouse.y * 0.5) * influence * 0.3;
-
-            mvPos = modelViewMatrix * vec4(pos, 1.0);
-            gl_Position = projectionMatrix * mvPos;
-            gl_PointSize = aSize * uPixelRatio * (20.0 / -mvPos.z);
-
-            vOpacity = aOpacity;
-          }
-        `,
-        fragmentShader: `
-          uniform vec3 uColor;
-          varying float vOpacity;
-
-          void main() {
-            float d = distance(gl_PointCoord, vec2(0.5));
-            if (d > 0.5) discard;
-            float alpha = smoothstep(0.5, 0.1, d) * vOpacity;
-            gl_FragColor = vec4(uColor, alpha);
-          }
-        `,
-      });
-
-      points = new THREE.Points(geometry, material);
-      scene.add(points);
-
-      const timer = new THREE.Timer();
-
-      function animate() {
-        animationId = requestAnimationFrame(animate);
-        timer.update();
-        const elapsed = timer.getElapsed();
-        material.uniforms.uTime.value = elapsed;
-
-        material.uniforms.uMouse.value.x += (mouseX - material.uniforms.uMouse.value.x) * 0.05;
-        material.uniforms.uMouse.value.y += (mouseY - material.uniforms.uMouse.value.y) * 0.05;
-
-        points.rotation.y = elapsed * 0.02;
-        points.rotation.x = Math.sin(elapsed * 0.1) * 0.05;
-
-        renderer.render(scene, camera);
-      }
-
-      animate();
     }
 
-    init();
+    animate();
 
     function handleMouseMove(e) {
-      mouseX = (e.clientX / width) * 2 - 1;
-      mouseY = -(e.clientY / height) * 2 + 1;
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
     }
-    window.addEventListener('mousemove', handleMouseMove);
 
     function handleResize() {
-      width  = containerRef.current?.clientWidth  || width;
-      height = containerRef.current?.clientHeight || height;
-      if (camera) {
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+      resize();
+      for (const p of particles) {
+        p.baseX = Math.random() * canvas.width;
+        p.baseY = Math.random() * canvas.height;
       }
-      if (renderer) renderer.setSize(width, height);
     }
+
+    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
 
-    const htmlEl = document.documentElement;
-    const observer = new MutationObserver(() => {
-      if (!points) return;
-      const isDark = htmlEl.classList.contains('dark');
-      points.material.uniforms.uColor.value.set(isDark ? '#C4956C' : '#8B6240');
-    });
-    observer.observe(htmlEl, { attributes: true, attributeFilter: ['class'] });
-
     return () => {
+      cancelAnimationFrame(animationId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
-      observer.disconnect();
-      if (animationId) cancelAnimationFrame(animationId);
-      if (renderer) {
-        renderer.dispose();
-        if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
-          containerRef.current.removeChild(renderer.domElement);
-        }
-      }
     };
   }, []);
 
   return (
-    <div
-      ref={containerRef}
+    <canvas
+      ref={canvasRef}
       aria-hidden="true"
       style={{
         position: 'absolute',
         inset: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 1,
         pointerEvents: 'none',
-        opacity: 0.85,
       }}
     />
   );

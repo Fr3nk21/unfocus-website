@@ -1,20 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 import YoutubeModal from './YoutubeModal';
+import ThreeHero from './ThreeHero';
 
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [showThree, setShowThree] = useState(false);
-  const [ThreeHero, setThreeHero] = useState(null);
-
-  useEffect(() => {
-    import('./ThreeHero').then((mod) => {
-      setThreeHero(() => mod.default);
-      setShowThree(true);
-    });
-  }, []);
 
   return (
     <section
@@ -29,7 +21,7 @@ export default function Hero() {
       }}
     >
       <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--ivory)', zIndex: 0 }} />
-      {showThree && ThreeHero && <ThreeHero />}
+      <ThreeHero />
 
       {/* Vertical text far left */}
       <div
