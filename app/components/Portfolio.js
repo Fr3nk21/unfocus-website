@@ -21,7 +21,7 @@ const portfolioItems = [
   {
     id: 'v-fratellino',
     colSpan: 4,
-    aspect: '9/16',
+    aspect: '3/4',
     category: 'Video',
     title: 'Fratellino',
     sub: 'Melbourne · Hospitality Social',
@@ -34,7 +34,7 @@ const portfolioItems = [
   {
     id: 'p-fratellino',
     colSpan: 4,
-    aspect: '4/5',
+    aspect: '3/4',
     category: 'Photo',
     title: 'Fratellino',
     sub: 'Fitzroy · Hospitality Social',
@@ -74,7 +74,7 @@ const portfolioItems = [
   {
     id: 'p-venice',
     colSpan: 6,
-    aspect: '4/5',
+    aspect: '3/4',
     category: 'Photo',
     title: 'Venice',
     sub: 'Italy · Travel Social',
@@ -91,7 +91,7 @@ const portfolioItems = [
   {
     id: 'p-bar-ussou',
     colSpan: 4,
-    aspect: '4/5',
+    aspect: '3/4',
     category: 'Photo',
     title: 'Bar Ussou',
     sub: 'Melbourne · Music Band',
@@ -119,7 +119,7 @@ const portfolioItems = [
   {
     id: 'p-agriturismo',
     colSpan: 6,
-    aspect: '4/5',
+    aspect: '3/4',
     category: 'Photo',
     title: 'Agriturismo',
     sub: 'Italy · Travel Social',
@@ -134,7 +134,7 @@ const portfolioItems = [
   {
     id: 'p-possum',
     colSpan: 6,
-    aspect: '4/5',
+    aspect: '3/4',
     category: 'Photo',
     title: 'Possum',
     sub: 'Melbourne · Film Production',
@@ -210,10 +210,7 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              filter: 'grayscale(1)',
-              transition: 'filter 0.5s ease',
             }}
-            className="portfolio-poster"
           />
           {/* Video — hidden by default, fades in on hover */}
           <video
@@ -521,9 +518,6 @@ export default function Portfolio() {
         .portfolio-thumb:hover .portfolio-play {
           transform: scale(1.1);
           border-color: var(--sienna) !important;
-        }
-        .portfolio-thumb:hover .portfolio-poster {
-          filter: grayscale(0) !important;
         }
         @media (max-width: 768px) {
           .portfolio-grid > div {
