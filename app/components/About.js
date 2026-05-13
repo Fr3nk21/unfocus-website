@@ -136,28 +136,6 @@ export default function About() {
             </p>
           </RevealWrapper>
 
-          {/* Sienna divider */}
-          <div
-            style={{
-              width: '4rem',
-              height: '1px',
-              backgroundColor: 'var(--sienna)',
-              marginBottom: '1.5rem',
-            }}
-          />
-
-          <RevealWrapper variant="reveal" delay={0.65}>
-            <p
-              style={{
-                fontSize: '1rem',
-                lineHeight: 1.78,
-                color: 'var(--charcoal)',
-                fontWeight: 300,
-              }}
-            >
-              Hospitality venues, corporate brands, individuals. From Richmond to Fitzroy, South Yarra to Collingwood. Content that doesn&apos;t just look good — it performs.
-            </p>
-          </RevealWrapper>
         </div>
       </div>
 
