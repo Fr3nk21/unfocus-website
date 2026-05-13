@@ -1,8 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import RevealWrapper from './RevealWrapper';
 import YoutubeModal from './YoutubeModal';
+
+const ThreeHero = dynamic(() => import('./ThreeHero'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default function Hero() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,11 +25,14 @@ export default function Hero() {
         backgroundColor: 'var(--ivory)',
       }}
     >
+      <ThreeHero />
+
       {/* Vertical text far left */}
       <div
         style={{
           position: 'absolute',
           left: '1.25rem',
+          zIndex: 1,
           top: '50%',
           transform: 'translateY(-50%)',
           writingMode: 'vertical-rl',
@@ -50,6 +59,8 @@ export default function Hero() {
           gap: '4rem',
           alignItems: 'center',
           width: '100%',
+          position: 'relative',
+          zIndex: 1,
         }}
         className="hero-grid"
       >
@@ -264,6 +275,7 @@ export default function Hero() {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '0.5rem',
+          zIndex: 1,
         }}
       >
         <div
