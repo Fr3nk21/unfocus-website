@@ -76,8 +76,8 @@ export default function Services() {
 
         {/* Service rows */}
         <div>
-          {services.map((service) => (
-            <RevealWrapper key={service.index}>
+          {services.map((service, i) => (
+            <RevealWrapper key={service.index} delay={i * 0.08}>
               <article
                 className="service-line"
                 role="button"

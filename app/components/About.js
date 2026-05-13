@@ -23,7 +23,7 @@ export default function About() {
         className="about-grid"
       >
         {/* Left: portrait placeholder */}
-        <RevealWrapper>
+        <RevealWrapper variant="reveal-scale">
           <div style={{ position: 'relative', maxWidth: '400px', margin: '0 auto' }}>
             {/* Offset ornamental frame */}
             <div
@@ -69,7 +69,7 @@ export default function About() {
 
         {/* Right: text */}
         <div className="about-text-col">
-          <RevealWrapper>
+          <RevealWrapper variant="reveal" delay={0}>
             <p
               className="ornament"
               style={{
@@ -86,7 +86,7 @@ export default function About() {
             </p>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper variant="reveal" delay={0.15}>
             <h2
               className="about-heading"
               style={{
@@ -108,7 +108,7 @@ export default function About() {
             </h2>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper variant="reveal" delay={0.3}>
             <p
               style={{
                 fontSize: '1rem',
@@ -125,7 +125,7 @@ export default function About() {
             </p>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper variant="reveal" delay={0.45}>
             <p
               style={{
                 fontSize: '1rem',
@@ -151,7 +151,7 @@ export default function About() {
             }}
           />
 
-          <RevealWrapper>
+          <RevealWrapper variant="reveal" delay={0.65}>
             <p
               style={{
                 fontSize: '1rem',

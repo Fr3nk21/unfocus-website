@@ -62,7 +62,7 @@ export default function Hero() {
       >
         {/* Left column */}
         <div>
-          <RevealWrapper>
+          <RevealWrapper delay={0}>
             <p
               style={{
                 fontSize: '0.75rem',
@@ -78,7 +78,7 @@ export default function Hero() {
             </p>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper delay={0.15}>
             <h1
               style={{
                 fontFamily: 'var(--font-playfair), Georgia, serif',
@@ -103,7 +103,7 @@ export default function Hero() {
             </h1>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper delay={0.3}>
             <p
               style={{
                 fontSize: '1.0625rem',
@@ -121,7 +121,7 @@ export default function Hero() {
             </p>
           </RevealWrapper>
 
-          <RevealWrapper>
+          <RevealWrapper delay={0.45}>
             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => setModalOpen(true)}
@@ -172,7 +172,7 @@ export default function Hero() {
         </div>
 
         {/* Right column — decorative frame */}
-        <RevealWrapper>
+        <RevealWrapper delay={0.2}>
           <div style={{ position: 'relative' }}>
             <div
               style={{
