@@ -2,6 +2,8 @@ import { Playfair_Display, DM_Sans, IM_Fell_English } from 'next/font/google';
 import './globals.css';
 import Cursor from './components/Cursor';
 import ThemeProvider from './components/ThemeProvider';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
@@ -25,56 +27,42 @@ const imFell = IM_Fell_English({
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Person',
-      '@id': 'https://francescobugugnoli.com/#person',
-      name: 'Francesco Bugugnoli',
-      jobTitle: 'Videographer & Photographer',
-      description: 'Italian-born videographer and photographer based in Richmond, Melbourne.',
-      url: 'https://francescobugugnoli.com/',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Richmond',
-        addressRegion: 'VIC',
-        postalCode: '3121',
-        addressCountry: 'AU',
-      },
-    },
-    {
-      '@type': 'LocalBusiness',
-      name: 'UnFocus — Video Production Melbourne',
-      url: 'https://francescobugugnoli.com/',
-      email: 'hello@francescobugugnoli.com',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Richmond',
-        addressRegion: 'VIC',
-        postalCode: '3121',
-        addressCountry: 'AU',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: -37.8136,
-        longitude: 144.9631,
-      },
-      areaServed: [
-        'Richmond',
-        'Fitzroy',
-        'Collingwood',
-        'South Yarra',
-        'Carlton',
-        'Northcote',
-        'Brunswick',
-        'Melbourne CBD',
-        'Victoria',
-      ],
-    },
+  '@type': 'Person',
+  '@id': 'https://francescobugugnoli.com/#person',
+  name: 'Francesco Bugugnoli',
+  jobTitle: 'Videographer & Photographer',
+  description: 'Italian-born videographer and photographer based in Richmond, Melbourne.',
+  url: 'https://francescobugugnoli.com/',
+  telephone: '+61476278891',
+  email: 'hello@francescobugugnoli.com',
+  sameAs: ['https://www.instagram.com/francesco_bugugnoli/'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Richmond',
+    addressRegion: 'VIC',
+    postalCode: '3121',
+    addressCountry: 'AU',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -37.8199,
+    longitude: 144.9834,
+  },
+  areaServed: [
+    'Richmond',
+    'Fitzroy',
+    'Collingwood',
+    'South Yarra',
+    'Carlton',
+    'Northcote',
+    'Brunswick',
+    'Melbourne CBD',
+    'Victoria',
   ],
 };
 
 export const metadata = {
-  title: 'Francesco Bugugnoli — Videographer & Photographer Melbourne | UnFocus',
+  title: 'Francesco Bugugnoli — Videographer & Photographer Melbourne',
   description:
     'Francesco Bugugnoli is a Melbourne-based videographer and photographer specialising in hospitality, corporate, and social media content. Serving Richmond, Fitzroy, Collingwood, South Yarra and greater Melbourne.',
   metadataBase: new URL('https://francescobugugnoli.com'),
@@ -125,6 +113,8 @@ export default function RootLayout({ children }) {
           <Cursor />
           {children}
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -37,7 +37,7 @@ export default function Hero() {
           userSelect: 'none',
         }}
       >
-        UnFocus · Est. 2022 · Melbourne
+        37.8199° S · 144.9834° E
       </div>
 
       <div
@@ -108,7 +108,7 @@ export default function Hero() {
                 opacity: 0.85,
               }}
             >
-              Italian-born storyteller based in Melbourne. We create video
+              Italian-born storyteller based in Melbourne. I create video
               and photography for hospitality, corporate, and social media
               brands that deserve to be seen clearly.
             </p>
@@ -158,7 +158,7 @@ export default function Hero() {
                   e.currentTarget.style.gap = '0.4rem';
                 }}
               >
-                Our Services →
+                Services →
               </a>
             </div>
           </RevealWrapper>
@@ -296,7 +296,7 @@ export default function Hero() {
         }
       `}</style>
 
-      <YoutubeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <YoutubeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} videoId="tnlTOUZydrk" title="Francesco Bugugnoli — Showreel 2025" />
     </section>
   );
 }

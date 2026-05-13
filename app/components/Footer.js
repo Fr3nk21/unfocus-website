@@ -44,7 +44,7 @@ export default function Footer() {
               fontWeight: 300,
             }}
           >
-            UnFocus
+            Videographer & Photographer
           </p>
         </div>
 
@@ -58,9 +58,7 @@ export default function Footer() {
           }}
         >
           {[
-            { label: 'Instagram', href: 'https://instagram.com/' },
-            { label: 'Vimeo', href: 'https://vimeo.com/' },
-            { label: 'LinkedIn', href: 'https://linkedin.com/' },
+            { label: 'Instagram', href: 'https://www.instagram.com/francesco_bugugnoli/' },
           ].map((link) => (
             <a
               key={link.label}
@@ -123,7 +121,7 @@ export default function Footer() {
             opacity: 0.6,
           }}
         >
-          © 2024 Francesco Bugugnoli. All rights reserved.
+          © 2025 Francesco Bugugnoli. All rights reserved.
         </p>
       </div>
 

@@ -163,7 +163,7 @@ export default function About() {
               Working primarily with hospitality venues, corporate brands, and
               individuals across Melbourne, I create content that doesn&apos;t
               just look good — it performs. From Richmond to Fitzroy, South
-              Yarra to Collingwood, UnFocus brings a European eye to Melbourne
+              Yarra to Collingwood, I bring a European eye to Melbourne
               stories.
             </p>
           </RevealWrapper>

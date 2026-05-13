@@ -45,7 +45,7 @@ export default function Services() {
               fontWeight: 400,
             }}
           >
-            What we do
+            What I do
           </p>
           <h2
             style={{

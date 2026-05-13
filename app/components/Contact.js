@@ -1,8 +1,60 @@
 'use client';
 
+import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 
 export default function Contact() {
+  const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('sending');
+    setErrorMsg('');
+    const form = e.currentTarget;
+
+    // Honeypot check — if filled, silently pretend success
+    if (form.website && form.website.value) {
+      setStatus('sent');
+      return;
+    }
+
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      service: form.service.value || '',
+      message: form.message.value.trim(),
+    };
+
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeout);
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Something went wrong.');
+      }
+      setStatus('sent');
+      form.reset();
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        setErrorMsg('Request timed out. Please check your connection and try again.');
+      } else {
+        setErrorMsg(err.message);
+      }
+      setStatus('error');
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -133,7 +185,7 @@ export default function Contact() {
                   Phone
                 </span>
                 <a
-                  href="tel:+61400000000"
+                  href="tel:+61476278891"
                   style={{
                     fontSize: '0.9375rem',
                     color: 'rgba(244,239,229,0.8)',
@@ -141,7 +193,7 @@ export default function Contact() {
                     textDecoration: 'none',
                   }}
                 >
-                  +61 400 000 000
+                  +61 476 278 891
                 </a>
               </div>
 
@@ -178,13 +230,17 @@ export default function Contact() {
 
           {/* Right column — form */}
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
             style={{
               display: 'flex',
               flexDirection: 'column',
               gap: '2rem',
             }}
           >
+            {/* Honeypot — hidden from real users, catches bots */}
+            <div style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+            </div>
             {[
               { label: 'Your Name', type: 'text', name: 'name', placeholder: 'Your Name' },
               { label: 'Email Address', type: 'email', name: 'email', placeholder: 'Email Address' },
@@ -285,11 +341,12 @@ export default function Contact() {
 
             <button
               type="submit"
+              disabled={status === 'sending' || status === 'sent'}
               style={{
                 marginTop: '1rem',
                 width: '100%',
                 padding: '1rem 2rem',
-                backgroundColor: 'var(--sienna)',
+                backgroundColor: status === 'sent' ? '#3a6a3a' : 'var(--sienna)',
                 color: '#F4EFE5',
                 border: 'none',
                 fontSize: '0.8rem',
@@ -297,14 +354,21 @@ export default function Contact() {
                 fontWeight: 500,
                 letterSpacing: '0.22em',
                 textTransform: 'uppercase',
-                cursor: 'none',
-                transition: 'opacity 0.3s ease',
+                cursor: status === 'sending' || status === 'sent' ? 'default' : 'none',
+                transition: 'opacity 0.3s ease, background-color 0.3s ease',
+                opacity: status === 'sending' || status === 'sent' ? 0.75 : 1,
               }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.82'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              onMouseEnter={(e) => { if (status !== 'sending' && status !== 'sent') e.currentTarget.style.opacity = '0.82'; }}
+              onMouseLeave={(e) => { if (status !== 'sending' && status !== 'sent') e.currentTarget.style.opacity = '1'; }}
             >
-              Send Enquiry
+              {status === 'sending' ? 'Sending…' : status === 'sent' ? 'Sent ✓' : 'Send Enquiry'}
             </button>
+            {status === 'error' && (
+              <p style={{ color: '#e05a5a', fontSize: '0.875rem', marginTop: '0.5rem' }}>{errorMsg}</p>
+            )}
+            {status === 'sent' && (
+              <p style={{ color: '#6aaa6a', fontSize: '0.875rem', marginTop: '0.5rem' }}>Thank you! I&apos;ll get back to you soon.</p>
+            )}
           </form>
         </div>
       </RevealWrapper>
