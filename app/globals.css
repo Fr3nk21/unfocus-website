@@ -23,6 +23,7 @@
   --taupe:      #8A7F72;
   --sienna:     #8B4513;
   --rule:       rgba(24,21,15,0.12);
+  --nav-bg:     rgba(244,239,229,0.97);
   --stats-bg:   #2E2B24;
   --stats-num:  #F4EFE5;
   --stats-label: #8A7F72;
@@ -37,6 +38,7 @@
   --taupe:      #A89E91;
   --sienna:     #C47A4A;
   --rule:       rgba(244,239,229,0.1);
+  --nav-bg:     rgba(24,21,15,0.97);
   --stats-bg:   #111009;
   --stats-num:  #F4EFE5;
   --stats-label: #A89E91;
@@ -328,6 +330,12 @@ body::after {
 .toggle-icon.active {
   color: var(--sienna);
 }
+
+/* CSS-driven toggle icon states — no JS theme checks needed */
+.toggle-icon-sun { color: var(--sienna); }
+.dark .toggle-icon-sun { color: var(--taupe); }
+.toggle-icon-moon { color: var(--taupe); }
+.dark .toggle-icon-moon { color: var(--sienna); }
 .toggle-divider {
   color: var(--taupe);
   opacity: 0.3;

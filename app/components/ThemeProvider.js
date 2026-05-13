@@ -10,6 +10,7 @@ export function useTheme() {
 
 export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // Read saved preference or fall back to OS preference
@@ -19,6 +20,7 @@ export default function ThemeProvider({ children }) {
     setTheme(initial);
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(initial);
+    setMounted(true);
 
     // Listen for OS changes only when no manual preference is saved
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -45,7 +47,7 @@ export default function ThemeProvider({ children }) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );

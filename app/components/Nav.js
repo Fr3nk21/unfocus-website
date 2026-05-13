@@ -7,7 +7,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -43,7 +43,7 @@ export default function Nav() {
         right: 0,
         zIndex: 50,
         transition: 'background 0.4s ease',
-        background: theme === 'dark' ? 'rgba(24,21,15,0.97)' : 'rgba(244,239,229,0.97)',
+        background: 'var(--nav-bg)',
         borderBottom: '1px solid var(--rule)',
       }}
     >
@@ -116,7 +116,7 @@ export default function Nav() {
           })}
           <li>
             <button onClick={toggleTheme} aria-label="Toggle colour theme" className="theme-toggle">
-              <span className={theme === 'light' ? 'toggle-icon active' : 'toggle-icon'}>
+              <span className="toggle-icon toggle-icon-sun">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="5"/>
                   <line x1="12" y1="1" x2="12" y2="3"/>
@@ -130,7 +130,7 @@ export default function Nav() {
                 </svg>
               </span>
               <span className="toggle-divider" aria-hidden="true">·</span>
-              <span className={theme === 'dark' ? 'toggle-icon active' : 'toggle-icon'}>
+              <span className="toggle-icon toggle-icon-moon">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                 </svg>
