@@ -408,6 +408,73 @@ export default function Portfolio() {
               onPhotoClick={handlePhotoClick}
             />
           ))}
+          {activeFilter !== 'All' && (
+            <div
+              onClick={() => {
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                backgroundColor: 'var(--charcoal)',
+                aspectRatio: '16/9',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1rem',
+                border: '1px solid rgba(244,239,229,0.1)',
+                transition: 'border-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--sienna)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(244,239,229,0.1)';
+              }}
+            >
+              <div
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  border: '1.5px solid rgba(244,239,229,0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <span style={{ fontSize: '1.5rem', color: 'rgba(244,239,229,0.5)', fontWeight: 300, lineHeight: 1 }}>+</span>
+              </div>
+              <p
+                style={{
+                  fontFamily: 'var(--font-playfair), Georgia, serif',
+                  fontSize: '1.125rem',
+                  color: 'var(--ivory)',
+                  fontWeight: 500,
+                  textAlign: 'center',
+                  margin: 0,
+                }}
+              >
+                Want to see more?
+              </p>
+              <p
+                style={{
+                  fontSize: '0.8rem',
+                  color: 'var(--taupe)',
+                  fontWeight: 300,
+                  textAlign: 'center',
+                  maxWidth: '200px',
+                  lineHeight: 1.5,
+                  margin: 0,
+                }}
+              >
+                Get in touch to view my full portfolio
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
