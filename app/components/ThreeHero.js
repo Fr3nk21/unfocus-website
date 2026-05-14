@@ -2,34 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 
-// Three warm tones — picked once per particle at creation
-const COLORS = [
-  { r: 139, g: 69,  b: 19  }, // #8B4513 sienna      — 50%
-  { r: 196, g: 149, b: 108 }, // #C4956C warm gold    — 30%
-  { r: 212, g: 165, b: 116 }, // #D4A574 light copper — 20%
-];
-
-function pickColor() {
-  const r = Math.random();
-  if (r < 0.5) return COLORS[0];
-  if (r < 0.8) return COLORS[1];
-  return COLORS[2];
-}
-
-function makeParticle(w, h, hero = false) {
-  const color = pickColor();
+function makeParticle(w, h) {
   return {
-    baseX:       Math.random() * w,
-    baseY:       Math.random() * h,
-    size:        hero ? Math.random() * 2 + 5 : Math.random() * 2.5 + 1.5,
-    baseOpacity: hero ? Math.random() * 0.3 + 0.4 : Math.random() * 0.35 + 0.15,
-    speed:       Math.random() * 0.35 + 0.1,
-    phase:       Math.random() * Math.PI * 2,
-    phaseY:      Math.random() * Math.PI * 2,
-    ampX:        Math.random() * 20 + 20,
-    ampY:        Math.random() * 14 + 12,
-    color,
-    hero,
+    x:    Math.random() * w,
+    y:    Math.random() * h,
+    vx:   (Math.random() - 0.5) * 0.6,
+    vy:   (Math.random() - 0.5) * 0.6,
+    seed: Math.random() * Math.PI * 2,
   };
 }
 
@@ -44,6 +23,7 @@ export default function ThreeHero() {
     let animationId;
     let mouseX = -9999;
     let mouseY = -9999;
+    let isDark = document.documentElement.classList.contains('dark');
 
     function resize() {
       canvas.width  = canvas.offsetWidth;
@@ -51,103 +31,110 @@ export default function ThreeHero() {
     }
     resize();
 
-    const isMobile    = window.innerWidth < 768;
-    const normalCount = isMobile ? 200 : 500;
-    const heroCount   = isMobile ? 5   : 20;
-    const totalCount  = normalCount + heroCount;
+    const isMobile = window.innerWidth < 768;
+    const count    = isMobile ? 150 : 300;
 
-    const particles = [
-      ...Array.from({ length: normalCount }, () => makeParticle(canvas.width, canvas.height, false)),
-      ...Array.from({ length: heroCount   }, () => makeParticle(canvas.width, canvas.height, true)),
-    ];
+    let particles = Array.from({ length: count }, () =>
+      makeParticle(canvas.width, canvas.height)
+    );
 
-    // Pre-allocated buffers — avoids per-frame GC pressure
-    const fx             = new Float32Array(totalCount);
-    const fy             = new Float32Array(totalCount);
-    const opacity        = new Float32Array(totalCount);
-    const connPerParticle = new Uint8Array(totalCount);
+    const CONN_DIST       = 150;
+    const CONN_DIST_SQ    = CONN_DIST * CONN_DIST;
+    const MOUSE_ATTR_DIST = 250;
+    const MOUSE_LINE_DIST = 200;
+    const MOUSE_LINE_SQ   = MOUSE_LINE_DIST * MOUSE_LINE_DIST;
 
-    const MOUSE_RADIUS  = 200;
-    const CONN_DIST_SQ  = 120 * 120; // 120px squared
+    let time = 0;
 
-    let t = 0;
+    // Track dark mode changes
+    const themeObserver = new MutationObserver(() => {
+      isDark = document.documentElement.classList.contains('dark');
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
 
     function animate() {
       animationId = requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      t += 0.008;
+      time++;
 
-      // --- 1. Compute positions + opacity --------------------------------
-      for (let i = 0; i < totalCount; i++) {
-        const p = particles[i];
+      const w = canvas.width;
+      const h = canvas.height;
+      const lineRGB = isDark ? '196,149,108' : '139,69,19';
 
-        // Organic dual-frequency sine drift
-        const x = p.baseX
-          + Math.sin(t * p.speed        + p.phase      ) * p.ampX
-          + Math.sin(t * p.speed * 1.3  + p.phase * 0.7) * p.ampX * 0.35;
-        const y = p.baseY
-          + Math.cos(t * p.speed * 0.7  + p.phaseY     ) * p.ampY
-          + Math.cos(t * p.speed * 1.6  + p.phaseY * 0.5) * p.ampY * 0.25;
-
-        // Mouse attraction (with inner repulsion core so particles don't stack)
-        const dx   = x - mouseX;
-        const dy   = y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const nx   = dist > 0 ? dx / dist : 0;
-        const ny   = dist > 0 ? dy / dist : 0;
-
-        if (dist < MOUSE_RADIUS && dist > 0) {
-          const strength = 1 - dist / MOUSE_RADIUS;
-          if (dist > 25) {
-            // Gentle attraction toward cursor — creates sphere clustering effect
-            const pull = strength * 55;
-            fx[i] = x - nx * pull;
-            fy[i] = y - ny * pull;
-          } else {
-            // Hard core: repel so particles don't collapse onto cursor
-            fx[i] = x + nx * strength * 35;
-            fy[i] = y + ny * strength * 35;
-          }
-          opacity[i] = Math.min(p.baseOpacity + strength * 0.45, p.hero ? 0.9 : 0.7);
-        } else {
-          fx[i] = x;
-          fy[i] = y;
-          opacity[i] = p.baseOpacity;
+      // --- 1. Update positions -------------------------------------------
+      for (const p of particles) {
+        // Mouse attraction
+        const mdx = mouseX - p.x;
+        const mdy = mouseY - p.y;
+        const mDistSq = mdx * mdx + mdy * mdy;
+        if (mDistSq < MOUSE_ATTR_DIST * MOUSE_ATTR_DIST && mDistSq > 100) {
+          const mDist = Math.sqrt(mDistSq);
+          const force = (1 - mDist / MOUSE_ATTR_DIST) * 0.5;
+          p.vx += mdx * force * 0.003;
+          p.vy += mdy * force * 0.003;
         }
+
+        // Damping + sine-wave drift
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        p.x  += p.vx + Math.sin(time * 0.001 + p.seed) * 0.2;
+        p.y  += p.vy + Math.cos(time * 0.001 + p.seed * 1.3) * 0.2;
+
+        // Boundary wrap
+        if (p.x < 0) p.x += w;
+        else if (p.x > w) p.x -= w;
+        if (p.y < 0) p.y += h;
+        else if (p.y > h) p.y -= h;
       }
 
-      // --- 2. Connection lines (per-line alpha fades with distance) ------
-      connPerParticle.fill(0);
-      ctx.lineWidth = 0.5;
-
-      for (let i = 0; i < totalCount; i++) {
-        if (connPerParticle[i] >= 3) continue;
-        for (let j = i + 1; j < totalCount; j++) {
-          if (connPerParticle[i] >= 3) break;
-          if (connPerParticle[j] >= 3) continue;
-          const dx = fx[i] - fx[j];
-          const dy = fy[i] - fy[j];
-          const distSq = dx * dx + dy * dy;
-          if (distSq < CONN_DIST_SQ) {
-            const dist  = Math.sqrt(distSq);
-            const alpha = (1 - dist / 120) * 0.08;
-            ctx.strokeStyle = `rgba(139,69,19,${alpha})`;
+      // --- 2. Particle-to-particle lines ---------------------------------
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < count; i++) {
+        const pi = particles[i];
+        for (let j = i + 1; j < count; j++) {
+          const pj  = particles[j];
+          const dx  = pi.x - pj.x;
+          const dy  = pi.y - pj.y;
+          const dSq = dx * dx + dy * dy;
+          if (dSq < CONN_DIST_SQ) {
+            const dist  = Math.sqrt(dSq);
+            const alpha = (1 - dist / CONN_DIST) * 0.12;
+            ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
             ctx.beginPath();
-            ctx.moveTo(fx[i], fy[i]);
-            ctx.lineTo(fx[j], fy[j]);
+            ctx.moveTo(pi.x, pi.y);
+            ctx.lineTo(pj.x, pj.y);
             ctx.stroke();
-            connPerParticle[i]++;
-            connPerParticle[j]++;
           }
         }
       }
 
-      // --- 3. Draw particles ---------------------------------------------
-      for (let i = 0; i < totalCount; i++) {
-        const p = particles[i];
+      // --- 3. Cursor-to-particle radial lines ----------------------------
+      if (mouseX > -1000) {
+        ctx.lineWidth = 0.6;
+        for (const p of particles) {
+          const dx  = mouseX - p.x;
+          const dy  = mouseY - p.y;
+          const dSq = dx * dx + dy * dy;
+          if (dSq < MOUSE_LINE_SQ) {
+            const dist  = Math.sqrt(dSq);
+            const alpha = (1 - dist / MOUSE_LINE_DIST) * 0.2;
+            ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
+            ctx.beginPath();
+            ctx.moveTo(mouseX, mouseY);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // --- 4. Draw dots (nodes) ------------------------------------------
+      for (const p of particles) {
         ctx.beginPath();
-        ctx.arc(fx[i], fy[i], p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color.r},${p.color.g},${p.color.b},${opacity[i]})`;
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${lineRGB},0.15)`;
         ctx.fill();
       }
     }
@@ -160,21 +147,29 @@ export default function ThreeHero() {
       mouseY = e.clientY - rect.top;
     }
 
+    function handleMouseLeave() {
+      mouseX = -9999;
+      mouseY = -9999;
+    }
+
     function handleResize() {
       resize();
-      for (const p of particles) {
-        p.baseX = Math.random() * canvas.width;
-        p.baseY = Math.random() * canvas.height;
-      }
+      // Regenerate so particles fill the new dimensions
+      particles = Array.from({ length: count }, () =>
+        makeParticle(canvas.width, canvas.height)
+      );
     }
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize',    handleResize);
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       cancelAnimationFrame(animationId);
+      themeObserver.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize',    handleResize);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
@@ -188,7 +183,6 @@ export default function ThreeHero() {
         width:         '100%',
         height:        '100%',
         zIndex:        1,
-        opacity:       1,
         pointerEvents: 'none',
       }}
     />
