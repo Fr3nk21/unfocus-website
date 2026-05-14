@@ -9,6 +9,7 @@ import Testimonial from './components/Testimonial';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 
 export default function Page() {
   return (
@@ -26,6 +27,7 @@ export default function Page() {
         <Contact />
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }
