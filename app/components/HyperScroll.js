@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import ThreeHero from './ThreeHero';
 import YoutubeModal from './YoutubeModal';
 import PhotoLightbox from './PhotoLightbox';
 
@@ -83,7 +84,7 @@ const portfolioItems = [
     aspect: '16/9',
     category: 'Photo',
     title: 'Agriturismo',
-    sub: "C’era Una Volta",
+    sub: "C'era Una Volta",
     cover: '/images/portfolio/agriturismo/thumb.webp',
     images: [
       '/images/portfolio/agriturismo/01.webp',
@@ -131,6 +132,9 @@ const portfolioItems = [
 export default function HyperScroll() {
   const worldRef = useRef(null);
   const viewportRef = useRef(null);
+  const noiseRef = useRef(null);
+  const vignetteRef = useRef(null);
+  const scrollProxyRef = useRef(null);
   const stateRef = useRef({ scroll: 0, velocity: 0, targetSpeed: 0, mouseX: 0, mouseY: 0 });
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -147,15 +151,19 @@ export default function HyperScroll() {
     const CONFIG = {
       itemCount: portfolioItems.length,
       zGap: 1200,
-      loopSize: 0,
       camSpeed: 2.5,
     };
-    CONFIG.loopSize = CONFIG.itemCount * CONFIG.zGap;
+
+    // Scroll distance needed to fly past all items + one viewport of buffer
+    const maxScroll = (CONFIG.itemCount * CONFIG.zGap) / CONFIG.camSpeed;
+    const proxyHeight = maxScroll + window.innerHeight;
+    if (scrollProxyRef.current) {
+      scrollProxyRef.current.style.height = `${proxyHeight}px`;
+    }
 
     const state = stateRef.current;
     const items = [];
 
-    // Build project cards imperatively to avoid React re-render overhead
     portfolioItems.forEach((project, i) => {
       const el = document.createElement('div');
       el.className = 'hyper-item';
@@ -168,7 +176,7 @@ export default function HyperScroll() {
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
+        pointer-events: auto;
       `;
 
       const card = document.createElement('div');
@@ -185,6 +193,8 @@ export default function HyperScroll() {
         box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         transform: translate(-50%, -50%);
+        cursor: pointer;
+        pointer-events: auto;
       `;
 
       if (project.category === 'Video' && project.video) {
@@ -193,7 +203,7 @@ export default function HyperScroll() {
         video.muted = true;
         video.loop = true;
         video.playsInline = true;
-        video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
         const source = document.createElement('source');
         source.src = project.video;
         source.type = 'video/mp4';
@@ -204,7 +214,7 @@ export default function HyperScroll() {
         img.src = project.cover;
         img.alt = project.title;
         img.loading = 'lazy';
-        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;';
         card.appendChild(img);
       }
 
@@ -214,6 +224,7 @@ export default function HyperScroll() {
         inset: 0;
         background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, transparent 100%);
         z-index: 1;
+        pointer-events: none;
       `;
       card.appendChild(overlay);
 
@@ -223,6 +234,7 @@ export default function HyperScroll() {
         bottom: 1.25rem;
         left: 1.25rem;
         z-index: 2;
+        pointer-events: none;
       `;
       info.innerHTML = `
         <span style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#8B4513;font-weight:400;">${project.category}</span>
@@ -241,6 +253,7 @@ export default function HyperScroll() {
         font-weight: 700;
         color: rgba(244,239,229,0.06);
         z-index: 2;
+        pointer-events: none;
       `;
       num.textContent = String(i + 1).padStart(2, '0');
       card.appendChild(num);
@@ -277,6 +290,7 @@ export default function HyperScroll() {
         border-radius: 50%;
         opacity: 0.3;
         transform: translate(-50%, -50%);
+        pointer-events: none;
       `;
       world.appendChild(el);
       items.push({
@@ -284,7 +298,7 @@ export default function HyperScroll() {
         type: 'star',
         x: (Math.random() - 0.5) * 2500,
         y: (Math.random() - 0.5) * 2500,
-        baseZ: -Math.random() * CONFIG.loopSize,
+        baseZ: -Math.random() * (CONFIG.itemCount * CONFIG.zGap),
       });
     }
 
@@ -296,6 +310,7 @@ export default function HyperScroll() {
 
     let lenis;
     let rafId;
+    let sceneDone = false;
 
     import('lenis').then((mod) => {
       const Lenis = mod.default;
@@ -305,50 +320,65 @@ export default function HyperScroll() {
         state.scroll = scroll;
         state.targetSpeed = velocity;
         setShowHero(scroll < 200);
+
+        if (scroll > maxScroll && !sceneDone) {
+          sceneDone = true;
+          viewport.style.position = 'absolute';
+          viewport.style.top = '0';
+          world.style.display = 'none';
+          if (noiseRef.current) noiseRef.current.style.display = 'none';
+          if (vignetteRef.current) vignetteRef.current.style.display = 'none';
+        } else if (scroll <= maxScroll && sceneDone) {
+          sceneDone = false;
+          viewport.style.position = 'fixed';
+          viewport.style.top = '';
+          world.style.display = '';
+          if (noiseRef.current) noiseRef.current.style.display = '';
+          if (vignetteRef.current) vignetteRef.current.style.display = '';
+        }
       });
 
       function raf(time) {
         lenis.raf(time);
 
-        state.velocity += (state.targetSpeed - state.velocity) * 0.1;
+        if (!sceneDone) {
+          state.velocity += (state.targetSpeed - state.velocity) * 0.1;
 
-        const tiltX = state.mouseY * 3;
-        const tiltY = state.mouseX * 3;
-        world.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+          const tiltX = state.mouseY * 3;
+          const tiltY = state.mouseX * 3;
+          world.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 
-        const baseFov = 1000;
-        const fov = baseFov - Math.min(Math.abs(state.velocity) * 8, 500);
-        viewport.style.perspective = `${fov}px`;
+          const baseFov = 1000;
+          const fov = baseFov - Math.min(Math.abs(state.velocity) * 8, 500);
+          viewport.style.perspective = `${fov}px`;
 
-        const cameraZ = state.scroll * CONFIG.camSpeed;
+          const cameraZ = state.scroll * CONFIG.camSpeed;
 
-        items.forEach((item) => {
-          const relZ = item.baseZ + cameraZ;
-          const modC = CONFIG.loopSize;
-          let vizZ = ((relZ % modC) + modC) % modC;
-          if (vizZ > 500) vizZ -= modC;
+          items.forEach((item) => {
+            const vizZ = item.baseZ + cameraZ;
 
-          let alpha = 1;
-          if (vizZ < -3000) alpha = 0;
-          else if (vizZ < -2000) alpha = (vizZ + 3000) / 1000;
-          if (vizZ > 100 && item.type !== 'star') alpha = 1 - (vizZ - 100) / 400;
-          if (alpha < 0) alpha = 0;
+            let alpha = 1;
+            if (vizZ < -3000) alpha = 0;
+            else if (vizZ < -2000) alpha = (vizZ + 3000) / 1000;
+            if (vizZ > 100 && item.type !== 'star') alpha = 1 - (vizZ - 100) / 400;
+            if (alpha < 0) alpha = 0;
 
-          item.el.style.opacity = alpha;
+            item.el.style.opacity = alpha;
 
-          if (alpha > 0) {
-            let trans = `translate3d(${item.x}px, ${item.y}px, ${vizZ}px)`;
-            if (item.type === 'star') {
-              const stretch = Math.max(1, Math.min(1 + Math.abs(state.velocity) * 0.05, 5));
-              trans += ` scale3d(1, 1, ${stretch})`;
-            } else {
-              const t = time * 0.001;
-              const float = Math.sin(t + item.x * 0.01) * 5;
-              trans += ` rotateZ(${item.rot}deg) rotateY(${float}deg)`;
+            if (alpha > 0) {
+              let trans = `translate3d(${item.x}px, ${item.y}px, ${vizZ}px)`;
+              if (item.type === 'star') {
+                const stretch = Math.max(1, Math.min(1 + Math.abs(state.velocity) * 0.05, 5));
+                trans += ` scale3d(1, 1, ${stretch})`;
+              } else {
+                const t = time * 0.001;
+                const float = Math.sin(t + item.x * 0.01) * 5;
+                trans += ` rotateZ(${item.rot}deg) rotateY(${float}deg)`;
+              }
+              item.el.style.transform = trans;
             }
-            item.el.style.transform = trans;
-          }
-        });
+          });
+        }
 
         rafId = requestAnimationFrame(raf);
       }
@@ -367,8 +397,22 @@ export default function HyperScroll() {
   return (
     <>
       <section id="portfolio" style={{ position: 'relative' }}>
+        {/* Canvas line network — behind everything */}
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: 'none',
+            opacity: 0.7,
+          }}
+        >
+          <ThreeHero />
+        </div>
+
         {/* Noise overlay */}
         <div
+          ref={noiseRef}
           style={{
             position: 'fixed',
             inset: 0,
@@ -381,6 +425,7 @@ export default function HyperScroll() {
 
         {/* Vignette */}
         <div
+          ref={vignetteRef}
           style={{
             position: 'fixed',
             inset: 0,
@@ -478,6 +523,7 @@ export default function HyperScroll() {
             perspective: '1000px',
             overflow: 'hidden',
             zIndex: 1,
+            pointerEvents: 'auto',
           }}
         >
           <div
@@ -488,12 +534,13 @@ export default function HyperScroll() {
               left: '50%',
               transformStyle: 'preserve-3d',
               willChange: 'transform',
+              pointerEvents: 'auto',
             }}
           />
         </div>
 
-        {/* Scroll proxy — provides 3D tunnel scroll space */}
-        <div style={{ height: '8000vh', position: 'relative', zIndex: -1 }} />
+        {/* Scroll proxy — height set dynamically in useEffect */}
+        <div ref={scrollProxyRef} style={{ height: '8000vh', position: 'relative', zIndex: -1 }} />
       </section>
 
       <YoutubeModal
