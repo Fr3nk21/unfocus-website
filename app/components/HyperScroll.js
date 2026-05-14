@@ -132,6 +132,7 @@ const portfolioItems = [
 export default function HyperScroll() {
   const worldRef = useRef(null);
   const viewportRef = useRef(null);
+  const canvasWrapRef = useRef(null);
   const noiseRef = useRef(null);
   const vignetteRef = useRef(null);
   const scrollProxyRef = useRef(null);
@@ -154,8 +155,7 @@ export default function HyperScroll() {
       camSpeed: 4.0,
     };
 
-    // Account for initial depth offset (-3000) plus all items
-    const INITIAL_DEPTH = 3000;
+    const INITIAL_DEPTH = 1500;
     const maxScroll = (CONFIG.itemCount * CONFIG.zGap + INITIAL_DEPTH) / CONFIG.camSpeed;
     const proxyHeight = maxScroll + window.innerHeight;
     if (scrollProxyRef.current) {
@@ -183,8 +183,8 @@ export default function HyperScroll() {
       const card = document.createElement('div');
       card.className = 'hyper-card';
       card.style.cssText = `
-        width: 420px;
-        height: 280px;
+        width: 480px;
+        height: 320px;
         background: rgba(30,27,20,0.6);
         border: 1px solid rgba(244,239,229,0.08);
         position: relative;
@@ -272,8 +272,8 @@ export default function HyperScroll() {
       el.appendChild(card);
 
       const angle = (i / CONFIG.itemCount) * Math.PI * 4;
-      const x = Math.cos(angle) * (window.innerWidth * 0.22);
-      const y = Math.sin(angle) * (window.innerHeight * 0.18);
+      const x = Math.cos(angle) * (window.innerWidth * 0.15);
+      const y = Math.sin(angle) * (window.innerHeight * 0.12);
       const rot = (Math.random() - 0.5) * 12;
 
       items.push({ el, x, y, rot, baseZ: -(i * CONFIG.zGap) - INITIAL_DEPTH });
@@ -326,12 +326,14 @@ export default function HyperScroll() {
           sceneDone = true;
           viewport.style.opacity = '0';
           viewport.style.pointerEvents = 'none';
+          if (canvasWrapRef.current) canvasWrapRef.current.style.opacity = '0';
           if (noiseRef.current) noiseRef.current.style.opacity = '0';
           if (vignetteRef.current) vignetteRef.current.style.opacity = '0';
         } else if (scroll <= maxScroll && sceneDone) {
           sceneDone = false;
           viewport.style.opacity = '1';
           viewport.style.pointerEvents = 'auto';
+          if (canvasWrapRef.current) canvasWrapRef.current.style.opacity = '0.7';
           if (noiseRef.current) noiseRef.current.style.opacity = '0.04';
           if (vignetteRef.current) vignetteRef.current.style.opacity = '1';
         }
@@ -357,9 +359,9 @@ export default function HyperScroll() {
             const vizZ = item.baseZ + cameraZ;
 
             let alpha = 1;
-            if (vizZ < -3000) alpha = 0;
-            else if (vizZ < -2000) alpha = (vizZ + 3000) / 1000;
-            if (vizZ > 100 && item.type !== 'star') alpha = 1 - (vizZ - 100) / 400;
+            if (vizZ < -5000) alpha = 0;
+            else if (vizZ < -3000) alpha = (vizZ + 5000) / 2000;
+            if (vizZ > 200 && item.type !== 'star') alpha = 1 - (vizZ - 200) / 600;
             if (alpha < 0) alpha = 0;
 
             item.el.style.opacity = alpha;
@@ -395,16 +397,16 @@ export default function HyperScroll() {
 
   return (
     <>
-      <section id="portfolio" style={{ position: 'relative' }}>
-        {/* Canvas line network — visible only with hero text */}
+      <section id="portfolio" style={{ position: 'relative', backgroundColor: '#18150F' }}>
+        {/* Canvas line network — always visible during hyperscroll, hidden after maxScroll */}
         <div
+          ref={canvasWrapRef}
           style={{
             position: 'fixed',
             inset: 0,
             zIndex: 0,
             pointerEvents: 'none',
-            opacity: showHero ? 0.7 : 0,
-            transition: 'opacity 1s ease',
+            opacity: 0.7,
           }}
         >
           <ThreeHero />
@@ -416,7 +418,7 @@ export default function HyperScroll() {
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 12,
+            zIndex: 0,
             opacity: 0.04,
             pointerEvents: 'none',
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
@@ -430,7 +432,7 @@ export default function HyperScroll() {
             position: 'fixed',
             inset: 0,
             background: 'radial-gradient(circle, transparent 40%, rgba(24,21,15,0.6) 120%)',
-            zIndex: 11,
+            zIndex: 0,
             pointerEvents: 'none',
           }}
         />
