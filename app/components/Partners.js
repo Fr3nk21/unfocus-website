@@ -32,17 +32,15 @@ function LogoSet() {
               maxHeight: '36px',
               maxWidth: '120px',
               objectFit: 'contain',
-              opacity: 0.4,
-              filter: 'grayscale(1)',
-              transition: 'opacity 0.3s ease, filter 0.3s ease',
+              opacity: 0.35,
+              filter: 'brightness(0) invert(0.9) sepia(0.1)',
+              transition: 'opacity 0.3s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '0.8';
-              e.currentTarget.style.filter = 'grayscale(0)';
+              e.currentTarget.style.opacity = '0.7';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '0.4';
-              e.currentTarget.style.filter = 'grayscale(1)';
+              e.currentTarget.style.opacity = '0.35';
             }}
           />
         </div>

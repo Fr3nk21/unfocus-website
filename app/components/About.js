@@ -51,19 +51,6 @@ export default function About() {
               }}
             />
 
-            {/* Label below */}
-            <p
-              style={{
-                marginTop: '0.75rem',
-                fontSize: '0.7rem',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--taupe)',
-                fontWeight: 300,
-              }}
-            >
-              Portrait · Francesco Bugugnoli
-            </p>
           </div>
         </RevealWrapper>
 

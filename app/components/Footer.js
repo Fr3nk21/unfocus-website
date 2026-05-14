@@ -34,18 +34,6 @@ export default function Footer() {
           >
             Francesco Bugugnoli
           </p>
-          <p
-            style={{
-              fontSize: '0.7rem',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: 'rgba(244,239,229,0.3)',
-              fontVariant: 'small-caps',
-              fontWeight: 300,
-            }}
-          >
-            Video · Photo · Melbourne
-          </p>
         </div>
 
         {/* Centre */}
@@ -57,29 +45,26 @@ export default function Footer() {
             alignItems: 'center',
           }}
         >
-          {[
-            { label: 'Instagram', href: 'https://www.instagram.com/francesco_bugugnoli/' },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: 'rgba(244,239,229,0.35)',
-                textDecoration: 'none',
-                fontSize: '0.8rem',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                fontWeight: 300,
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sienna)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(244,239,229,0.35)')}
-            >
-              {link.label}
-            </a>
-          ))}
+          <a
+            href="https://www.instagram.com/francesco_bugugnoli/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            style={{
+              color: 'rgba(244,239,229,0.4)',
+              textDecoration: 'none',
+              transition: 'color 0.2s ease',
+              display: 'inline-flex',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sienna)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(244,239,229,0.4)')}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
         </div>
 
         {/* Right */}

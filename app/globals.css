@@ -85,10 +85,14 @@
   to   { clip-path: inset(0 0 0% 0); }
 }
 
-@keyframes scrollTick {
-  0%,  100% { opacity: 0; }
-  20%, 80%  { opacity: 1; }
-  50%       { transform: translateY(12px); }
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 html,
@@ -203,6 +207,12 @@ body::after {
 .btn-primary {
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease, transform 0.15s ease, opacity 0.3s ease !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .btn-primary::before {

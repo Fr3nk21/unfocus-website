@@ -23,28 +23,6 @@ export default function Hero() {
       <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--ivory)', zIndex: 0 }} />
       <ThreeHero />
 
-      {/* Vertical text far left */}
-      <div
-        style={{
-          position: 'absolute',
-          left: '1.25rem',
-          zIndex: 2,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          writingMode: 'vertical-rl',
-          textOrientation: 'mixed',
-          fontSize: '0.65rem',
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: 'var(--taupe)',
-          fontWeight: 300,
-          opacity: 0.7,
-          userSelect: 'none',
-        }}
-      >
-        37.8199° S · 144.9834° E
-      </div>
-
       <div
         style={{
           maxWidth: '1280px',
@@ -74,6 +52,18 @@ export default function Hero() {
                 fontWeight: 400,
               }}
             >
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: '#4ADE80',
+                  marginRight: '8px',
+                  verticalAlign: 'middle',
+                  animation: 'livePulse 2s ease-in-out infinite',
+                }}
+              />
               Richmond · Melbourne, Australia
             </p>
           </RevealWrapper>
@@ -122,6 +112,7 @@ export default function Hero() {
             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => setModalOpen(true)}
+                className="btn-primary"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -239,20 +230,6 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* Caption */}
-            <p
-              style={{
-                marginTop: '0.75rem',
-                fontSize: '0.7rem',
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                color: 'var(--taupe)',
-                textAlign: 'center',
-                fontWeight: 300,
-              }}
-            >
-              Sony A7 IV · DaVinci Resolve
-            </p>
           </div>
         </RevealWrapper>
       </div>
@@ -261,35 +238,28 @@ export default function Hero() {
       <div
         style={{
           position: 'absolute',
-          bottom: '2.5rem',
+          bottom: '2rem',
           left: '50%',
           transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0.5rem',
           zIndex: 2,
         }}
       >
-        <div
+        <a
+          href="#portfolio"
+          aria-label="Scroll to portfolio"
           style={{
-            width: '1px',
-            height: '48px',
-            background: 'linear-gradient(to bottom, transparent, var(--taupe))',
-            animation: 'scrollTick 2s ease-in-out infinite',
-          }}
-        />
-        <span
-          style={{
-            fontSize: '0.65rem',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--taupe)',
-            fontWeight: 300,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '40px',
+            height: '40px',
+            animation: 'gentleBounce 2s ease-in-out infinite',
           }}
         >
-          Scroll
-        </span>
+          <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+            <path d="M1 1L10 10L19 1" stroke="var(--taupe)" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </a>
       </div>
 
       <style>{`
@@ -309,8 +279,8 @@ export default function Hero() {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '200px',
-          background: 'linear-gradient(to bottom, transparent, var(--ivory))',
+          height: '300px',
+          background: 'linear-gradient(to bottom, transparent 0%, var(--ivory) 100%)',
           zIndex: 1,
           pointerEvents: 'none',
         }}

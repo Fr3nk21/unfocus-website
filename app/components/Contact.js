@@ -23,6 +23,7 @@ export default function Contact() {
       name: form.name.value.trim(),
       email: form.email.value.trim(),
       service: form.service.value || '',
+      location: form.location.value.trim(),
       message: form.message.value.trim(),
     };
 
@@ -259,6 +260,30 @@ export default function Contact() {
                   </option>
                 ))}
               </select>
+            </div>
+
+            <div>
+              <input
+                type="text"
+                name="location"
+                placeholder="e.g. Fitzroy, Melbourne"
+                style={{
+                  width: '100%',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: '1px solid rgba(244,239,229,0.2)',
+                  padding: '0.75rem 0',
+                  fontSize: '0.9375rem',
+                  color: 'var(--ivory)',
+                  outline: 'none',
+                  fontFamily: 'var(--font-dmsans), system-ui, sans-serif',
+                  fontWeight: 300,
+                  transition: 'border-color 0.3s ease',
+                  boxSizing: 'border-box',
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderBottomColor = 'var(--sienna)')}
+                onBlur={(e) => (e.currentTarget.style.borderBottomColor = 'rgba(244,239,229,0.2)')}
+              />
             </div>
 
             <div>

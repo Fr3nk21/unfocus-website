@@ -32,7 +32,7 @@ export async function POST(request) {
     }
 
     const body = await request.json();
-    const { name, email, service, message } = body;
+    const { name, email, service, location, message } = body;
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Name, email and message are required.' }, { status: 400 });
@@ -54,6 +54,7 @@ export async function POST(request) {
             <tr><td style="padding: 0.5rem 0; color: #8A7E6B; width: 100px;">Name</td><td style="padding: 0.5rem 0;">${name}</td></tr>
             <tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Email</td><td style="padding: 0.5rem 0;">${email}</td></tr>
             ${service ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Service</td><td style="padding: 0.5rem 0;">${service}</td></tr>` : ''}
+            ${location ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Location</td><td style="padding: 0.5rem 0;">${location}</td></tr>` : ''}
           </table>
           <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E8E0D0;">
             <p style="color: #8A7E6B; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Message</p>

@@ -10,7 +10,7 @@ const portfolioItems = [
     aspect: '16/9',
     category: 'Video',
     title: 'Toyota',
-    sub: 'Melbourne · Brand Testimonial',
+    sub: 'with Red Herring Digital',
     video: '/videos/toyota-loop.mp4',
     youtubeId: '',
     vertical: false,
@@ -19,8 +19,8 @@ const portfolioItems = [
     id: 'p-fratellino',
     aspect: '16/9',
     category: 'Photo',
-    title: 'Fratellino',
-    sub: 'Fitzroy · Hospitality Social',
+    title: 'Fratellino Pizzeria',
+    sub: '',
     cover: '/images/portfolio/fratellino/thumb.webp',
     images: [
       '/images/portfolio/fratellino/01.webp',
@@ -30,21 +30,11 @@ const portfolioItems = [
     ],
   },
   {
-    id: 'v-pickle-jar',
-    aspect: '16/9',
-    category: 'Video',
-    title: 'Pickle Jar',
-    sub: 'Melbourne · Music Video',
-    video: '/videos/pickle-jar-loop.mp4',
-    youtubeId: 'R9qTTNp8zTg',
-    vertical: false,
-  },
-  {
     id: 'p-venice',
     aspect: '16/9',
     category: 'Photo',
     title: 'Venice',
-    sub: 'Italy · Travel Social',
+    sub: '',
     cover: '/images/portfolio/venice/thumb.webp',
     images: [
       '/images/portfolio/venice/01.webp',
@@ -55,11 +45,21 @@ const portfolioItems = [
     ],
   },
   {
+    id: 'v-pickle-jar',
+    aspect: '16/9',
+    category: 'Video',
+    title: 'Pickle Jar',
+    sub: 'with GTano',
+    video: '/videos/pickle-jar-loop.mp4',
+    youtubeId: 'R9qTTNp8zTg',
+    vertical: false,
+  },
+  {
     id: 'v-liam',
     aspect: '16/9',
     category: 'Video',
-    title: 'Liam',
-    sub: 'Melbourne · Short Documentary',
+    title: 'Wake Up and Live',
+    sub: 'with the AOD',
     video: '/videos/liam-loop.mp4',
     youtubeId: '',
     vertical: false,
@@ -68,8 +68,8 @@ const portfolioItems = [
     id: 'p-bar-ussou',
     aspect: '16/9',
     category: 'Photo',
-    title: 'Bar Ussou',
-    sub: 'Melbourne · Music Band',
+    title: 'Bar Oussou',
+    sub: 'with GTano',
     cover: '/images/portfolio/bar-ussou/thumb.webp',
     images: [
       '/images/portfolio/bar-ussou/01.webp',
@@ -79,21 +79,11 @@ const portfolioItems = [
     ],
   },
   {
-    id: 'v-floridia-night',
-    aspect: '16/9',
-    category: 'Video',
-    title: 'Floridia Night',
-    sub: 'Melbourne · Event Social',
-    video: '/videos/floridia-night-loop.mp4',
-    youtubeId: '',
-    vertical: false,
-  },
-  {
     id: 'p-agriturismo',
     aspect: '16/9',
     category: 'Photo',
     title: 'Agriturismo',
-    sub: 'Italy · Travel Social',
+    sub: 'C’era Una Volta',
     cover: '/images/portfolio/agriturismo/thumb.webp',
     images: [
       '/images/portfolio/agriturismo/01.webp',
@@ -103,11 +93,21 @@ const portfolioItems = [
     ],
   },
   {
+    id: 'v-floridia-night',
+    aspect: '16/9',
+    category: 'Video',
+    title: 'Floridia',
+    sub: 'with Atti.Co',
+    video: '/videos/floridia-night-loop.mp4',
+    youtubeId: '',
+    vertical: false,
+  },
+  {
     id: 'v-fratellino',
     aspect: '16/9',
     category: 'Video',
-    title: 'Fratellino',
-    sub: 'Melbourne · Hospitality Social',
+    title: 'Fratellino Pizzeria',
+    sub: '',
     video: '/videos/fratellino-loop.mp4',
     youtubeId: '',
     vertical: false,
@@ -117,7 +117,7 @@ const portfolioItems = [
     aspect: '16/9',
     category: 'Photo',
     title: 'Possum',
-    sub: 'Melbourne · Film Production',
+    sub: 'with Filmnonick and Radical Raliens',
     cover: '/images/portfolio/possum/thumb.webp',
     images: [
       '/images/portfolio/possum/01.webp',
@@ -249,19 +249,6 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
           pointerEvents: 'none',
         }}
       >
-        <span
-          style={{
-            fontSize: '0.65rem',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            color: 'var(--sienna)',
-            fontWeight: 400,
-            marginBottom: '0.3rem',
-            display: 'block',
-          }}
-        >
-          {item.category}
-        </span>
         <h3
           style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
@@ -274,16 +261,18 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         >
           {item.title}
         </h3>
-        <p
-          style={{
-            fontSize: '0.75rem',
-            color: 'rgba(244,239,229,0.6)',
-            fontWeight: 300,
-            margin: 0,
-          }}
-        >
-          {item.sub}
-        </p>
+        {item.sub && (
+          <p
+            style={{
+              fontSize: '0.75rem',
+              color: 'rgba(244,239,229,0.6)',
+              fontWeight: 300,
+              margin: 0,
+            }}
+          >
+            {item.sub}
+          </p>
+        )}
       </div>
     </div>
   );
