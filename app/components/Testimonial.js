@@ -4,28 +4,34 @@ import { useState, useEffect } from 'react';
 
 const reviews = [
   {
-    name: 'Marco Rossi',
-    role: 'Restaurant Owner',
+    name: 'Marilena Kalavrytinos',
     stars: 5,
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
+    text: 'I am extremely satisfied with the business photos and videos Francesco created. His professionalism and creativity really stand out.',
   },
   {
-    name: 'Sofia Bianchi',
-    role: 'Event Coordinator',
+    name: 'Dylan Tyncherov',
     stars: 5,
-    text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.',
+    text: 'A remarkably disciplined and creatively driven filmmaker whose work speaks louder than words ever could. Concise, thoughtful, and a true doer.',
   },
   {
-    name: 'Luca Moretti',
-    role: 'Marketing Director',
+    name: 'Stefano Ioele',
     stars: 5,
-    text: 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.',
+    text: 'There are thousands of videomakers in Australia, but working with Francesco is just easy. His pragmatic approach and attention to detail make him stand out.',
   },
   {
-    name: 'Elena Conti',
-    role: 'Creative Producer',
+    name: 'Peter McGregor',
     stars: 5,
-    text: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.',
+    text: 'Worked with him as a DoP and camera operator. He knows what he’s doing, very competent, conscientious and reliable. Very pleasant to work with.',
+  },
+  {
+    name: 'Patrick Dunne',
+    stars: 5,
+    text: 'Very happy with Francesco’s work. He was patient, easy to work with. I would definitely use him again and recommend his services.',
+  },
+  {
+    name: 'Will Rotor',
+    stars: 5,
+    text: 'Francesco was very professional with a keen creative eye.',
   },
 ];
 
@@ -104,19 +110,9 @@ export default function Testimonial() {
               fontSize: '0.9rem',
               fontWeight: 500,
               color: 'var(--ink)',
-              marginBottom: '0.25rem',
             }}
           >
             {reviews[active].name}
-          </p>
-          <p
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--taupe)',
-              fontWeight: 300,
-            }}
-          >
-            {reviews[active].role}
           </p>
         </div>
 

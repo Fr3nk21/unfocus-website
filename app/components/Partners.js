@@ -1,12 +1,14 @@
 'use client';
 
 const partners = [
-  { name: 'Toyota', logo: '/images/partners/toyota.svg' },
-  { name: 'Floridia', logo: '/images/partners/floridia.svg' },
-  { name: 'Fratellino', logo: '/images/partners/fratellino.svg' },
-  { name: 'Pickle Jar', logo: '/images/partners/pickle-jar.svg' },
-  { name: 'BMPRO', logo: '/images/partners/bmpro.svg' },
-  { name: 'Grossi Florentino', logo: '/images/partners/grossi.svg' },
+  { name: 'Red Herring Digital', logo: '/images/partners/rhd.png' },
+  { name: 'GTano', logo: '/images/partners/gtano.png' },
+  { name: 'Atti.Co', logo: '/images/partners/attico.webp' },
+  { name: 'AOD', logo: '/images/partners/aod.png' },
+  { name: 'Filmonick', logo: '/images/partners/filmonick.png' },
+  { name: 'Fratellino', logo: '/images/partners/fratellino.png' },
+  { name: 'CoASIt', logo: '/images/partners/coasit_logo2_new.png' },
+  { name: 'Del Bocia', logo: '/images/partners/delbocia.png' },
 ];
 
 function LogoSet() {

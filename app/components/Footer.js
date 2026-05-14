@@ -106,7 +106,7 @@ export default function Footer() {
             opacity: 0.6,
           }}
         >
-          © 2025 Francesco Bugugnoli. All rights reserved.
+          © 2026 Francesco Bugugnoli. All rights reserved.
         </p>
       </div>
 

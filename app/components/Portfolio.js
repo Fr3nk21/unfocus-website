@@ -243,36 +243,47 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
           bottom: 0,
           left: 0,
           right: 0,
-          background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
-          padding: '3rem 1.5rem 1.25rem',
+          background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)',
+          padding: '1.5rem 1.25rem 1.25rem',
           zIndex: 3,
           pointerEvents: 'none',
         }}
       >
-        <h3
+        <div
           style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: '1.25rem',
-            fontWeight: 500,
-            color: '#F4EFE5',
-            marginBottom: '0.15rem',
-            letterSpacing: '-0.01em',
+            backgroundColor: 'rgba(14,12,8,0.55)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            padding: '0.75rem 1rem',
+            borderRadius: '4px',
+            display: 'inline-block',
           }}
         >
-          {item.title}
-        </h3>
-        {item.sub && (
-          <p
+          <h3
             style={{
-              fontSize: '0.75rem',
-              color: 'rgba(244,239,229,0.6)',
-              fontWeight: 300,
-              margin: 0,
+              fontFamily: 'var(--font-playfair), Georgia, serif',
+              fontSize: '1.25rem',
+              fontWeight: 500,
+              color: '#F4EFE5',
+              marginBottom: item.sub ? '0.15rem' : 0,
+              letterSpacing: '-0.01em',
             }}
           >
-            {item.sub}
-          </p>
-        )}
+            {item.title}
+          </h3>
+          {item.sub && (
+            <p
+              style={{
+                fontSize: '0.75rem',
+                color: 'rgba(244,239,229,0.6)',
+                fontWeight: 300,
+                margin: 0,
+              }}
+            >
+              {item.sub}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

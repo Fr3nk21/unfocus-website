@@ -67,8 +67,8 @@ export default function ThreeHero() {
     const opacity        = new Float32Array(totalCount);
     const connPerParticle = new Uint8Array(totalCount);
 
-    const MOUSE_RADIUS  = 150;
-    const CONN_DIST_SQ  = 100 * 100; // 100px squared
+    const MOUSE_RADIUS  = 200;
+    const CONN_DIST_SQ  = 120 * 120; // 120px squared
 
     let t = 0;
 
@@ -89,21 +89,31 @@ export default function ThreeHero() {
           + Math.cos(t * p.speed * 0.7  + p.phaseY     ) * p.ampY
           + Math.cos(t * p.speed * 1.6  + p.phaseY * 0.5) * p.ampY * 0.25;
 
-        // Mouse repulsion
-        const dx = x - mouseX;
-        const dy = y - mouseY;
-        const distSq  = dx * dx + dy * dy;
-        const dist    = Math.sqrt(distSq);
-        const repulse = Math.max(0, MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-        const nx = dist > 0 ? dx / dist : 0;
-        const ny = dist > 0 ? dy / dist : 0;
+        // Mouse attraction (with inner repulsion core so particles don't stack)
+        const dx   = x - mouseX;
+        const dy   = y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const nx   = dist > 0 ? dx / dist : 0;
+        const ny   = dist > 0 ? dy / dist : 0;
 
-        fx[i] = x + nx * repulse * 60;
-        fy[i] = y + ny * repulse * 60;
-
-        // Opacity boost near cursor (soft elastic feel)
-        const maxOpacity = p.hero ? 0.9 : 0.7;
-        opacity[i] = Math.min(p.baseOpacity + repulse * 0.45, maxOpacity);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const strength = 1 - dist / MOUSE_RADIUS;
+          if (dist > 25) {
+            // Gentle attraction toward cursor — creates sphere clustering effect
+            const pull = strength * 55;
+            fx[i] = x - nx * pull;
+            fy[i] = y - ny * pull;
+          } else {
+            // Hard core: repel so particles don't collapse onto cursor
+            fx[i] = x + nx * strength * 35;
+            fy[i] = y + ny * strength * 35;
+          }
+          opacity[i] = Math.min(p.baseOpacity + strength * 0.45, p.hero ? 0.9 : 0.7);
+        } else {
+          fx[i] = x;
+          fy[i] = y;
+          opacity[i] = p.baseOpacity;
+        }
       }
 
       // --- 2. Connection lines (batched into one path) -------------------

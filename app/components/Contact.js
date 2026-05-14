@@ -266,7 +266,7 @@ export default function Contact() {
               <input
                 type="text"
                 name="location"
-                placeholder="e.g. Fitzroy, Melbourne"
+                placeholder="What's your location?"
                 style={{
                   width: '100%',
                   background: 'transparent',
