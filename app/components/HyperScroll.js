@@ -150,12 +150,13 @@ export default function HyperScroll() {
 
     const CONFIG = {
       itemCount: portfolioItems.length,
-      zGap: 1200,
-      camSpeed: 2.5,
+      zGap: 1500,
+      camSpeed: 4.0,
     };
 
-    // Scroll distance needed to fly past all items + one viewport of buffer
-    const maxScroll = (CONFIG.itemCount * CONFIG.zGap) / CONFIG.camSpeed;
+    // Account for initial depth offset (-3000) plus all items
+    const INITIAL_DEPTH = 3000;
+    const maxScroll = (CONFIG.itemCount * CONFIG.zGap + INITIAL_DEPTH) / CONFIG.camSpeed;
     const proxyHeight = maxScroll + window.innerHeight;
     if (scrollProxyRef.current) {
       scrollProxyRef.current.style.height = `${proxyHeight}px`;
@@ -275,7 +276,7 @@ export default function HyperScroll() {
       const y = Math.sin(angle) * (window.innerHeight * 0.18);
       const rot = (Math.random() - 0.5) * 12;
 
-      items.push({ el, x, y, rot, baseZ: -i * CONFIG.zGap });
+      items.push({ el, x, y, rot, baseZ: -(i * CONFIG.zGap) - INITIAL_DEPTH });
       world.appendChild(el);
     });
 
@@ -314,27 +315,25 @@ export default function HyperScroll() {
 
     import('lenis').then((mod) => {
       const Lenis = mod.default;
-      lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+      lenis = new Lenis({ lerp: 0.12, smoothWheel: true });
 
       lenis.on('scroll', ({ scroll, velocity }) => {
         state.scroll = scroll;
         state.targetSpeed = velocity;
-        setShowHero(scroll < 200);
+        setShowHero(scroll < 300);
 
         if (scroll > maxScroll && !sceneDone) {
           sceneDone = true;
-          viewport.style.position = 'absolute';
-          viewport.style.top = '0';
-          world.style.display = 'none';
-          if (noiseRef.current) noiseRef.current.style.display = 'none';
-          if (vignetteRef.current) vignetteRef.current.style.display = 'none';
+          viewport.style.opacity = '0';
+          viewport.style.pointerEvents = 'none';
+          if (noiseRef.current) noiseRef.current.style.opacity = '0';
+          if (vignetteRef.current) vignetteRef.current.style.opacity = '0';
         } else if (scroll <= maxScroll && sceneDone) {
           sceneDone = false;
-          viewport.style.position = 'fixed';
-          viewport.style.top = '';
-          world.style.display = '';
-          if (noiseRef.current) noiseRef.current.style.display = '';
-          if (vignetteRef.current) vignetteRef.current.style.display = '';
+          viewport.style.opacity = '1';
+          viewport.style.pointerEvents = 'auto';
+          if (noiseRef.current) noiseRef.current.style.opacity = '0.04';
+          if (vignetteRef.current) vignetteRef.current.style.opacity = '1';
         }
       });
 
@@ -397,14 +396,15 @@ export default function HyperScroll() {
   return (
     <>
       <section id="portfolio" style={{ position: 'relative' }}>
-        {/* Canvas line network — behind everything */}
+        {/* Canvas line network — visible only with hero text */}
         <div
           style={{
             position: 'fixed',
             inset: 0,
             zIndex: 0,
             pointerEvents: 'none',
-            opacity: 0.7,
+            opacity: showHero ? 0.7 : 0,
+            transition: 'opacity 1s ease',
           }}
         >
           <ThreeHero />
