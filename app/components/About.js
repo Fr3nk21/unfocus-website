@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import RevealWrapper from './RevealWrapper';
 
 export default function About() {
@@ -35,15 +36,17 @@ export default function About() {
                 zIndex: 0,
               }}
             />
-            <img
-              src="/images/portrait-francesco-bugugnoli.webp"
+            <Image
+              src="/images/portrait-francesco-bugugnoli.jpg"
               alt="Francesco Bugugnoli — Videographer and Photographer, Melbourne"
+              width={600}
+              height={750}
+              quality={80}
               style={{
                 width: '100%',
-                maxWidth: '400px',
                 aspectRatio: '4/5',
                 objectFit: 'cover',
-                objectPosition: 'center 20%',
+                objectPosition: 'center 30%',
                 display: 'block',
                 position: 'relative',
                 zIndex: 1,

@@ -205,7 +205,12 @@ export default function Nav() {
             <a
               key={link.label}
               href={link.href}
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.querySelector(link.href);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                setMenuOpen(false);
+              }}
               style={{
                 display: 'block',
                 padding: '0.75rem 0',

@@ -72,7 +72,7 @@ export const metadata = {
     title: 'Francesco Bugugnoli — Videographer & Photographer Melbourne',
     description:
       'Italian-born creative based in Melbourne. Video production and photography for hospitality, corporate, and social media.',
-    images: [{ url: '/og-image.jpg' }],
+    images: ['/images/og-image.jpg'],
     locale: 'en_AU',
   },
   twitter: {
@@ -80,6 +80,7 @@ export const metadata = {
     title: 'Francesco Bugugnoli — Videographer Melbourne',
     description:
       'Italian-born creative based in Melbourne. Visual storytelling for hospitality and corporate brands.',
+    images: ['/images/og-image.jpg'],
   },
   other: {
     'geo.region': 'AU-VIC',

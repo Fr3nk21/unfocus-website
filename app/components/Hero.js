@@ -80,15 +80,15 @@ export default function Hero() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Stories told in{' '}
               <em
                 style={{
                   fontStyle: 'italic',
                   color: 'var(--sienna)',
                 }}
               >
-                light.
-              </em>
+                Crafted,
+              </em>{' '}
+              not created.
             </h1>
           </RevealWrapper>
 

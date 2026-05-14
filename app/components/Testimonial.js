@@ -131,7 +131,7 @@ export default function Testimonial() {
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'width 0.3s ease, background-color 0.3s ease',
-                padding: 0,
+                padding: '20px 8px',
               }}
             />
           ))}

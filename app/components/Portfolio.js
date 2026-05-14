@@ -9,7 +9,7 @@ const portfolioItems = [
     id: 'v-toyota',
     aspect: '16/9',
     category: 'Video',
-    title: 'Toyota',
+    title: 'Toyota Finance',
     sub: 'with Red Herring Digital',
     video: '/videos/toyota-loop.mp4',
     youtubeId: '',
@@ -99,7 +99,7 @@ const portfolioItems = [
     title: 'Floridia',
     sub: 'with Atti.Co',
     video: '/videos/floridia-night-loop.mp4',
-    youtubeId: '',
+    youtubeId: 'N-tIYwkcpAE',
     vertical: false,
   },
   {
@@ -109,8 +109,8 @@ const portfolioItems = [
     title: 'Fratellino Pizzeria',
     sub: '',
     video: '/videos/fratellino-loop.mp4',
-    youtubeId: '',
-    vertical: false,
+    youtubeId: 'akSOmj9-SVs',
+    vertical: true,
   },
   {
     id: 'p-possum',
@@ -250,6 +250,7 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
         }}
       >
         <div
+          className="portfolio-overlay-glass"
           style={{
             backgroundColor: 'rgba(14,12,8,0.55)',
             backdropFilter: 'blur(8px)',
@@ -260,6 +261,7 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
           }}
         >
           <h3
+            className="portfolio-overlay-title"
             style={{
               fontFamily: 'var(--font-playfair), Georgia, serif',
               fontSize: '1.25rem',
@@ -273,6 +275,7 @@ function PortfolioItem({ item, onVideoClick, onPhotoClick }) {
           </h3>
           {item.sub && (
             <p
+              className="portfolio-overlay-sub"
               style={{
                 fontSize: '0.75rem',
                 color: 'rgba(244,239,229,0.6)',
@@ -375,6 +378,7 @@ export default function Portfolio() {
                   background: 'none',
                   border: 'none',
                   padding: '0.5rem 1rem',
+                  minHeight: '44px',
                   fontSize: '0.8rem',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
@@ -437,9 +441,19 @@ export default function Portfolio() {
                   lineHeight: 1.3,
                 }}
               >
-                More projects available<br />
-                <span style={{ color: 'var(--sienna)', fontStyle: 'italic' }}>upon request</span>
+                Curious to see more?
               </h3>
+              <p
+                style={{
+                  fontSize: '0.85rem',
+                  color: 'rgba(240,235,225,0.5)',
+                  fontWeight: 300,
+                  textAlign: 'center',
+                  marginTop: '0.5rem',
+                }}
+              >
+                Let&apos;s talk about your project →
+              </p>
             </div>
           )}
         </div>
@@ -462,8 +476,20 @@ export default function Portfolio() {
 
       <style>{`
         @media (max-width: 768px) {
+          .portfolio-grid {
+            grid-template-columns: 1fr !important;
+          }
           .portfolio-grid > div {
             grid-column: span 1 !important;
+          }
+          .portfolio-overlay-glass {
+            padding: 0.5rem 0.75rem !important;
+          }
+          .portfolio-overlay-title {
+            font-size: 1rem !important;
+          }
+          .portfolio-overlay-sub {
+            font-size: 0.65rem !important;
           }
         }
       `}</style>

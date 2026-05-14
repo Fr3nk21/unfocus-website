@@ -198,6 +198,7 @@ export default function Contact() {
                   type={field.type}
                   name={field.name}
                   placeholder={field.placeholder}
+                  aria-label={field.label}
                   style={{
                     width: '100%',
                     background: 'transparent',
@@ -222,6 +223,7 @@ export default function Contact() {
               <select
                 id="service-input"
                 name="service"
+                aria-label="Service needed"
                 defaultValue=""
                 style={{
                   width: '100%',
