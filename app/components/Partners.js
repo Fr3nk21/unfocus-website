@@ -21,9 +21,9 @@ function LogoSet() {
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 3rem',
-            minWidth: '160px',
-            height: '48px',
+            padding: '0 4.5rem',
+            minWidth: '220px',
+            height: '64px',
             flexShrink: 0,
           }}
         >
@@ -31,8 +31,8 @@ function LogoSet() {
             src={partner.logo}
             alt={partner.name}
             style={{
-              maxHeight: '36px',
-              maxWidth: '120px',
+              maxHeight: '52px',
+              maxWidth: '160px',
               objectFit: 'contain',
               opacity: 0.35,
               filter: 'brightness(0) invert(0.9) sepia(0.1)',
@@ -93,7 +93,7 @@ export default function Partners() {
       <style>{`
         .partners-track {
           display: flex;
-          animation: partnerScroll 30s linear infinite;
+          animation: partnerScroll 40s linear infinite;
           width: max-content;
         }
         @keyframes partnerScroll {

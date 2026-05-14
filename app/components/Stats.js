@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from 'react';
 const stats = [
   { number: 6,  suffix: '+', label: 'Years' },
   { number: 90, suffix: '+', label: 'Projects' },
-  { number: 35, suffix: '+', label: 'Clients' },
-  { number: 6,  suffix: '+', label: 'Industries' },
+  { number: 30, suffix: '+', label: 'Clients' },
+  { number: 8,  suffix: '',  label: 'Industries' },
 ];
 
 function CountUp({ target, suffix, duration = 2000 }) {

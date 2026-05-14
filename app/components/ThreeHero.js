@@ -116,11 +116,9 @@ export default function ThreeHero() {
         }
       }
 
-      // --- 2. Connection lines (batched into one path) -------------------
+      // --- 2. Connection lines (per-line alpha fades with distance) ------
       connPerParticle.fill(0);
-      ctx.beginPath();
-      ctx.lineWidth   = 0.5;
-      ctx.strokeStyle = 'rgba(139,69,19,0.05)';
+      ctx.lineWidth = 0.5;
 
       for (let i = 0; i < totalCount; i++) {
         if (connPerParticle[i] >= 3) continue;
@@ -129,15 +127,20 @@ export default function ThreeHero() {
           if (connPerParticle[j] >= 3) continue;
           const dx = fx[i] - fx[j];
           const dy = fy[i] - fy[j];
-          if (dx * dx + dy * dy < CONN_DIST_SQ) {
+          const distSq = dx * dx + dy * dy;
+          if (distSq < CONN_DIST_SQ) {
+            const dist  = Math.sqrt(distSq);
+            const alpha = (1 - dist / 120) * 0.08;
+            ctx.strokeStyle = `rgba(139,69,19,${alpha})`;
+            ctx.beginPath();
             ctx.moveTo(fx[i], fy[i]);
             ctx.lineTo(fx[j], fy[j]);
+            ctx.stroke();
             connPerParticle[i]++;
             connPerParticle[j]++;
           }
         }
       }
-      ctx.stroke();
 
       // --- 3. Draw particles ---------------------------------------------
       for (let i = 0; i < totalCount; i++) {
