@@ -52,7 +52,7 @@ export default function Testimonial() {
       id="testimonial"
       style={{
         backgroundColor: 'var(--cream)',
-        padding: '7rem 2rem',
+        padding: '5rem 2rem',
       }}
     >
       <div
@@ -124,14 +124,15 @@ export default function Testimonial() {
               onClick={() => setActive(i)}
               aria-label={`Review ${i + 1}`}
               style={{
-                width: active === i ? '24px' : '8px',
+                width: '8px',
                 height: '8px',
-                borderRadius: '4px',
+                borderRadius: '50%',
                 backgroundColor: active === i ? 'var(--sienna)' : 'var(--parchment)',
                 border: 'none',
                 cursor: 'pointer',
-                transition: 'width 0.3s ease, background-color 0.3s ease',
-                padding: '20px 8px',
+                transition: 'transform 0.3s ease, background-color 0.3s ease',
+                transform: active === i ? 'scale(1.3)' : 'scale(1)',
+                padding: 0,
               }}
             />
           ))}

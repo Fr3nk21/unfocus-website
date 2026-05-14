@@ -165,6 +165,12 @@ export default function HyperScroll() {
     const state = stateRef.current;
     const items = [];
 
+    const isMobile = window.innerWidth < 768;
+    const cardWidth = isMobile ? '280px' : '480px';
+    const cardHeight = isMobile ? '180px' : '320px';
+    const spiralX = isMobile ? 0.08 : 0.15;
+    const spiralY = isMobile ? 0.06 : 0.12;
+
     portfolioItems.forEach((project, i) => {
       const el = document.createElement('div');
       el.className = 'hyper-item';
@@ -183,8 +189,8 @@ export default function HyperScroll() {
       const card = document.createElement('div');
       card.className = 'hyper-card';
       card.style.cssText = `
-        width: 480px;
-        height: 320px;
+        width: ${cardWidth};
+        height: ${cardHeight};
         background: rgba(30,27,20,0.6);
         border: 1px solid rgba(244,239,229,0.08);
         position: relative;
@@ -259,12 +265,15 @@ export default function HyperScroll() {
       num.textContent = String(i + 1).padStart(2, '0');
       card.appendChild(num);
 
-      card.addEventListener('click', () => {
-        if (project.category === 'Video' && project.youtubeId) {
-          setActiveVideo(project);
+      card.dataset.index = i;
+      card.addEventListener('click', (e) => {
+        const idx = parseInt(e.currentTarget.dataset.index);
+        const proj = portfolioItems[idx];
+        if (proj.category === 'Video' && proj.youtubeId) {
+          setActiveVideo(proj);
           setModalOpen(true);
-        } else if (project.category === 'Photo' && project.images) {
-          setActivePhoto(project);
+        } else if (proj.category === 'Photo' && proj.images) {
+          setActivePhoto(proj);
           setLightboxOpen(true);
         }
       });
@@ -272,8 +281,8 @@ export default function HyperScroll() {
       el.appendChild(card);
 
       const angle = (i / CONFIG.itemCount) * Math.PI * 4;
-      const x = Math.cos(angle) * (window.innerWidth * 0.15);
-      const y = Math.sin(angle) * (window.innerHeight * 0.12);
+      const x = Math.cos(angle) * (window.innerWidth * spiralX);
+      const y = Math.sin(angle) * (window.innerHeight * spiralY) + 300;
       const rot = (Math.random() - 0.5) * 12;
 
       items.push({ el, x, y, rot, baseZ: -(i * CONFIG.zGap) - INITIAL_DEPTH });
@@ -359,7 +368,8 @@ export default function HyperScroll() {
             const vizZ = item.baseZ + cameraZ;
 
             let alpha = 1;
-            if (vizZ < -5000) alpha = 0;
+            if (state.scroll < 100 && item.type !== 'star') alpha = 0;
+            else if (vizZ < -5000) alpha = 0;
             else if (vizZ < -3000) alpha = (vizZ + 5000) / 2000;
             if (vizZ > 200 && item.type !== 'star') alpha = 1 - (vizZ - 200) / 600;
             if (alpha < 0) alpha = 0;
@@ -397,7 +407,7 @@ export default function HyperScroll() {
 
   return (
     <>
-      <section id="portfolio" style={{ position: 'relative', backgroundColor: '#18150F' }}>
+      <section id="portfolio" style={{ position: 'relative', backgroundColor: 'var(--cream)' }}>
         {/* Canvas line network — always visible during hyperscroll, hidden after maxScroll */}
         <div
           ref={canvasWrapRef}
@@ -441,13 +451,12 @@ export default function HyperScroll() {
         <div
           style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             zIndex: 20,
-            padding: '30vh 2rem 0',
-            maxWidth: '800px',
-            margin: '0 auto',
+            padding: '0 2rem',
+            width: '90vw',
             textAlign: 'center',
             opacity: showHero ? 1 : 0,
             transition: 'opacity 0.6s ease',
