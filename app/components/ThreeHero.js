@@ -2,24 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 
-const BRIGHT_COUNT = 15;
-
-function makeParticle(w, h, bright = false) {
+function makeParticle(w, h) {
   return {
-    x:      Math.random() * w,
-    y:      Math.random() * h,
-    vx:     (Math.random() - 0.5) * 0.6,
-    vy:     (Math.random() - 0.5) * 0.6,
-    seed:   Math.random() * Math.PI * 2,
-    bright,
+    x:    Math.random() * w,
+    y:    Math.random() * h,
+    vx:   (Math.random() - 0.5) * 0.6,
+    vy:   (Math.random() - 0.5) * 0.6,
+    seed: Math.random() * Math.PI * 2,
   };
-}
-
-function makeParticles(count, w, h) {
-  return [
-    ...Array.from({ length: count - BRIGHT_COUNT }, () => makeParticle(w, h, false)),
-    ...Array.from({ length: BRIGHT_COUNT },          () => makeParticle(w, h, true)),
-  ];
 }
 
 export default function ThreeHero() {
@@ -42,20 +32,21 @@ export default function ThreeHero() {
     resize();
 
     const isMobile = window.innerWidth < 768;
-    const count    = isMobile ? 150 : 400;
+    const count    = isMobile ? 150 : 300;
 
-    let particles = makeParticles(count, canvas.width, canvas.height);
+    let particles = Array.from({ length: count }, () =>
+      makeParticle(canvas.width, canvas.height)
+    );
 
     const CONN_DIST       = 180;
     const CONN_DIST_SQ    = CONN_DIST * CONN_DIST;
-    const MOUSE_ATTR_DIST = 300;
+    const MOUSE_ATTR_DIST = 180;
     const MOUSE_ATTR_SQ   = MOUSE_ATTR_DIST * MOUSE_ATTR_DIST;
-    const MOUSE_LINE_DIST = 200;
+    const MOUSE_LINE_DIST = 140;
     const MOUSE_LINE_SQ   = MOUSE_LINE_DIST * MOUSE_LINE_DIST;
 
     let time = 0;
 
-    // Track dark mode changes
     const themeObserver = new MutationObserver(() => {
       isDark = document.documentElement.classList.contains('dark');
     });
@@ -69,8 +60,8 @@ export default function ThreeHero() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       time++;
 
-      const w      = canvas.width;
-      const h      = canvas.height;
+      const w       = canvas.width;
+      const h       = canvas.height;
       const lineRGB = isDark ? '196,149,108' : '139,69,19';
 
       // --- 1. Update positions -------------------------------------------
@@ -80,13 +71,13 @@ export default function ThreeHero() {
         const mDistSq = mdx * mdx + mdy * mdy;
         if (mDistSq < MOUSE_ATTR_SQ && mDistSq > 100) {
           const mDist = Math.sqrt(mDistSq);
-          const force = (1 - mDist / MOUSE_ATTR_DIST) * 0.5;
-          p.vx += mdx * force * 0.003;
-          p.vy += mdy * force * 0.003;
+          const force = (1 - mDist / MOUSE_ATTR_DIST) * 0.2;
+          p.vx += mdx * force * 0.001;
+          p.vy += mdy * force * 0.001;
         }
 
-        p.vx *= 0.98;
-        p.vy *= 0.98;
+        p.vx *= 0.95;
+        p.vy *= 0.95;
         p.x  += p.vx + Math.sin(time * 0.001 + p.seed) * 0.2;
         p.y  += p.vy + Math.cos(time * 0.001 + p.seed * 1.3) * 0.2;
 
@@ -107,7 +98,7 @@ export default function ThreeHero() {
           const dSq = dx * dx + dy * dy;
           if (dSq < CONN_DIST_SQ) {
             const dist  = Math.sqrt(dSq);
-            const alpha = (1 - dist / CONN_DIST) * 0.22;
+            const alpha = (1 - dist / CONN_DIST) * 0.15;
             ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
             ctx.beginPath();
             ctx.moveTo(pi.x, pi.y);
@@ -126,7 +117,7 @@ export default function ThreeHero() {
           const dSq = dx * dx + dy * dy;
           if (dSq < MOUSE_LINE_SQ) {
             const dist  = Math.sqrt(dSq);
-            const alpha = (1 - dist / MOUSE_LINE_DIST) * 0.35;
+            const alpha = (1 - dist / MOUSE_LINE_DIST) * 0.2;
             ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
             ctx.beginPath();
             ctx.moveTo(mouseX, mouseY);
@@ -136,11 +127,11 @@ export default function ThreeHero() {
         }
       }
 
-      // --- 4. Draw dots (regular + bright focal nodes) ------------------
+      // --- 4. Draw dots --------------------------------------------------
       for (const p of particles) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.bright ? 3 : 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${lineRGB},${p.bright ? 0.4 : 0.25})`;
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${lineRGB},0.25)`;
         ctx.fill();
       }
     }
@@ -160,7 +151,9 @@ export default function ThreeHero() {
 
     function handleResize() {
       resize();
-      particles = makeParticles(count, canvas.width, canvas.height);
+      particles = Array.from({ length: count }, () =>
+        makeParticle(canvas.width, canvas.height)
+      );
     }
 
     window.addEventListener('mousemove',    handleMouseMove);
