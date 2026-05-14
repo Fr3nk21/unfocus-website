@@ -302,6 +302,19 @@ export default function Hero() {
       `}</style>
 
       <YoutubeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} videoId="tnlTOUZydrk" title="Francesco Bugugnoli — Showreel 2025" />
+
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '200px',
+          background: 'linear-gradient(to bottom, transparent, var(--ivory))',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
     </section>
   );
 }
