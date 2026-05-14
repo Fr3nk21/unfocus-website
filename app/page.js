@@ -1,10 +1,9 @@
 import Nav from './components/Nav';
-import Hero from './components/Hero';
+import HeroPortfolio from './components/HeroPortfolio';
 import Ticker from './components/Ticker';
 import About from './components/About';
 import Stats from './components/Stats';
 import Services from './components/Services';
-import Portfolio from './components/Portfolio';
 import Testimonial from './components/Testimonial';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
@@ -16,9 +15,8 @@ export default function Page() {
     <>
       <Nav />
       <main>
-        <Hero />
+        <HeroPortfolio />
         <Ticker />
-        <Portfolio />
         <Stats />
         <Services />
         <About />
