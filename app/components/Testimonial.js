@@ -124,9 +124,9 @@ export default function Testimonial() {
               onClick={() => setActive(i)}
               aria-label={`Review ${i + 1}`}
               style={{
-                width: active === i ? '24px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
+                width: active === i ? '20px' : '6px',
+                height: '6px',
+                borderRadius: '3px',
                 backgroundColor: active === i ? 'var(--sienna)' : 'var(--parchment)',
                 border: 'none',
                 cursor: 'pointer',

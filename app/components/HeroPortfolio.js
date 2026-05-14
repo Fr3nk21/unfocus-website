@@ -84,7 +84,7 @@ const portfolioItems = [
     aspect: '16/9',
     category: 'Photo',
     title: 'Agriturismo',
-    sub: 'C’era Una Volta',
+    sub: "C’era Una Volta",
     cover: '/images/portfolio/agriturismo/thumb.webp',
     images: [
       '/images/portfolio/agriturismo/01.webp',
@@ -134,12 +134,13 @@ const filters = ['All', 'Video', 'Photo'];
 export default function HeroPortfolio() {
   const sectionRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [animationComplete, setAnimationComplete] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activePhoto, setActivePhoto] = useState(null);
+
+  const animationComplete = scrollProgress > 0.85;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -153,7 +154,6 @@ export default function HeroPortfolio() {
       const scrollRange = sectionHeight - viewportHeight;
       const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
       setScrollProgress(progress);
-      setAnimationComplete(progress >= 0.95);
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -180,6 +180,17 @@ export default function HeroPortfolio() {
     setLightboxOpen(true);
   }
 
+  // Featured item transform: shrinks from full-size to 60% between 0.5–1.0
+  const featuredScale =
+    scrollProgress > 0.5
+      ? 1 - (scrollProgress - 0.5) * 0.8
+      : 1;
+  const featuredOpacity = scrollProgress > 0.8 ? 0 : 1;
+
+  // Grid fades in from scrollProgress 0.6 → 1.0
+  const gridOpacity = Math.max(0, (scrollProgress - 0.6) * 2.5);
+  const gridTranslateY = Math.max(0, (1 - scrollProgress) * 30);
+
   return (
     <>
       <section
@@ -195,13 +206,10 @@ export default function HeroPortfolio() {
             height: '100vh',
             width: '100%',
             overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundColor: 'var(--ivory)',
           }}
         >
-          {/* Canvas line network — fades with hero text */}
+          {/* Canvas line network — fades out by 50% scroll */}
           <div
             style={{
               position: 'absolute',
@@ -214,7 +222,44 @@ export default function HeroPortfolio() {
             <ThreeHero />
           </div>
 
-          {/* Hero text overlay — fades out as scroll progresses */}
+          {/* Featured project (Toyota) — starts fullscreen, shrinks and fades */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 2,
+              overflow: 'hidden',
+              transform:
+                scrollProgress > 0.5
+                  ? `scale(${featuredScale})`
+                  : 'none',
+              opacity: featuredOpacity,
+              transition: 'none',
+              pointerEvents: scrollProgress > 0.5 ? 'none' : 'auto',
+            }}
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            >
+              <source src={portfolioItems[0].video} type="video/mp4" />
+            </video>
+            {/* Dark gradient for text readability */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%)',
+              }}
+            />
+          </div>
+
+          {/* Hero text — overlaid on the featured video, fades out early */}
           <div
             style={{
               position: 'absolute',
@@ -236,7 +281,7 @@ export default function HeroPortfolio() {
                 fontSize: '0.75rem',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
-                color: 'var(--taupe)',
+                color: 'rgba(244,239,229,0.75)',
                 marginBottom: '1.5rem',
                 fontWeight: 400,
                 display: 'flex',
@@ -263,7 +308,7 @@ export default function HeroPortfolio() {
                 fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
                 lineHeight: 1.08,
                 fontWeight: 700,
-                color: 'var(--ink)',
+                color: '#F4EFE5',
                 marginBottom: '1.75rem',
                 letterSpacing: '-0.02em',
               }}
@@ -276,11 +321,10 @@ export default function HeroPortfolio() {
               style={{
                 fontSize: '1.0625rem',
                 lineHeight: 1.72,
-                color: 'var(--charcoal)',
+                color: 'rgba(244,239,229,0.75)',
                 maxWidth: '480px',
                 marginBottom: '2.5rem',
                 fontWeight: 300,
-                opacity: 0.85,
               }}
             >
               Video and photography for hospitality, corporate, and social brands. Based in Melbourne.
@@ -301,7 +345,6 @@ export default function HeroPortfolio() {
                   fontWeight: 400,
                   display: 'inline-block',
                   cursor: 'pointer',
-                  border: 'none',
                 }}
               >
                 Get in touch
@@ -309,7 +352,7 @@ export default function HeroPortfolio() {
               <a
                 href="#services"
                 style={{
-                  color: 'var(--taupe)',
+                  color: 'rgba(244,239,229,0.7)',
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   letterSpacing: '0.04em',
@@ -317,15 +360,6 @@ export default function HeroPortfolio() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
-                  transition: 'color 0.2s ease, gap 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--sienna)';
-                  e.currentTarget.style.gap = '0.7rem';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--taupe)';
-                  e.currentTarget.style.gap = '0.4rem';
                 }}
               >
                 What I do →
@@ -358,12 +392,17 @@ export default function HeroPortfolio() {
               }}
             >
               <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-                <path d="M1 1L10 10L19 1" stroke="var(--taupe)" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M1 1L10 10L19 1"
+                  stroke="rgba(244,239,229,0.7)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </a>
           </div>
 
-          {/* Portfolio header — fades in after animation nears completion */}
+          {/* Portfolio header — fades in after 60% scroll */}
           <div
             style={{
               position: 'absolute',
@@ -371,13 +410,13 @@ export default function HeroPortfolio() {
               left: '2rem',
               right: '2rem',
               zIndex: 5,
-              opacity: Math.min(1, Math.max(0, (scrollProgress - 0.5) * 4)),
+              opacity: Math.min(1, Math.max(0, (scrollProgress - 0.6) * 4)),
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-end',
               maxWidth: '1280px',
               margin: '0 auto',
-              pointerEvents: scrollProgress < 0.6 ? 'none' : 'auto',
+              pointerEvents: scrollProgress < 0.65 ? 'none' : 'auto',
             }}
           >
             <div>
@@ -422,7 +461,10 @@ export default function HeroPortfolio() {
                     fontWeight: activeFilter === filter ? 500 : 300,
                     color: activeFilter === filter ? 'var(--sienna)' : 'var(--taupe)',
                     cursor: 'pointer',
-                    borderBottom: activeFilter === filter ? '1px solid var(--sienna)' : '1px solid transparent',
+                    borderBottom:
+                      activeFilter === filter
+                        ? '1px solid var(--sienna)'
+                        : '1px solid transparent',
                     transition: 'color 0.2s ease, border-color 0.2s ease',
                   }}
                 >
@@ -432,261 +474,261 @@ export default function HeroPortfolio() {
             </div>
           </div>
 
-          {/* The Grid — projects scale and reveal on scroll */}
+          {/* Portfolio grid — all 10 items, fades in after 60% scroll */}
           <div
             className="portfolio-grid"
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '1.25rem',
-              maxWidth: '1280px',
-              width: 'calc(100% - 4rem)',
-              padding: '5rem 0 2rem',
-              position: 'relative',
-              zIndex: 2,
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 3,
+              opacity: gridOpacity,
+              transform: `translateY(${gridTranslateY}px)`,
+              transition: 'none',
+              pointerEvents: scrollProgress > 0.8 ? 'auto' : 'none',
             }}
           >
-            {filtered.map((item, index) => {
-              const isFeatured = index === 0;
-              let itemScale, itemOpacity;
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '1.25rem',
+                maxWidth: '1280px',
+                width: 'calc(100% - 4rem)',
+                padding: '7rem 0 2rem',
+                maxHeight: '100vh',
+                overflowY: 'auto',
+              }}
+              className="portfolio-inner-grid"
+            >
+              {filtered.map((item) => {
+                const isVideo = item.category === 'Video';
+                const isPhoto = item.category === 'Photo';
 
-              if (isFeatured) {
-                const scaleStart = 3.5;
-                itemScale = scaleStart - (scaleStart - 1) * Math.min(1, scrollProgress * 1.5);
-                itemOpacity = 1;
-              } else {
-                const delay = 0.3 + index * 0.03;
-                const itemProgress = Math.max(0, Math.min(1, (scrollProgress - delay) / 0.5));
-                itemScale = itemProgress;
-                itemOpacity = itemProgress;
-              }
-
-              const isVideo = item.category === 'Video';
-              const isPhoto = item.category === 'Photo';
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => {
-                    if (isVideo) handleVideoClick(item);
-                    if (isPhoto) handlePhotoClick(item);
-                  }}
-                  style={{
-                    position: 'relative',
-                    overflow: 'hidden',
-                    cursor: animationComplete ? 'pointer' : 'default',
-                    aspectRatio: '16/9',
-                    backgroundColor: 'var(--charcoal)',
-                    transform: `scale(${itemScale})`,
-                    opacity: itemOpacity,
-                    transition: 'none',
-                    zIndex: isFeatured ? 2 : 1,
-                  }}
-                >
-                  {isVideo && (
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    >
-                      <source src={item.video} type="video/mp4" />
-                    </video>
-                  )}
-
-                  {isPhoto && (
-                    <img
-                      src={item.cover}
-                      alt={item.title}
-                      loading={index < 4 ? 'eager' : 'lazy'}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
-                      }}
-                    />
-                  )}
-
-                  {/* Gallery badge */}
-                  {isPhoto && item.images && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '0.75rem',
-                        right: '0.75rem',
-                        zIndex: 2,
-                        pointerEvents: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.35rem',
-                        backgroundColor: 'rgba(0,0,0,0.4)',
-                        padding: '0.25rem 0.5rem',
-                        borderRadius: '4px',
-                        opacity: animationComplete ? 1 : 0,
-                        transition: 'opacity 0.4s ease',
-                      }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(244,239,229,0.8)" strokeWidth="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <rect x="7" y="7" width="10" height="10" rx="1" />
-                      </svg>
-                      <span style={{ fontSize: '0.65rem', color: 'rgba(244,239,229,0.8)' }}>
-                        {item.images.length}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Title overlay */}
+                return (
                   <div
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)',
-                      padding: '1.5rem 1.25rem 1.25rem',
-                      zIndex: 3,
-                      pointerEvents: 'none',
-                      opacity: animationComplete ? 1 : 0,
-                      transition: 'opacity 0.5s ease',
+                    key={item.id}
+                    onClick={() => {
+                      if (isVideo) handleVideoClick(item);
+                      if (isPhoto) handlePhotoClick(item);
                     }}
+                    style={{
+                      position: 'relative',
+                      overflow: 'hidden',
+                      cursor: animationComplete ? 'pointer' : 'default',
+                      aspectRatio: '16/9',
+                      backgroundColor: 'var(--charcoal)',
+                    }}
+                    className="portfolio-thumb"
                   >
-                    <div
-                      style={{
-                        backgroundColor: 'rgba(14,12,8,0.55)',
-                        backdropFilter: 'blur(8px)',
-                        WebkitBackdropFilter: 'blur(8px)',
-                        padding: '0.75rem 1rem',
-                        borderRadius: '4px',
-                        display: 'inline-block',
-                      }}
-                    >
-                      <h3
-                        className="portfolio-overlay-title"
+                    {isVideo && (
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
                         style={{
-                          fontFamily: 'var(--font-playfair), Georgia, serif',
-                          fontSize: '1.25rem',
-                          fontWeight: 500,
-                          color: '#F4EFE5',
-                          marginBottom: item.sub ? '0.15rem' : 0,
-                          letterSpacing: '-0.01em',
+                          position: 'absolute',
+                          inset: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
                         }}
                       >
-                        {item.title}
-                      </h3>
-                      {item.sub && (
-                        <p
-                          className="portfolio-overlay-sub"
+                        <source src={item.video} type="video/mp4" />
+                      </video>
+                    )}
+
+                    {isPhoto && (
+                      <img
+                        src={item.cover}
+                        alt={item.title}
+                        loading="lazy"
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
+                        }}
+                      />
+                    )}
+
+                    {/* Gallery badge */}
+                    {isPhoto && item.images && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '0.75rem',
+                          right: '0.75rem',
+                          zIndex: 2,
+                          pointerEvents: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          backgroundColor: 'rgba(0,0,0,0.4)',
+                          padding: '0.25rem 0.5rem',
+                          borderRadius: '4px',
+                        }}
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="rgba(244,239,229,0.8)"
+                          strokeWidth="1.5"
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <rect x="7" y="7" width="10" height="10" rx="1" />
+                        </svg>
+                        <span style={{ fontSize: '0.65rem', color: 'rgba(244,239,229,0.8)' }}>
+                          {item.images.length}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Title overlay */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        background:
+                          'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)',
+                        padding: '1.5rem 1.25rem 1.25rem',
+                        zIndex: 3,
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      <div
+                        className="portfolio-overlay-glass"
+                        style={{
+                          backgroundColor: 'rgba(14,12,8,0.55)',
+                          backdropFilter: 'blur(8px)',
+                          WebkitBackdropFilter: 'blur(8px)',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '4px',
+                          display: 'inline-block',
+                        }}
+                      >
+                        <h3
+                          className="portfolio-overlay-title"
                           style={{
-                            fontSize: '0.75rem',
-                            color: 'rgba(244,239,229,0.6)',
-                            fontWeight: 300,
-                            margin: 0,
+                            fontFamily: 'var(--font-playfair), Georgia, serif',
+                            fontSize: '1.25rem',
+                            fontWeight: 500,
+                            color: '#F4EFE5',
+                            marginBottom: item.sub ? '0.15rem' : 0,
+                            letterSpacing: '-0.01em',
                           }}
                         >
-                          {item.sub}
-                        </p>
-                      )}
+                          {item.title}
+                        </h3>
+                        {item.sub && (
+                          <p
+                            className="portfolio-overlay-sub"
+                            style={{
+                              fontSize: '0.75rem',
+                              color: 'rgba(244,239,229,0.6)',
+                              fontWeight: 300,
+                              margin: 0,
+                            }}
+                          >
+                            {item.sub}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
+                );
+              })}
+
+              {/* CTA card */}
+              {activeFilter !== 'All' && animationComplete && (
+                <div
+                  onClick={() =>
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                  }
+                  style={{
+                    backgroundColor: '#1E1B14',
+                    aspectRatio: '16/9',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    padding: '2rem',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-playfair), Georgia, serif',
+                      fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                      fontWeight: 500,
+                      color: '#F0EBE1',
+                      textAlign: 'center',
+                      letterSpacing: '-0.01em',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    Curious to see more?
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '0.85rem',
+                      color: 'rgba(240,235,225,0.5)',
+                      fontWeight: 300,
+                      textAlign: 'center',
+                      marginTop: '0.5rem',
+                    }}
+                  >
+                    Let&apos;s talk about your project →
+                  </p>
                 </div>
-              );
-            })}
-
-            {/* CTA card — only when filtering and animation done */}
-            {activeFilter !== 'All' && animationComplete && (
-              <div
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                style={{
-                  backgroundColor: '#1E1B14',
-                  aspectRatio: '16/9',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  padding: '2rem',
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-playfair), Georgia, serif',
-                    fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                    fontWeight: 500,
-                    color: '#F0EBE1',
-                    textAlign: 'center',
-                    letterSpacing: '-0.01em',
-                    lineHeight: 1.3,
-                  }}
-                >
-                  Curious to see more?
-                </h3>
-                <p
-                  style={{
-                    fontSize: '0.85rem',
-                    color: 'rgba(240,235,225,0.5)',
-                    fontWeight: 300,
-                    textAlign: 'center',
-                    marginTop: '0.5rem',
-                  }}
-                >
-                  Let&apos;s talk about your project →
-                </p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-
-          {/* Bottom gradient fade — matches the old Hero */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: '200px',
-              background: 'linear-gradient(to bottom, transparent 0%, var(--ivory) 100%)',
-              zIndex: 1,
-              pointerEvents: 'none',
-              opacity: Math.max(0, 1 - scrollProgress * 4),
-            }}
-          />
         </div>
       </section>
 
       <YoutubeModal
         isOpen={modalOpen}
-        onClose={() => { setModalOpen(false); setActiveVideo(null); }}
+        onClose={() => {
+          setModalOpen(false);
+          setActiveVideo(null);
+        }}
         videoId={activeVideo?.youtubeId}
         title={activeVideo?.title}
         vertical={activeVideo?.vertical}
       />
       <PhotoLightbox
         isOpen={lightboxOpen}
-        onClose={() => { setLightboxOpen(false); setActivePhoto(null); }}
+        onClose={() => {
+          setLightboxOpen(false);
+          setActivePhoto(null);
+        }}
         images={activePhoto?.images || []}
         title={activePhoto?.title || ''}
       />
 
       <style>{`
         @media (max-width: 768px) {
-          .portfolio-grid {
+          .portfolio-inner-grid {
             grid-template-columns: 1fr !important;
             width: calc(100% - 2rem) !important;
-            padding: 4rem 0 1rem !important;
+            padding: 5rem 0 1rem !important;
           }
           .hero-text-col {
             padding: 72px 1.5rem 0 1.5rem !important;
+          }
+          .portfolio-overlay-glass {
+            padding: 0.5rem 0.75rem !important;
           }
           .portfolio-overlay-title {
             font-size: 1rem !important;
