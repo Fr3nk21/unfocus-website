@@ -1,8 +1,8 @@
 import Nav from './components/Nav';
-import HyperScroll from './components/HyperScroll';
-import About from './components/About';
+import HeroPortfolio from './components/HeroPortfolio';
 import Stats from './components/Stats';
 import Services from './components/Services';
+import About from './components/About';
 import Testimonial from './components/Testimonial';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Nav />
       <main>
-        <HyperScroll />
+        <HeroPortfolio />
         <Stats />
         <Services />
         <About />
