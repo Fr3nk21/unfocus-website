@@ -134,7 +134,7 @@ function SplitChars({ text, className }) {
 
 export default function HeroNew() {
   const heroRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(4);
   const [textRevealed, setTextRevealed] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
@@ -216,8 +216,7 @@ export default function HeroNew() {
           position: 'relative',
           overflow: 'hidden',
           gap: '2rem',
-          paddingTop: '72px',
-          paddingBottom: '4rem',
+          padding: '6rem 2rem 4rem',
         }}
       >
         {/* Diagonal background — ground layer */}
@@ -315,12 +314,13 @@ export default function HeroNew() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              textShadow: '0 2px 20px rgba(0,0,0,0.3)',
             }}
           >
-            <span style={{ color: 'var(--sienna)', fontStyle: 'italic' }}>
+            <span style={{ color: '#F4EFE5', fontStyle: 'italic' }}>
               <SplitChars text="CRAFTED," className="hero-text-left" />
             </span>
-            <span style={{ color: 'var(--ink)' }}>
+            <span style={{ color: '#F4EFE5' }}>
               <SplitChars text="NOT CREATED." className="hero-text-right" />
             </span>
           </h1>

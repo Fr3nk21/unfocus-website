@@ -98,32 +98,37 @@ export default function PhotoGallery() {
         const cfg = LAYER_CONFIG[layerIndex];
         const path = getNextImage();
 
-        const texture = loader.load(path);
-        const mat = new THREE.SpriteMaterial({
-          map: texture,
-          transparent: true,
-          opacity: cfg.opacity,
-        });
+        const sizeVar = 0.85 + Math.random() * 0.3;
+        const baseW = MAX_WIDTH * cfg.scale * sizeVar;
+        const spacing = baseW * (0.4 + Math.random() * 0.4);
+
+        const mat = new THREE.SpriteMaterial({ transparent: true, opacity: cfg.opacity });
         const sprite = new THREE.Sprite(mat);
 
-        const sizeVar = 0.85 + Math.random() * 0.3;
-        const spriteW = MAX_WIDTH * cfg.scale * sizeVar;
-        const spriteH = MAX_HEIGHT * cfg.scale * sizeVar;
-        const spacing = spriteW * (0.4 + Math.random() * 0.4);
-
-        sprite.scale.set(spriteW, spriteH, 1);
+        sprite.scale.set(baseW, baseW, 1);
         sprite.position.set(
-          startX + spriteW / 2 + spacing,
-          spriteH / 2 + Math.random() * (h - spriteH),
+          startX + baseW / 2 + spacing,
+          baseW / 2 + Math.random() * (h - baseW),
           -layerIndex * 50
         );
         sprite.userData = {
           speed: cfg.speed * (0.45 + Math.random() * 0.7),
-          width: spriteW,
-          height: spriteH,
+          width: baseW,
+          height: baseW,
           seed: Math.random() * 1000,
           baseY: sprite.position.y,
         };
+
+        loader.load(path, (tex) => {
+          mat.map = tex;
+          mat.needsUpdate = true;
+          const ratio = tex.image.width / tex.image.height;
+          const spriteW = baseW;
+          const spriteH = baseW / ratio;
+          sprite.scale.set(spriteW, spriteH, 1);
+          sprite.userData.width = spriteW;
+          sprite.userData.height = spriteH;
+        });
 
         layers[layerIndex].push(sprite);
         scene.add(sprite);
@@ -257,7 +262,7 @@ export default function PhotoGallery() {
     <section
       style={{
         position: 'relative',
-        backgroundColor: 'var(--charcoal)',
+        backgroundColor: '#1E1B14',
         overflow: 'hidden',
       }}
     >

@@ -63,18 +63,18 @@ export default function CookieBanner() {
             left: '2rem',
             maxWidth: '480px',
             zIndex: 9997,
-            backgroundColor: 'var(--charcoal)',
-            border: '1px solid rgba(244,239,229,0.08)',
+            backgroundColor: '#1E1B14',
+            border: '1px solid rgba(244,239,229,0.1)',
             borderRadius: '12px',
             padding: '1.5rem',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            boxShadow: '0 10px 50px rgba(0,0,0,0.5)',
             animation: 'cookieSlideUp 0.5s ease',
           }}
         >
           <p
             style={{
               fontSize: '0.85rem',
-              color: 'var(--ivory)',
+              color: '#F0EBE1',
               fontWeight: 400,
               lineHeight: 1.6,
               margin: '0 0 0.35rem',
@@ -85,7 +85,7 @@ export default function CookieBanner() {
           <p
             style={{
               fontSize: '0.78rem',
-              color: 'rgba(244,239,229,0.6)',
+              color: 'rgba(240,235,225,0.6)',
               fontWeight: 300,
               lineHeight: 1.6,
               margin: '0 0 1.25rem',
@@ -177,7 +177,7 @@ export default function CookieBanner() {
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              backgroundColor: 'var(--charcoal)',
+              backgroundColor: '#1E1B14',
               borderRadius: '12px',
               maxWidth: '640px',
               width: '100%',
