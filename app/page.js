@@ -3,6 +3,7 @@ import HeroNew from './components/HeroNew';
 import Stats from './components/Stats';
 import Services from './components/Services';
 import About from './components/About';
+import PhotoGallery from './components/PhotoGallery';
 import Testimonial from './components/Testimonial';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
@@ -18,6 +19,7 @@ export default function Page() {
         <Stats />
         <Services />
         <About />
+        <PhotoGallery />
         <Testimonial />
         <Partners />
         <Contact />
