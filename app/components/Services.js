@@ -1,168 +1,155 @@
 'use client';
 
-import RevealWrapper from './RevealWrapper';
-import { scrollToContactWithService } from '../lib/contactUtils';
+import { useEffect, useRef } from 'react';
 
 const services = [
-  { index: '01', title: 'Social Media Video',     description: 'Short-form content for Instagram, TikTok, and YouTube Shorts.',      prefill: 'Social Media Video' },
-  { index: '02', title: 'Hospitality & Food',     description: 'Atmosphere and flavour in cinematic light.',                         prefill: 'Hospitality & Food' },
-  { index: '03', title: 'Corporate Video',         description: 'Brand films, testimonials, internal comms.',                        prefill: 'Corporate Video' },
-  { index: '04', title: 'Event Coverage',          description: 'Launches, activations, and milestones. Preserved beautifully.',     prefill: 'Event Coverage' },
-  { index: '05', title: 'Legacy Video',            description: 'Family stories and important moments. For generations.',            prefill: 'Legacy Video' },
-  { index: '06', title: 'Commercial Photography',  description: 'Stills for menus, campaigns, and social.',                         prefill: 'Commercial Photography' },
+  'social media videos.',
+  'hospitality content.',
+  'corporate films.',
+  'event coverage.',
+  'legacy videos.',
+  'commercial photography.',
 ];
 
 export default function Services() {
-  return (
-    <section
-      id="services"
-      style={{
-        backgroundColor: 'var(--ivory)',
-        padding: '9rem 2rem',
-        borderTop: '1px solid var(--parchment)',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-        }}
-      >
-        {/* Intro */}
-        <RevealWrapper
-          style={{
-            maxWidth: '600px',
-            marginBottom: '4rem',
-          }}
-        >
-          <p
-            style={{
-              fontSize: '0.7rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: 'var(--taupe)',
-              marginBottom: '1rem',
-              fontWeight: 400,
-            }}
-          >
-            What I do
-          </p>
-          <h2
-            style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-              lineHeight: 1.15,
-              fontWeight: 700,
-              color: 'var(--ink)',
-              marginBottom: '1.25rem',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Six ways I can help.
-          </h2>
-          <p
-            style={{
-              fontSize: '1rem',
-              lineHeight: 1.72,
-              color: 'var(--charcoal)',
-              fontWeight: 300,
-              maxWidth: '480px',
-            }}
-          >
-            Every project receives the same level of craft and intention.
-          </p>
-        </RevealWrapper>
+  const scrollRef = useRef(null);
 
-        {/* Service rows */}
-        <div>
-          {services.map((service, i) => (
-            <RevealWrapper key={service.index} delay={i * 0.08}>
-              <article
-                className="service-line"
-                role="button"
-                tabIndex={0}
-                onClick={() => scrollToContactWithService(service.prefill)}
-                onKeyDown={(e) => e.key === 'Enter' && scrollToContactWithService(service.prefill)}
-                aria-label={`Enquire about ${service.title}`}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '3rem 1fr auto auto',
-                  alignItems: 'center',
-                  gap: '2rem',
-                  padding: '1.5rem 0',
-                  borderTop: '1px solid var(--parchment)',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => {
-                  const title = e.currentTarget.querySelector('[data-title]');
-                  const arrow = e.currentTarget.querySelector('[data-arrow]');
-                  if (title) title.style.color = 'var(--sienna)';
-                  if (arrow) arrow.style.transform = 'translateY(6px)';
-                }}
-                onMouseLeave={(e) => {
-                  const title = e.currentTarget.querySelector('[data-title]');
-                  const arrow = e.currentTarget.querySelector('[data-arrow]');
-                  if (title) title.style.color = 'var(--ink)';
-                  if (arrow) arrow.style.transform = 'translateY(0)';
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--taupe)',
-                    fontWeight: 300,
-                    letterSpacing: '0.06em',
-                    fontFamily: 'var(--font-playfair), Georgia, serif',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  {service.index}
-                </span>
-                <div>
-                  <h3
-                    data-title
-                    style={{
-                      fontFamily: 'var(--font-playfair), Georgia, serif',
-                      fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
-                      fontWeight: 500,
-                      color: 'var(--ink)',
-                      marginBottom: '0.25rem',
-                      transition: 'color 0.3s ease',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {service.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: '0.875rem',
-                      color: 'var(--taupe)',
-                      fontWeight: 300,
-                      lineHeight: 1.5,
-                      margin: 0,
-                    }}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-                <span
-                  data-arrow
-                  style={{
-                    color: 'var(--sienna)',
-                    fontSize: '1.125rem',
-                    transition: 'transform 0.3s ease',
-                    display: 'inline-block',
-                  }}
-                >
-                  ↓
-                </span>
-              </article>
-            </RevealWrapper>
-          ))}
-          {/* Last border */}
-          <div style={{ borderTop: '1px solid var(--parchment)' }} />
+  useEffect(() => {
+    const root = scrollRef.current;
+    if (!root) return;
+
+    const list = root.querySelector('ul');
+    const items = [...list.children];
+    list.style.setProperty('--count', items.length);
+    items.forEach((item, i) => item.style.setProperty('--i', i));
+
+    requestAnimationFrame(() => {
+      const target = items[2]; // start on "corporate films"
+      if (target) {
+        const offset =
+          target.offsetTop - root.clientHeight / 2 + target.clientHeight / 2;
+        root.scrollTop = offset;
+      }
+    });
+  }, []);
+
+  return (
+    <section id="services" className="word-scroll-section">
+      <div
+        ref={scrollRef}
+        className="word-scroll"
+        data-snap="true"
+        data-animate="true"
+      >
+        <div className="word-scroll-inner">
+          <h2 className="word-scroll-heading">
+            <span aria-hidden="true">I&nbsp;create&nbsp;</span>
+            <span className="sr-only">
+              I create social media videos, hospitality content, corporate films,
+              event coverage, legacy videos, and commercial photography.
+            </span>
+          </h2>
+          <ul>
+            {services.map((service, i) => (
+              <li key={i} style={{ '--i': i }}>
+                {service}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
+
+      <style>{`
+        .word-scroll-section {
+          background: var(--cream);
+          position: relative;
+        }
+
+        .word-scroll {
+          width: 100%;
+          height: 100vh;
+          overflow-y: auto;
+          scroll-snap-type: y proximity;
+        }
+
+        .word-scroll-inner {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          line-height: 1.25;
+          font-family: var(--font-playfair), Georgia, serif;
+          font-size: clamp(2rem, 6vw, 4.5rem);
+        }
+
+        .word-scroll-heading {
+          position: sticky;
+          top: calc(50vh - 0.5lh);
+          margin: 0;
+          font-size: inherit;
+          font-weight: 500;
+          height: fit-content;
+          color: var(--ink);
+          white-space: nowrap;
+        }
+
+        .word-scroll ul {
+          font-weight: 500;
+          list-style: none;
+          margin: 0;
+          padding-block: calc(50vh - 0.5lh);
+          padding-left: 0;
+          --step: calc(360 / var(--count, 6));
+        }
+
+        .word-scroll[data-snap="true"] li {
+          scroll-snap-align: center;
+        }
+
+        .word-scroll li {
+          color: var(--sienna);
+          opacity: 0.2;
+          transition: opacity 0.3s ease;
+          cursor: default;
+          padding: 0.1em 0;
+        }
+
+        @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
+          .word-scroll[data-animate="true"] li {
+            animation-name: brighten;
+            animation-fill-mode: both;
+            animation-timing-function: linear;
+            animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
+            animation-timeline: view();
+          }
+
+          @keyframes brighten {
+            0%   { opacity: 0.15; }
+            50%  { opacity: 1; filter: brightness(1.1); }
+            100% { opacity: 0.15; }
+          }
+        }
+
+        @supports not (animation-timeline: scroll()) {
+          .word-scroll li {
+            opacity: 0.6;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .word-scroll-inner {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+          }
+          .word-scroll-heading {
+            position: relative;
+            top: auto;
+            padding-top: 2rem;
+            white-space: normal;
+          }
+        }
+      `}</style>
     </section>
   );
 }
