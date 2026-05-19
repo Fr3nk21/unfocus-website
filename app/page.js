@@ -9,6 +9,7 @@ import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import CookieBanner from './components/CookieBanner';
 
 export default function Page() {
   return (
@@ -26,6 +27,7 @@ export default function Page() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <CookieBanner />
     </>
   );
 }

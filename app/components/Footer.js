@@ -88,6 +88,22 @@ export default function Footer() {
       >
         © 2026 Francesco Bugugnoli. All rights reserved.
       </p>
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent('show-privacy'))}
+        style={{
+          background: 'none',
+          border: 'none',
+          color: 'rgba(244,239,229,0.3)',
+          fontSize: '0.7rem',
+          cursor: 'pointer',
+          textDecoration: 'underline',
+          marginTop: '0.5rem',
+          display: 'block',
+          marginInline: 'auto',
+        }}
+      >
+        Privacy Policy
+      </button>
     </footer>
   );
 }
