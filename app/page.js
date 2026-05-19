@@ -1,5 +1,5 @@
 import Nav from './components/Nav';
-import HeroPortfolio from './components/HeroPortfolio';
+import HeroNew from './components/HeroNew';
 import Stats from './components/Stats';
 import Services from './components/Services';
 import About from './components/About';
@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Nav />
       <main>
-        <HeroPortfolio />
+        <HeroNew />
         <Stats />
         <Services />
         <About />
