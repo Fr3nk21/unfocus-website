@@ -10,6 +10,7 @@ export default function WhatsAppButton() {
         aria-label="Chat on WhatsApp"
         className="wa-btn"
       >
+        <span className="wa-orbit-track" aria-hidden="true" />
         <svg
           width="18"
           height="18"
@@ -40,31 +41,37 @@ export default function WhatsAppButton() {
           padding: 0.75rem 1.25rem;
           border-radius: 50px;
           text-decoration: none;
-          overflow: hidden;
           transition: transform 0.2s ease;
-        }
-        .wa-btn::before {
-          content: '';
-          position: absolute;
-          width: 200%;
-          height: 200%;
-          top: -50%;
-          left: -50%;
-          background: conic-gradient(from 0deg, transparent 0deg, transparent 340deg, #4ADE80 350deg, rgba(74,222,128,0.8) 355deg, #4ADE80 360deg);
-          animation: cometSpin 3s linear infinite;
-          border-radius: 50%;
-          z-index: 0;
-        }
-        .wa-btn::after {
-          content: '';
-          position: absolute;
-          inset: 1.5px;
-          background-color: #1E1B14;
-          border-radius: 50px;
-          z-index: 0;
         }
         .wa-btn:hover {
           transform: translateY(-2px);
+        }
+        .wa-orbit-track {
+          position: absolute;
+          inset: 0;
+          border-radius: 50px;
+          pointer-events: none;
+        }
+        .wa-orbit-track::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 50px;
+          padding: 2px;
+          background: conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            transparent 300deg,
+            rgba(74,222,128,0.1) 320deg,
+            rgba(74,222,128,0.3) 340deg,
+            #4ADE80 355deg,
+            rgba(74,222,128,0.3) 358deg,
+            transparent 360deg
+          );
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: cometSpin 4s linear infinite;
         }
         .wa-icon {
           position: relative;
