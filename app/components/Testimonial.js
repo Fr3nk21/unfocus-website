@@ -95,8 +95,8 @@ export default function Testimonial() {
             color: 'var(--ink)',
             lineHeight: 1.7,
             fontStyle: 'italic',
-            marginBottom: '2rem',
-            minHeight: '120px',
+            marginBottom: '1rem',
+            minHeight: '80px',
             transition: 'opacity 0.4s ease',
           }}
         >

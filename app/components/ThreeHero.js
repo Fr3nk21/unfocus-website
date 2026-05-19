@@ -40,7 +40,7 @@ export default function ThreeHero() {
 
     const CONN_DIST       = 180;
     const CONN_DIST_SQ    = CONN_DIST * CONN_DIST;
-    const MOUSE_ATTR_DIST = 180;
+    const MOUSE_ATTR_DIST = 250;
     const MOUSE_ATTR_SQ   = MOUSE_ATTR_DIST * MOUSE_ATTR_DIST;
     const MOUSE_LINE_DIST = 140;
     const MOUSE_LINE_SQ   = MOUSE_LINE_DIST * MOUSE_LINE_DIST;
@@ -72,8 +72,8 @@ export default function ThreeHero() {
         if (mDistSq < MOUSE_ATTR_SQ && mDistSq > 100) {
           const mDist = Math.sqrt(mDistSq);
           const force = (1 - mDist / MOUSE_ATTR_DIST) * 0.2;
-          p.vx += mdx * force * 0.001;
-          p.vy += mdy * force * 0.001;
+          p.vx += mdx * force * 0.002;
+          p.vy += mdy * force * 0.002;
         }
 
         p.vx *= 0.95;

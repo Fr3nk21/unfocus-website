@@ -70,7 +70,7 @@ export default function Stats() {
       className="stats-section"
       style={{
         backgroundColor: 'var(--stats-bg)',
-        padding: '7rem 2rem',
+        padding: '3.5rem 2rem',
       }}
     >
       <div

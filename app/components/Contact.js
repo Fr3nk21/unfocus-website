@@ -62,7 +62,7 @@ export default function Contact() {
       className="contact-section"
       style={{
         backgroundColor: 'var(--charcoal)',
-        padding: '9rem 2rem',
+        padding: '5rem 2rem',
       }}
     >
       <RevealWrapper>
@@ -321,7 +321,7 @@ export default function Contact() {
                 width: '100%',
                 padding: '1rem 2rem',
                 backgroundColor: status === 'sent' ? '#3a6a3a' : 'var(--sienna)',
-                color: '#F4EFE5',
+                color: 'var(--ivory)',
                 border: 'none',
                 fontSize: '0.8rem',
                 fontFamily: 'var(--font-body)',

@@ -34,7 +34,9 @@ export default function WhatsAppButton() {
           display: flex;
           align-items: center;
           gap: 0.6rem;
-          background-color: var(--charcoal);
+          background-color: #1E1B14;
+          color: #F0EBE1;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.3);
           padding: 0.75rem 1.25rem;
           border-radius: 50px;
           text-decoration: none;
@@ -57,7 +59,7 @@ export default function WhatsAppButton() {
           content: '';
           position: absolute;
           inset: 1.5px;
-          background-color: var(--charcoal);
+          background-color: #1E1B14;
           border-radius: 50px;
           z-index: 0;
         }

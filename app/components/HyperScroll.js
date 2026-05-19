@@ -135,6 +135,7 @@ export default function HyperScroll() {
   const canvasWrapRef = useRef(null);
   const noiseRef = useRef(null);
   const vignetteRef = useRef(null);
+  const gradientRef = useRef(null);
   const scrollProxyRef = useRef(null);
   const stateRef = useRef({ scroll: 0, velocity: 0, targetSpeed: 0, mouseX: 0, mouseY: 0 });
 
@@ -265,6 +266,7 @@ export default function HyperScroll() {
       num.textContent = String(i + 1).padStart(2, '0');
       card.appendChild(num);
 
+      card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
       card.dataset.index = i;
       card.addEventListener('click', (e) => {
         const idx = parseInt(e.currentTarget.dataset.index);
@@ -331,18 +333,26 @@ export default function HyperScroll() {
         state.targetSpeed = velocity;
         setShowHero(scroll < 300);
 
+        // Gradually fade canvas starting at 80% of maxScroll
+        const canvasOpacity = Math.max(0, 0.7 - Math.max(0, (scroll - maxScroll * 0.8) / (maxScroll * 0.3)) * 0.7);
+        if (canvasWrapRef.current) canvasWrapRef.current.style.opacity = canvasOpacity;
+
+        // Update bottom gradient fade
+        const scrollProgress = scroll / maxScroll;
+        if (gradientRef.current) {
+          gradientRef.current.style.opacity = scrollProgress > 0.85 ? Math.min(1, (scrollProgress - 0.85) * 6.67) : 0;
+        }
+
         if (scroll > maxScroll && !sceneDone) {
           sceneDone = true;
           viewport.style.opacity = '0';
           viewport.style.pointerEvents = 'none';
-          if (canvasWrapRef.current) canvasWrapRef.current.style.opacity = '0';
           if (noiseRef.current) noiseRef.current.style.opacity = '0';
           if (vignetteRef.current) vignetteRef.current.style.opacity = '0';
         } else if (scroll <= maxScroll && sceneDone) {
           sceneDone = false;
           viewport.style.opacity = '1';
           viewport.style.pointerEvents = 'auto';
-          if (canvasWrapRef.current) canvasWrapRef.current.style.opacity = '0.7';
           if (noiseRef.current) noiseRef.current.style.opacity = '0.04';
           if (vignetteRef.current) vignetteRef.current.style.opacity = '1';
         }
@@ -369,9 +379,10 @@ export default function HyperScroll() {
 
             let alpha = 1;
             if (state.scroll < 100 && item.type !== 'star') alpha = 0;
-            else if (vizZ < -5000) alpha = 0;
-            else if (vizZ < -3000) alpha = (vizZ + 5000) / 2000;
-            if (vizZ > 200 && item.type !== 'star') alpha = 1 - (vizZ - 200) / 600;
+            else if (vizZ < -4000) alpha = 0;
+            else if (vizZ < -2500) alpha = Math.pow((vizZ + 4000) / 1500, 2);
+            else if (vizZ > 200) alpha = Math.max(0, 1 - (vizZ - 200) / 800);
+            else alpha = 1;
             if (alpha < 0) alpha = 0;
 
             item.el.style.opacity = alpha;
@@ -549,6 +560,22 @@ export default function HyperScroll() {
             }}
           />
         </div>
+
+        {/* Bottom gradient — fades in near end of HyperScroll section */}
+        <div
+          ref={gradientRef}
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '200px',
+            background: 'linear-gradient(to bottom, transparent, var(--cream))',
+            zIndex: 15,
+            pointerEvents: 'none',
+            opacity: 0,
+          }}
+        />
 
         {/* Scroll proxy — height set dynamically in useEffect */}
         <div ref={scrollProxyRef} style={{ height: '8000vh', position: 'relative', zIndex: -1 }} />
