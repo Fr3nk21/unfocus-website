@@ -86,7 +86,7 @@ export default function Nav() {
           className="hidden-mobile"
         >
           {[
-            { label: 'Work', href: '#portfolio' },
+            { label: 'Work', href: '#hero' },
             { label: 'About', href: '#about' },
             { label: 'Services', href: '#services' },
             { label: 'Contact', href: '#contact' },
@@ -197,7 +197,7 @@ export default function Nav() {
           }}
         >
           {[
-            { label: 'Work', href: '#portfolio' },
+            { label: 'Work', href: '#hero' },
             { label: 'About', href: '#about' },
             { label: 'Services', href: '#services' },
             { label: 'Contact', href: '#contact' },
