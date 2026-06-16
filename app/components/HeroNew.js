@@ -158,7 +158,7 @@ export default function HeroNew() {
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
 
-  const CARD_W = 'clamp(220px, 22vw, 300px)';
+  const CARD_W = 'clamp(300px, 32vw, 460px)';
 
   return (
     <>
@@ -261,6 +261,7 @@ export default function HeroNew() {
                   fontWeight: 400,
                   cursor: 'pointer',
                   border: 'none',
+                  borderRadius: '6px',
                   display: 'inline-block',
                   transition: 'opacity 0.2s ease, transform 0.2s ease',
                 }}
@@ -305,13 +306,13 @@ export default function HeroNew() {
                 const half = portfolioItems.length / 2;
                 if (offset > half) offset -= portfolioItems.length;
                 if (offset < -half) offset += portfolioItems.length;
-                const isVisible = Math.abs(offset) <= 2;
+                const isVisible = Math.abs(offset) <= 1;
 
                 return (
                   <motion.div
                     key={item.id}
                     animate={{
-                      y: `${offset * 18}%`,
+                      y: `${offset * 22}%`,
                       z: -Math.abs(offset) * 150,
                       rotateX: offset * 8,
                       scale: offset === 0 ? 1 : 0.82,
@@ -327,10 +328,10 @@ export default function HeroNew() {
                       top: '50%',
                       left: '50%',
                       width: CARD_W,
-                      aspectRatio: '3/4',
+                      aspectRatio: '16/9',
                       marginLeft: `calc(-1 * (${CARD_W}) / 2)`,
-                      marginTop: `calc(-1 * (${CARD_W}) * 4 / 3 / 2)`,
-                      borderRadius: '10px',
+                      marginTop: `calc(-1 * (${CARD_W}) * 9 / 16 / 2)`,
+                      borderRadius: '12px',
                       overflow: 'hidden',
                       cursor: 'pointer',
                       zIndex: 10 - Math.abs(offset),

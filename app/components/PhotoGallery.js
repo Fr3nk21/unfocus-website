@@ -36,13 +36,12 @@ const THUMB_PATHS = [
 
 const ALL_IMAGES = [...PHOTO_PATHS, ...THUMB_PATHS];
 
-const DEPTH_LAYERS = 4;
+const DEPTH_LAYERS = 3;
 
 const LAYER_CONFIG = [
   { scale: 1.3, speed: 60, opacity: 1.0 },
   { scale: 1.0, speed: 45, opacity: 1.0 },
   { scale: 0.75, speed: 30, opacity: 1.0 },
-  { scale: 0.55, speed: 18, opacity: 1.0 },
 ];
 
 export default function PhotoGallery() {
@@ -141,7 +140,7 @@ export default function PhotoGallery() {
         const sprite = new THREE.Sprite(mat);
         sprite.scale.set(spriteW, spriteH, 1);
 
-        const spacing = spriteW * (0.4 + Math.random() * 0.3);
+        const spacing = spriteW * (0.8 + Math.random() * 0.5);
         sprite.position.set(
           startX + spriteW / 2 + spacing,
           spriteH / 2 + Math.random() * Math.max(1, h - spriteH),
@@ -250,7 +249,7 @@ export default function PhotoGallery() {
         ref={containerRef}
         style={{
           width: '100%',
-          height: '60vh',
+          height: '50vh',
           cursor: 'default',
           pointerEvents: 'none',
         }}

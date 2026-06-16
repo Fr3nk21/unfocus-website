@@ -151,6 +151,7 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
             maxHeight: '85vh',
             objectFit: 'contain',
             display: 'block',
+            borderRadius: '8px',
           }}
         />
       </div>

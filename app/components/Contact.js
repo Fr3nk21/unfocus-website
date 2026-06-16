@@ -323,6 +323,7 @@ export default function Contact() {
                 backgroundColor: status === 'sent' ? '#3a6a3a' : 'var(--sienna)',
                 color: 'var(--ivory)',
                 border: 'none',
+                borderRadius: '6px',
                 fontSize: '0.8rem',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,

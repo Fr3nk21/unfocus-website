@@ -1,14 +1,15 @@
-import { Playfair_Display, DM_Sans, IM_Fell_English } from 'next/font/google';
+import { Fraunces, DM_Sans, IM_Fell_English } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from './components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-const playfair = Playfair_Display({
+const fraunces = Fraunces({
   variable: '--font-playfair',
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
+  display: 'swap',
 });
 
 const dmSans = DM_Sans({
@@ -94,7 +95,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${imFell.variable}`}
+      className={`${fraunces.variable} ${dmSans.variable} ${imFell.variable}`}
       suppressHydrationWarning
     >
       <head>
