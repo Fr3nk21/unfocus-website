@@ -185,13 +185,13 @@ export default function HeroNew() {
           style={{
             position: 'relative',
             zIndex: 2,
-            maxWidth: '1280px',
+            maxWidth: '1440px',
             margin: '0 auto',
             padding: '0 2rem',
             width: '100%',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '3rem',
+            gap: '2rem',
             alignItems: 'center',
           }}
         >

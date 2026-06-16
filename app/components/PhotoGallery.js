@@ -245,40 +245,6 @@ export default function PhotoGallery() {
         overflow: 'hidden',
       }}
     >
-      {/* Header */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '2rem',
-          left: '2rem',
-          zIndex: 10,
-          pointerEvents: 'none',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '0.7rem',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'rgba(244,239,229,0.4)',
-            marginBottom: '0.5rem',
-          }}
-        >
-          Gallery
-        </p>
-        <h2
-          style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-            fontWeight: 700,
-            color: 'var(--ivory)',
-            margin: 0,
-          }}
-        >
-          Through the lens
-        </h2>
-      </div>
-
       {/* Canvas container */}
       <div
         ref={containerRef}

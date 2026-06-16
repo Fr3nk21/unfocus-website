@@ -17,82 +17,88 @@ export default function Services() {
   return (
     <section id="services" style={{
       backgroundColor: 'var(--cream)',
-      padding: '5rem 2rem',
+      padding: '5rem 0',
+      overflow: 'hidden',
     }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '3rem' }}>
-          <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
-          <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)' }}>What I create</h2>
+      {/* Header — contained */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem', marginBottom: '3rem' }}>
+        <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
+        <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)' }}>What I create</h2>
+      </div>
+
+      {/* Two columns — right one is full bleed */}
+      <div className="services-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '3rem',
+        alignItems: 'center',
+        maxWidth: '1440px',
+        margin: '0 auto',
+        paddingLeft: '2rem',
+      }}>
+        {/* Left: compact service list */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {services.map((service, i) => (
+            <div
+              key={i}
+              onMouseEnter={() => setActiveIndex(i)}
+              style={{
+                padding: '1rem 0',
+                borderBottom: '1px solid var(--parchment)',
+                cursor: 'default',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+              }}
+            >
+              <span style={{
+                fontSize: '0.8rem',
+                color: activeIndex === i ? 'var(--sienna)' : 'var(--taupe)',
+                fontWeight: 400,
+                fontVariantNumeric: 'tabular-nums',
+                transition: 'color 0.3s ease',
+              }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span style={{
+                fontFamily: 'var(--font-playfair), Georgia, serif',
+                fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                fontWeight: 500,
+                color: activeIndex === i ? 'var(--ink)' : 'var(--taupe)',
+                opacity: activeIndex === i ? 1 : 0.5,
+                transition: 'color 0.3s ease, opacity 0.3s ease',
+              }}>
+                {service.word}
+              </span>
+            </div>
+          ))}
         </div>
 
-        <div className="services-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '3rem',
-          alignItems: 'center',
+        {/* Right: full-bleed image that changes with active service */}
+        <div style={{
+          position: 'relative',
+          aspectRatio: '4/3',
+          height: '60vh',
+          overflow: 'hidden',
+          borderTopLeftRadius: '8px',
+          borderBottomLeftRadius: '8px',
         }}>
-          {/* Left: compact service list */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {services.map((service, i) => (
-              <div
-                key={i}
-                onMouseEnter={() => setActiveIndex(i)}
-                style={{
-                  padding: '1rem 0',
-                  borderBottom: '1px solid var(--parchment)',
-                  cursor: 'default',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                }}
-              >
-                <span style={{
-                  fontSize: '0.8rem',
-                  color: activeIndex === i ? 'var(--sienna)' : 'var(--taupe)',
-                  fontWeight: 400,
-                  fontVariantNumeric: 'tabular-nums',
-                  transition: 'color 0.3s ease',
-                }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span style={{
-                  fontFamily: 'var(--font-playfair), Georgia, serif',
-                  fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-                  fontWeight: 500,
-                  color: activeIndex === i ? 'var(--ink)' : 'var(--taupe)',
-                  opacity: activeIndex === i ? 1 : 0.5,
-                  transition: 'color 0.3s ease, opacity 0.3s ease',
-                }}>
-                  {service.word}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Right: image that changes with active service */}
-          <div style={{
-            position: 'relative',
-            aspectRatio: '4/3',
-            borderRadius: '8px',
-            overflow: 'hidden',
-          }}>
-            {services.map((service, i) => (
-              <img
-                key={i}
-                src={service.image}
-                alt={service.word}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: activeIndex === i ? 1 : 0,
-                  transition: 'opacity 0.5s ease',
-                }}
-              />
-            ))}
-          </div>
+          {services.map((service, i) => (
+            <img
+              key={i}
+              src={service.image}
+              alt={service.word}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: activeIndex === i ? 1 : 0,
+                transition: 'opacity 0.5s ease',
+              }}
+            />
+          ))}
         </div>
       </div>
 
@@ -100,9 +106,13 @@ export default function Services() {
         @media (max-width: 768px) {
           .services-grid {
             grid-template-columns: 1fr !important;
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
           }
           .services-grid > div:last-child {
             order: -1;
+            height: 40vh !important;
+            border-radius: 8px !important;
             margin-bottom: 1.5rem;
           }
         }
