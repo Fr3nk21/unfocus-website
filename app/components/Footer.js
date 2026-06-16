@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: 'var(--charcoal)',
+        backgroundColor: '#1E1B14',
         borderTop: '1px solid rgba(244,239,229,0.1)',
         padding: '3.5rem 2rem 2rem',
         textAlign: 'center',
@@ -14,7 +14,7 @@ export default function Footer() {
         style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
           fontSize: '1.125rem',
-          color: 'var(--ivory)',
+          color: '#F4EFE5',
           fontWeight: 500,
           marginBottom: '1.25rem',
           letterSpacing: '-0.01em',
@@ -68,7 +68,7 @@ export default function Footer() {
         <span
           style={{
             fontSize: '0.8rem',
-            color: 'rgba(244,239,229,0.4)',
+            color: 'rgba(244,239,229,0.5)',
             fontWeight: 300,
           }}
         >
@@ -79,9 +79,8 @@ export default function Footer() {
       <p
         style={{
           fontSize: '0.75rem',
-          color: 'var(--taupe)',
+          color: 'rgba(244,239,229,0.3)',
           fontWeight: 300,
-          opacity: 0.6,
           borderTop: '1px solid rgba(244,239,229,0.06)',
           paddingTop: '1.25rem',
         }}

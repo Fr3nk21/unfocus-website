@@ -128,8 +128,8 @@ export default function HeroNew() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activePhoto, setActivePhoto] = useState(null);
 
-  const toPrev = () => setActiveIndex((p) => Math.max(0, p - 1));
-  const toNext = () => setActiveIndex((p) => Math.min(portfolioItems.length - 1, p + 1));
+  const toPrev = () => setActiveIndex((p) => (p - 1 + portfolioItems.length) % portfolioItems.length);
+  const toNext = () => setActiveIndex((p) => (p + 1) % portfolioItems.length);
   const toSlide = (i) => setActiveIndex(i);
 
   function handleProjectClick(item) {
@@ -142,7 +142,7 @@ export default function HeroNew() {
     }
   }
 
-  const CARD_W = 'clamp(200px, 24vw, 340px)';
+  const CARD_W = 'clamp(220px, 28vw, 340px)';
 
   return (
     <>
@@ -237,22 +237,27 @@ export default function HeroNew() {
             <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <a
                 href="#contact"
-                className="btn-primary"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
+                  backgroundColor: 'var(--sienna)',
+                  color: '#F4EFE5',
                   padding: '0.85rem 2rem',
                   fontSize: '0.8rem',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  fontWeight: 400,
-                  border: 'none',
-                  cursor: 'pointer',
-                  backgroundColor: 'var(--sienna)',
-                  color: 'var(--ivory)',
-                  borderRadius: '0px',
                   textDecoration: 'none',
+                  fontWeight: 400,
+                  cursor: 'pointer',
+                  border: 'none',
+                  display: 'inline-block',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = '0.88';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = '1';
+                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 Get in touch
@@ -342,54 +347,55 @@ export default function HeroNew() {
           </h2>
         </div>
 
-        {/* Track — centered on active card */}
+        {/* Track — infinite circular carousel, active card centered */}
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            gap: '1rem',
+            position: 'relative',
+            width: '100%',
+            height: CARD_W,
+            perspective: '1200px',
             padding: '1rem 0 0.5rem',
           }}
         >
           {portfolioItems.map((item, i) => {
-            const isActive = activeIndex === i;
-            const offset = i - activeIndex;
+            // Shortest circular distance from active
+            let offset = i - activeIndex;
+            const half = portfolioItems.length / 2;
+            if (offset > half) offset -= portfolioItems.length;
+            if (offset < -half) offset += portfolioItems.length;
+
+            const isActive = offset === 0;
+            const isVisible = Math.abs(offset) <= 3;
 
             return (
               <motion.div
                 key={item.id}
-                style={{ perspective: '800px', flexShrink: 0 }}
-                animate={{ opacity: Math.abs(offset) > 3 ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: 0,
+                  width: CARD_W,
+                  aspectRatio: '1/1',
+                  marginLeft: `calc(-1 * (${CARD_W}) / 2)`,
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  cursor: isActive && !(item.youtubeId || item.images) ? 'default' : 'pointer',
+                  willChange: 'transform',
+                }}
+                animate={{
+                  x: `${offset * 105}%`,
+                  rotateY: offset * -25,
+                  scale: isActive ? 1 : 0.8,
+                  opacity: isVisible ? (isActive ? 1 : 0.5) : 0,
+                  zIndex: 10 - Math.abs(offset),
+                }}
+                transition={{ type: 'spring', bounce: 0.15, duration: 0.6 }}
+                onClick={() => {
+                  if (isActive) handleProjectClick(item);
+                  else toSlide(i);
+                }}
               >
-                <motion.div
-                  style={{
-                    width: CARD_W,
-                    aspectRatio: '2/3',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    cursor:
-                      isActive && (item.youtubeId || item.images)
-                        ? 'pointer'
-                        : offset !== 0
-                        ? 'pointer'
-                        : 'default',
-                    willChange: 'transform',
-                  }}
-                  animate={{
-                    rotateY: offset * -35,
-                    scale: isActive ? 1 : 0.82,
-                    z: isActive ? 0 : -80,
-                  }}
-                  transition={{ type: 'spring', bounce: 0.1, duration: 0.9 }}
-                  onClick={() => {
-                    if (isActive) handleProjectClick(item);
-                    else toSlide(i);
-                  }}
-                >
-                  {/* Media */}
+                {/* Media */}
                   {item.category === 'Video' && item.video ? (
                     <video
                       autoPlay
@@ -495,7 +501,6 @@ export default function HeroNew() {
                       </p>
                     )}
                   </motion.div>
-                </motion.div>
               </motion.div>
             );
           })}
@@ -511,7 +516,7 @@ export default function HeroNew() {
             marginTop: '1.25rem',
           }}
         >
-          <button onClick={toPrev} disabled={activeIndex === 0} className="carousel-btn">
+          <button onClick={toPrev} className="carousel-btn" aria-label="Previous">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M15 18l-6-6 6-6" />
             </svg>
@@ -534,7 +539,7 @@ export default function HeroNew() {
             ))}
           </div>
 
-          <button onClick={toNext} disabled={activeIndex === portfolioItems.length - 1} className="carousel-btn">
+          <button onClick={toNext} className="carousel-btn" aria-label="Next">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M9 18l6-6-6-6" />
             </svg>
