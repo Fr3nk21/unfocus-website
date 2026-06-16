@@ -174,6 +174,32 @@ export default function Contact() {
               </div>
 
             </address>
+
+            {/* Service area map */}
+            <div style={{ marginTop: '2.5rem' }}>
+              <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.75rem' }}>
+                Based in Richmond · Serving Greater Melbourne
+              </p>
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                height: '280px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                filter: 'grayscale(0.3) contrast(1.05)',
+              }}>
+                <iframe
+                  title="Francesco Bugugnoli service area — Richmond, Melbourne"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d50410.0!2d144.99!3d-37.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sau!4v1700000000000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Right column — form */}

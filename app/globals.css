@@ -9,9 +9,15 @@
   --color-taupe: #6B6158;
   --color-sienna: #8B4513;
 
-  --font-display: var(--font-playfair);
+  --font-display: var(--font-manrope);
   --font-body: var(--font-dmsans);
   --font-italic: var(--font-imfell);
+}
+
+:root {
+  --font-serif:    var(--font-manrope), system-ui, sans-serif;
+  --font-playfair: var(--font-manrope), system-ui, sans-serif;
+  --font-fraunces: var(--font-manrope), system-ui, sans-serif;
 }
 
 :root, .light {

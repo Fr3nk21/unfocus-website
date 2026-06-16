@@ -158,7 +158,7 @@ export default function HeroNew() {
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
 
-  const CARD_W = 'clamp(300px, 32vw, 460px)';
+  const CARD_W = 'clamp(340px, 38vw, 560px)';
 
   return (
     <>
@@ -226,14 +226,14 @@ export default function HeroNew() {
               style={{
                 fontFamily: 'var(--font-playfair), Georgia, serif',
                 fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
-                fontWeight: 700,
+                fontWeight: 800,
                 color: 'var(--ink)',
                 letterSpacing: '-0.03em',
                 lineHeight: 1.05,
                 marginBottom: '1.5rem',
               }}
             >
-              <em style={{ fontStyle: 'italic', color: 'var(--sienna)' }}>Crafted,</em> not created.
+              <span style={{ fontWeight: 800, color: 'var(--sienna)' }}>Crafted,</span> not created.
             </h1>
             <p
               style={{
@@ -360,7 +360,7 @@ export default function HeroNew() {
                         }}
                       >
                         <span style={{ fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--sienna)' }}>{item.category}</span>
-                        <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.1rem', fontWeight: 500, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
+                        <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.1rem', fontWeight: 600, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
                         {item.sub && <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.6)', margin: '0.1rem 0 0' }}>{item.sub}</p>}
                       </div>
                     )}
@@ -370,23 +370,48 @@ export default function HeroNew() {
             </div>
 
             {/* Carousel controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1rem', zIndex: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '1.5rem', zIndex: 20 }}>
               <button
                 onClick={toPrev}
-                aria-label="Previous"
-                style={{ background: 'none', border: '1px solid var(--parchment)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--taupe)' }}
+                aria-label="Previous project"
+                style={{
+                  background: 'var(--sienna)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#F4EFE5',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 15l-6-6-6 6" /></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 15l-6-6-6 6" /></svg>
               </button>
-              <span style={{ fontSize: '0.8rem', color: 'var(--taupe)', fontVariantNumeric: 'tabular-nums' }}>
-                {String(activeIndex + 1).padStart(2, '0')} / {String(portfolioItems.length).padStart(2, '0')}
-              </span>
               <button
                 onClick={toNext}
-                aria-label="Next"
-                style={{ background: 'none', border: '1px solid var(--parchment)', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--taupe)' }}
+                aria-label="Next project"
+                style={{
+                  background: 'var(--sienna)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '44px',
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#F4EFE5',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
               </button>
             </div>
           </div>
