@@ -98,7 +98,7 @@ export default function ThreeHero() {
           const dSq = dx * dx + dy * dy;
           if (dSq < CONN_DIST_SQ) {
             const dist  = Math.sqrt(dSq);
-            const alpha = (1 - dist / CONN_DIST) * 0.15;
+            const alpha = (1 - dist / CONN_DIST) * 0.25;
             ctx.strokeStyle = `rgba(${lineRGB},${alpha})`;
             ctx.beginPath();
             ctx.moveTo(pi.x, pi.y);
@@ -131,7 +131,7 @@ export default function ThreeHero() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${lineRGB},0.25)`;
+        ctx.fillStyle = `rgba(${lineRGB},0.4)`;
         ctx.fill();
       }
     }

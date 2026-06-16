@@ -51,6 +51,7 @@ export default function About() {
                 position: 'relative',
                 zIndex: 1,
                 margin: '0 auto',
+                borderRadius: '12px',
               }}
             />
 

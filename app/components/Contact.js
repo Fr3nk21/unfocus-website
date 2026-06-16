@@ -72,7 +72,7 @@ export default function Contact() {
             margin: '0 auto',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '5rem',
+            gap: '3rem',
             alignItems: 'start',
           }}
           className="contact-grid"

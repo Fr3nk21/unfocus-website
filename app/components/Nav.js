@@ -49,9 +49,10 @@ export default function Nav() {
     >
       <div
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1440px',
           margin: '0 auto',
           padding: '0 2rem',
+          width: '100%',
           height: '72px',
           display: 'flex',
           alignItems: 'center',
@@ -98,7 +99,7 @@ export default function Nav() {
                 <a
                   href={link.href}
                   style={{
-                    color: isActive ? 'var(--ink)' : 'var(--taupe)',
+                    color: isActive ? 'var(--sienna)' : 'var(--taupe)',
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     letterSpacing: '0.04em',

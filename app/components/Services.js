@@ -71,14 +71,15 @@ export default function Services() {
             ))}
           </div>
 
-          {/* Right: contained image that changes with active service */}
+          {/* Right: contained square image that changes with active service */}
           <div style={{
             position: 'relative',
-            aspectRatio: '4/3',
-            maxHeight: '420px',
+            aspectRatio: '1 / 1',
             width: '100%',
+            maxWidth: '480px',
             borderRadius: '12px',
             overflow: 'hidden',
+            justifySelf: 'center',
           }}>
             {services.map((service, i) => (
               <img
