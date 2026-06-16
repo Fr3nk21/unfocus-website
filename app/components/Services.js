@@ -1,137 +1,161 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const services = [
-  'social media videos.',
-  'hospitality content.',
-  'corporate films.',
-  'event coverage.',
-  'legacy videos.',
-  'commercial photography.',
+  { word: 'social media videos.', image: '/videos/pickle-jar-thumb.jpg' },
+  { word: 'hospitality content.', image: '/videos/fratellino-thumb.jpg' },
+  { word: 'corporate films.', image: '/videos/toyota-thumb.jpg' },
+  { word: 'event coverage.', image: '/videos/floridia-night-thumb.jpg' },
+  { word: 'legacy videos.', image: '/videos/liam-thumb.jpg' },
+  { word: 'commercial photography.', image: '/images/portfolio/bar-ussou/01.webp' },
 ];
 
 export default function Services() {
-  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const itemRefs = useRef([]);
 
   useEffect(() => {
-    const wordScroll = scrollRef.current;
-    if (!wordScroll) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index);
+            setActiveIndex(index);
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
 
-    const section = wordScroll.parentElement;
-    const items = [...wordScroll.querySelectorAll('li')];
-    if (items.length === 0 || !section) return;
-
-    function update() {
-      const rect = section.getBoundingClientRect();
-      const scrollHeight = section.offsetHeight - window.innerHeight;
-      if (scrollHeight <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollHeight));
-      const activeFloat = progress * (items.length - 1);
-
-      items.forEach((item, i) => {
-        const dist = Math.abs(i - activeFloat);
-        if (dist < 0.5) {
-          item.style.opacity = '1';
-          item.style.filter = 'brightness(1.1)';
-        } else if (dist < 1.5) {
-          item.style.opacity = String((1.5 - dist).toFixed(2));
-          item.style.filter = '';
-        } else {
-          item.style.opacity = '0.15';
-          item.style.filter = '';
-        }
-      });
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-    update();
-    return () => window.removeEventListener('scroll', update);
+    itemRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="services" className="word-scroll-section">
-      <div ref={scrollRef} className="word-scroll">
-        <div className="word-scroll-inner">
-          <h2 className="word-scroll-heading">
-            <span aria-hidden="true">I&nbsp;create&nbsp;</span>
-            <span className="sr-only">
-              I create social media videos, hospitality content, corporate films,
-              event coverage, legacy videos, and commercial photography.
-            </span>
+    <section id="services" style={{
+      backgroundColor: 'var(--cream)',
+      padding: '5rem 2rem',
+    }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+      }}>
+        {/* Section label */}
+        <div style={{ marginBottom: '3rem' }}>
+          <p style={{
+            fontSize: '0.7rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--taupe)',
+            marginBottom: '0.5rem',
+          }}>
+            Services
+          </p>
+          <h2 style={{
+            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontSize: 'clamp(1.75rem, 4vw, 3rem)',
+            fontWeight: 700,
+            color: 'var(--ink)',
+          }}>
+            What I create
           </h2>
-          <ul>
+        </div>
+
+        {/* Two columns */}
+        <div className="services-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '4rem',
+          alignItems: 'start',
+        }}>
+          {/* Left: scrolling service words */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             {services.map((service, i) => (
-              <li key={i} style={{ '--i': i }}>
-                {service}
-              </li>
+              <div
+                key={i}
+                ref={(el) => (itemRefs.current[i] = el)}
+                data-index={i}
+                style={{
+                  minHeight: '50vh',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-playfair), Georgia, serif',
+                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                    fontWeight: 500,
+                    color: 'var(--taupe)',
+                    opacity: 0.5,
+                  }}>
+                    I create
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-playfair), Georgia, serif',
+                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                    fontWeight: 600,
+                    color: activeIndex === i ? 'var(--sienna)' : 'var(--taupe)',
+                    opacity: activeIndex === i ? 1 : 0.3,
+                    transition: 'color 0.4s ease, opacity 0.4s ease',
+                  }}>
+                    {service.word}
+                  </span>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
+
+          {/* Right: sticky photo that changes */}
+          <div style={{
+            position: 'sticky',
+            top: '20vh',
+            height: '60vh',
+            borderRadius: '8px',
+            overflow: 'hidden',
+          }}>
+            {services.map((service, i) => (
+              <img
+                key={i}
+                src={service.image}
+                alt={service.word}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  opacity: activeIndex === i ? 1 : 0,
+                  transition: 'opacity 0.6s ease',
+                }}
+              />
+            ))}
+            {/* Subtle overlay */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to top, rgba(0,0,0,0.2), transparent)',
+              pointerEvents: 'none',
+            }} />
+          </div>
         </div>
       </div>
 
       <style>{`
-        .word-scroll-section {
-          background: var(--cream);
-          position: relative;
-          min-height: 250vh;
-        }
-
-        .word-scroll {
-          position: sticky;
-          top: 0;
-          width: 100%;
-          height: 100vh;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-        }
-
-        .word-scroll-inner {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          line-height: 1.25;
-          font-family: var(--font-playfair), Georgia, serif;
-          font-size: clamp(2rem, 6vw, 4.5rem);
-        }
-
-        .word-scroll-heading {
-          margin: 0;
-          font-size: inherit;
-          font-weight: 500;
-          height: fit-content;
-          color: var(--ink);
-          white-space: nowrap;
-        }
-
-        .word-scroll ul {
-          font-weight: 500;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        .word-scroll li {
-          color: var(--sienna);
-          opacity: 0.15;
-          transition: opacity 0.35s ease, filter 0.35s ease;
-          cursor: default;
-          padding: 0.1em 0;
-        }
-
         @media (max-width: 768px) {
-          .word-scroll-inner {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+          .services-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
           }
-          .word-scroll-heading {
-            white-space: normal;
-            padding-top: 1rem;
+          .services-grid > div:last-child {
+            position: relative !important;
+            top: auto !important;
+            height: 50vh !important;
+            order: -1;
+          }
+          .services-grid > div:first-child > div {
+            min-height: 30vh !important;
           }
         }
       `}</style>
