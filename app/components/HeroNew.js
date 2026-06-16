@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import ThreeHero from './ThreeHero';
+import RevealWrapper from './RevealWrapper';
 import YoutubeModal from './YoutubeModal';
 import PhotoLightbox from './PhotoLightbox';
 
@@ -120,68 +121,12 @@ const portfolioItems = [
   },
 ];
 
-function SplitChars({ text, className }) {
-  return (
-    <span className={className} aria-label={text}>
-      {text.split('').map((char, i) => (
-        <span key={i} className="char" style={{ display: 'inline-block' }}>
-          {char === ' ' ? ' ' : char}
-        </span>
-      ))}
-    </span>
-  );
-}
-
 export default function HeroNew() {
-  const heroRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(4);
-  const [textRevealed, setTextRevealed] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(Math.floor(portfolioItems.length / 2));
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activePhoto, setActivePhoto] = useState(null);
-
-  // GSAP diagonal + text animation
-  useEffect(() => {
-    let ctx;
-
-    async function animate() {
-      const gsap = (await import('gsap')).default;
-      if (!heroRef.current) return;
-
-      ctx = gsap.context(() => {
-        const leftChars = heroRef.current.querySelectorAll('.hero-text-left .char');
-        const rightChars = heroRef.current.querySelectorAll('.hero-text-right .char');
-        const ground = heroRef.current.querySelector('.hero-ground');
-        const air = heroRef.current.querySelector('.hero-air');
-
-        gsap.set(leftChars, { opacity: 0, y: 20 });
-        gsap.set(rightChars, { opacity: 0, y: -20 });
-
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.3 });
-
-        // Animate the diagonal by updating CSS custom property via inline style
-        tl.to({ val: 120 }, {
-          val: -60,
-          duration: 2,
-          ease: 'elastic.inOut(1.2, 0.6)',
-          onUpdate: function () {
-            if (heroRef.current) {
-              const deg = Math.round(this.targets()[0].val);
-              ground.style.background = `linear-gradient(${deg}deg, var(--ivory) 50%, var(--sienna) 50%)`;
-              air.style.background = `linear-gradient(${deg}deg, transparent calc(50% - var(--thickness) - var(--border)), var(--ivory) calc(50% - var(--thickness) - var(--border)), var(--ivory) calc(50% - var(--thickness)), var(--parchment) calc(50% - var(--thickness)), var(--parchment) calc(50% + var(--thickness)), var(--sienna) calc(50% + var(--thickness)), var(--sienna) calc(50% + var(--thickness) + var(--border)), transparent calc(50% + var(--thickness) + var(--border)))`;
-            }
-          },
-        })
-        .to(leftChars, { opacity: 1, y: 0, stagger: -0.04, duration: 0.6 }, 0.8)
-        .to(rightChars, { opacity: 1, y: 0, stagger: 0.04, duration: 0.6 }, 0.8)
-        .add(() => setTextRevealed(true), 2);
-      }, heroRef);
-    }
-
-    animate();
-    return () => ctx?.revert();
-  }, []);
 
   const toPrev = () => setActiveIndex((p) => Math.max(0, p - 1));
   const toNext = () => setActiveIndex((p) => Math.min(portfolioItems.length - 1, p + 1));
@@ -201,375 +146,399 @@ export default function HeroNew() {
 
   return (
     <>
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section
-        ref={heroRef}
-        id="portfolio"
-        className="hero-new"
+        id="hero"
         style={{
-          '--thickness': '8px',
-          '--border': '8px',
           minHeight: '100vh',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
-          gap: '2rem',
-          padding: '6rem 2rem 4rem',
+          backgroundColor: 'var(--ivory)',
+          paddingTop: '72px',
         }}
       >
-        {/* Diagonal background — ground layer */}
-        <div
-          className="hero-ground"
-          style={{
-            position: 'absolute',
-            inset: '-25%',
-            zIndex: 0,
-            background: 'linear-gradient(120deg, var(--ivory) 50%, var(--sienna) 50%)',
-          }}
-        />
-
-        {/* Diagonal background — border/stripe layer */}
-        <div
-          className="hero-air"
-          style={{
-            position: 'absolute',
-            inset: '-25%',
-            zIndex: 1,
-            background: `linear-gradient(120deg,
-              transparent calc(50% - var(--thickness) - var(--border)),
-              var(--ivory) calc(50% - var(--thickness) - var(--border)),
-              var(--ivory) calc(50% - var(--thickness)),
-              var(--parchment) calc(50% - var(--thickness)),
-              var(--parchment) calc(50% + var(--thickness)),
-              var(--sienna) calc(50% + var(--thickness)),
-              var(--sienna) calc(50% + var(--thickness) + var(--border)),
-              transparent calc(50% + var(--thickness) + var(--border)))`,
-          }}
-        />
-
         {/* Canvas line network */}
+        <ThreeHero />
+
+        {/* Hero content — left aligned */}
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
+            position: 'relative',
             zIndex: 2,
-            pointerEvents: 'none',
-            opacity: 0.45,
-            mixBlendMode: 'overlay',
-          }}
-        >
-          <ThreeHero />
-        </div>
-
-        {/* Location badge */}
-        <div style={{ position: 'relative', zIndex: 10 }}>
-          <p
-            style={{
-              fontSize: '0.7rem',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              color: 'var(--taupe)',
-              fontWeight: 400,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: '#4ADE80',
-                display: 'inline-block',
-                animation: 'livePulse 2s ease-in-out infinite',
-              }}
-            />
-            Richmond · Melbourne, Australia
-          </p>
-        </div>
-
-        {/* Main headline */}
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 10,
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 'clamp(3rem, 10vw, 7rem)',
-              fontWeight: 900,
-              lineHeight: 0.95,
-              letterSpacing: '-0.03em',
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textShadow: '0 2px 20px rgba(0,0,0,0.3)',
-            }}
-          >
-            <span style={{ color: '#F4EFE5', fontStyle: 'italic' }}>
-              <SplitChars text="CRAFTED," className="hero-text-left" />
-            </span>
-            <span style={{ color: '#F4EFE5' }}>
-              <SplitChars text="NOT CREATED." className="hero-text-right" />
-            </span>
-          </h1>
-
-          <p
-            style={{
-              fontSize: 'clamp(0.85rem, 1.2vw, 1rem)',
-              color: 'var(--taupe)',
-              fontWeight: 300,
-              maxWidth: '450px',
-              marginTop: '1rem',
-              opacity: textRevealed ? 1 : 0,
-              transition: 'opacity 0.8s ease',
-            }}
-          >
-            Video and photography for hospitality, corporate, and social brands.
-          </p>
-        </div>
-
-        {/* ── Project carousel ──────────────────────────────────────── */}
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 10,
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: '0 2rem',
             width: '100%',
-            overflow: 'hidden',
-            padding: '0.5rem 0 0',
-            opacity: textRevealed ? 1 : 0,
-            transform: textRevealed ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s',
           }}
         >
-          {/* Track — centered on active card */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              gap: '1rem',
-              padding: '1rem 0 0.5rem',
-            }}
-          >
-            {portfolioItems.map((item, i) => {
-              const isActive = activeIndex === i;
-              const offset = i - activeIndex;
-
-              return (
-                <motion.div
-                  key={item.id}
-                  style={{ perspective: '800px', flexShrink: 0 }}
-                  animate={{ opacity: Math.abs(offset) > 3 ? 0 : 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.div
-                    style={{
-                      width: CARD_W,
-                      aspectRatio: '2/3',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      cursor: isActive && (item.youtubeId || item.images) ? 'pointer' : offset !== 0 ? 'pointer' : 'default',
-                      willChange: 'transform',
-                    }}
-                    animate={{
-                      rotateY: offset * -35,
-                      scale: isActive ? 1 : 0.82,
-                      z: isActive ? 0 : -80,
-                    }}
-                    transition={{ type: 'spring', bounce: 0.1, duration: 0.9 }}
-                    onClick={() => {
-                      if (isActive) handleProjectClick(item);
-                      else toSlide(i);
-                    }}
-                  >
-                    {/* Media */}
-                    {item.category === 'Video' && item.video ? (
-                      <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                      >
-                        <source src={item.video} type="video/mp4" />
-                      </video>
-                    ) : item.cover ? (
-                      <img
-                        src={item.cover}
-                        alt={item.title}
-                        loading={i < 4 ? 'eager' : 'lazy'}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    ) : null}
-
-                    {/* Gradient */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: '55%',
-                        background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)',
-                        pointerEvents: 'none',
-                        zIndex: 1,
-                      }}
-                    />
-
-                    {/* Category badge */}
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: '0.75rem',
-                        left: '0.75rem',
-                        fontSize: '0.6rem',
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        color: '#F4EFE5',
-                        backgroundColor: 'var(--sienna)',
-                        padding: '0.2rem 0.5rem',
-                        borderRadius: '3px',
-                        zIndex: 2,
-                      }}
-                    >
-                      {item.category}
-                    </span>
-
-                    {/* Title — only on active */}
-                    <motion.div
-                      style={{
-                        position: 'absolute',
-                        bottom: '1rem',
-                        left: '1rem',
-                        right: '1rem',
-                        zIndex: 2,
-                      }}
-                      animate={{
-                        opacity: isActive ? 1 : 0,
-                        filter: isActive ? 'blur(0px)' : 'blur(4px)',
-                      }}
-                      transition={{ duration: 0.4 }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-playfair), Georgia, serif',
-                          fontSize: '1.1rem',
-                          fontWeight: 500,
-                          color: '#F4EFE5',
-                          margin: 0,
-                          letterSpacing: '-0.01em',
-                        }}
-                      >
-                        {item.title}
-                      </p>
-                      {item.sub && (
-                        <p
-                          style={{
-                            fontSize: '0.75rem',
-                            color: 'rgba(244,239,229,0.6)',
-                            fontWeight: 300,
-                            margin: '0.15rem 0 0',
-                          }}
-                        >
-                          {item.sub}
-                        </p>
-                      )}
-                      {item.youtubeId && (
-                        <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.45)', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                          Watch full video
-                        </p>
-                      )}
-                      {item.images && (
-                        <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.45)', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
-                          View {item.images.length} photos
-                        </p>
-                      )}
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Controls */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '1rem',
-              marginTop: '1.25rem',
-            }}
-          >
-            <button
-              onClick={toPrev}
-              disabled={activeIndex === 0}
-              className="carousel-btn"
+          <RevealWrapper delay={0}>
+            <p
+              style={{
+                fontSize: '0.75rem',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'var(--taupe)',
+                fontWeight: 400,
+                marginBottom: '1.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: '#4ADE80',
+                  display: 'inline-block',
+                  animation: 'livePulse 2s ease-in-out infinite',
+                }}
+              />
+              Richmond · Melbourne, Australia
+            </p>
+          </RevealWrapper>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              {portfolioItems.map((_, i) => (
-                <div
-                  key={i}
-                  onClick={() => toSlide(i)}
-                  style={{
-                    width: activeIndex === i ? '20px' : '6px',
-                    height: '6px',
-                    borderRadius: '3px',
-                    backgroundColor: activeIndex === i ? 'var(--sienna)' : 'var(--parchment)',
-                    cursor: 'pointer',
-                    transition: 'width 0.3s ease, background-color 0.3s ease',
-                  }}
-                />
-              ))}
+          <RevealWrapper delay={0.15}>
+            <h1
+              style={{
+                fontFamily: 'var(--font-playfair), Georgia, serif',
+                fontSize: 'clamp(2.5rem, 7vw, 5.5rem)',
+                fontWeight: 700,
+                color: 'var(--ink)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+                marginBottom: '1.75rem',
+              }}
+            >
+              <em style={{ fontStyle: 'italic', color: 'var(--sienna)' }}>Crafted,</em> not created.
+            </h1>
+          </RevealWrapper>
+
+          <RevealWrapper delay={0.3}>
+            <p
+              style={{
+                fontSize: '1.0625rem',
+                lineHeight: 1.72,
+                color: 'var(--charcoal)',
+                maxWidth: '500px',
+                marginBottom: '2.5rem',
+                fontWeight: 300,
+                opacity: 0.85,
+              }}
+            >
+              Video and photography for hospitality, corporate, and social brands. Based in Melbourne.
+            </p>
+          </RevealWrapper>
+
+          <RevealWrapper delay={0.45}>
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <a
+                href="#contact"
+                className="btn-primary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.85rem 2rem',
+                  fontSize: '0.8rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  fontWeight: 400,
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: 'var(--sienna)',
+                  color: 'var(--ivory)',
+                  borderRadius: '0px',
+                  textDecoration: 'none',
+                }}
+              >
+                Get in touch
+              </a>
+              <a
+                href="#services"
+                style={{
+                  color: 'var(--taupe)',
+                  textDecoration: 'none',
+                  fontSize: '0.875rem',
+                  letterSpacing: '0.04em',
+                  fontWeight: 400,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  transition: 'color 0.2s ease, gap 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--sienna)';
+                  e.currentTarget.style.gap = '0.7rem';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--taupe)';
+                  e.currentTarget.style.gap = '0.4rem';
+                }}
+              >
+                What I do →
+              </a>
             </div>
-
-            <button
-              onClick={toNext}
-              disabled={activeIndex === portfolioItems.length - 1}
-              className="carousel-btn"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
+          </RevealWrapper>
         </div>
 
         {/* Scroll indicator */}
         <div
           style={{
             position: 'absolute',
-            bottom: '1.5rem',
+            bottom: '2rem',
             left: '50%',
             transform: 'translateX(-50%)',
-            zIndex: 10,
+            zIndex: 2,
             animation: 'gentleBounce 2s ease-in-out infinite',
           }}
         >
           <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
             <path d="M1 1L10 10L19 1" stroke="var(--taupe)" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
+        </div>
+      </section>
+
+      {/* ── CAROUSEL ─────────────────────────────────────────────────── */}
+      <section
+        id="portfolio"
+        style={{
+          padding: '5rem 0 7rem',
+          backgroundColor: 'var(--ivory)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: '0 2rem',
+            marginBottom: '3rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: '0.7rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--taupe)',
+              marginBottom: '0.5rem',
+            }}
+          >
+            Portfolio
+          </p>
+          <h2
+            style={{
+              fontFamily: 'var(--font-playfair), Georgia, serif',
+              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
+              fontWeight: 700,
+              color: 'var(--ink)',
+            }}
+          >
+            Recent work
+          </h2>
+        </div>
+
+        {/* Track — centered on active card */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+            gap: '1rem',
+            padding: '1rem 0 0.5rem',
+          }}
+        >
+          {portfolioItems.map((item, i) => {
+            const isActive = activeIndex === i;
+            const offset = i - activeIndex;
+
+            return (
+              <motion.div
+                key={item.id}
+                style={{ perspective: '800px', flexShrink: 0 }}
+                animate={{ opacity: Math.abs(offset) > 3 ? 0 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  style={{
+                    width: CARD_W,
+                    aspectRatio: '2/3',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor:
+                      isActive && (item.youtubeId || item.images)
+                        ? 'pointer'
+                        : offset !== 0
+                        ? 'pointer'
+                        : 'default',
+                    willChange: 'transform',
+                  }}
+                  animate={{
+                    rotateY: offset * -35,
+                    scale: isActive ? 1 : 0.82,
+                    z: isActive ? 0 : -80,
+                  }}
+                  transition={{ type: 'spring', bounce: 0.1, duration: 0.9 }}
+                  onClick={() => {
+                    if (isActive) handleProjectClick(item);
+                    else toSlide(i);
+                  }}
+                >
+                  {/* Media */}
+                  {item.category === 'Video' && item.video ? (
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                    >
+                      <source src={item.video} type="video/mp4" />
+                    </video>
+                  ) : item.cover ? (
+                    <img
+                      src={item.cover}
+                      alt={item.title}
+                      loading={i < 4 ? 'eager' : 'lazy'}
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : null}
+
+                  {/* Gradient */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: '55%',
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)',
+                      pointerEvents: 'none',
+                      zIndex: 1,
+                    }}
+                  />
+
+                  {/* Category badge */}
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '0.75rem',
+                      left: '0.75rem',
+                      fontSize: '0.6rem',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      color: '#F4EFE5',
+                      backgroundColor: 'var(--sienna)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: '3px',
+                      zIndex: 2,
+                    }}
+                  >
+                    {item.category}
+                  </span>
+
+                  {/* Title — only on active */}
+                  <motion.div
+                    style={{
+                      position: 'absolute',
+                      bottom: '1rem',
+                      left: '1rem',
+                      right: '1rem',
+                      zIndex: 2,
+                    }}
+                    animate={{
+                      opacity: isActive ? 1 : 0,
+                      filter: isActive ? 'blur(0px)' : 'blur(4px)',
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-playfair), Georgia, serif',
+                        fontSize: '1.1rem',
+                        fontWeight: 500,
+                        color: '#F4EFE5',
+                        margin: 0,
+                        letterSpacing: '-0.01em',
+                      }}
+                    >
+                      {item.title}
+                    </p>
+                    {item.sub && (
+                      <p
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'rgba(244,239,229,0.6)',
+                          fontWeight: 300,
+                          margin: '0.15rem 0 0',
+                        }}
+                      >
+                        {item.sub}
+                      </p>
+                    )}
+                    {item.youtubeId && (
+                      <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.45)', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                        Watch full video
+                      </p>
+                    )}
+                    {item.images && (
+                      <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.45)', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><rect x="7" y="7" width="10" height="10" rx="1" /></svg>
+                        View {item.images.length} photos
+                      </p>
+                    )}
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Controls */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '1rem',
+            marginTop: '1.25rem',
+          }}
+        >
+          <button onClick={toPrev} disabled={activeIndex === 0} className="carousel-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {portfolioItems.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => toSlide(i)}
+                style={{
+                  width: activeIndex === i ? '20px' : '6px',
+                  height: '6px',
+                  borderRadius: '3px',
+                  backgroundColor: activeIndex === i ? 'var(--sienna)' : 'var(--parchment)',
+                  cursor: 'pointer',
+                  transition: 'width 0.3s ease, background-color 0.3s ease',
+                }}
+              />
+            ))}
+          </div>
+
+          <button onClick={toNext} disabled={activeIndex === portfolioItems.length - 1} className="carousel-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
       </section>
 
@@ -588,9 +557,6 @@ export default function HeroNew() {
       />
 
       <style>{`
-        .hero-ground, .hero-air {
-          will-change: background;
-        }
         .carousel-btn {
           background: none;
           border: 1px solid var(--parchment);
@@ -613,7 +579,7 @@ export default function HeroNew() {
           cursor: default;
         }
         @media (max-width: 768px) {
-          .hero-new h1 {
+          #hero h1 {
             font-size: clamp(2.2rem, 12vw, 4rem) !important;
           }
         }
