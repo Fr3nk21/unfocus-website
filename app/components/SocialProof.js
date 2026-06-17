@@ -62,7 +62,7 @@ export default function SocialProof() {
   }, [paused]);
 
   return (
-    <section id="testimonial" className="site-section" style={{ backgroundColor: '#1E1B14', position: 'relative', overflow: 'hidden' }}>
+    <section id="testimonial" className="site-section" style={{ backgroundColor: 'var(--ivory)', position: 'relative', overflow: 'hidden' }}>
       <SectionWatermark text="TRUSTED" position="left" />
 
       <div
@@ -85,7 +85,7 @@ export default function SocialProof() {
           <RevealWrapper variant="reveal">
             <SectionLabel number="03" />
             <p className="t-eyebrow">Testimonials</p>
-            <h2 className="t-h2" style={{ color: '#F4EFE5', marginBottom: '2rem' }}>
+            <h2 className="t-h2" style={{ color: 'var(--ink)', marginBottom: '2rem' }}>
               What clients <span style={{ color: 'var(--sienna)' }}>say</span>
             </h2>
           </RevealWrapper>
@@ -105,7 +105,7 @@ export default function SocialProof() {
               fontFamily: 'var(--font-playfair), Georgia, serif',
               fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
               fontWeight: 400,
-              color: '#F0EBE1',
+              color: 'var(--ink)',
               lineHeight: 1.7,
               fontStyle: 'italic',
               margin: '0 0 1rem',
@@ -118,7 +118,7 @@ export default function SocialProof() {
 
           {/* Author */}
           <div style={{ marginBottom: '2rem' }}>
-            <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'rgba(240,235,225,0.7)' }}>
+            <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--taupe)' }}>
               {reviews[active].name}
             </p>
           </div>
@@ -134,7 +134,7 @@ export default function SocialProof() {
                   width: '8px',
                   height: '8px',
                   borderRadius: '50%',
-                  backgroundColor: active === i ? 'var(--sienna)' : 'rgba(240,235,225,0.25)',
+                  backgroundColor: active === i ? 'var(--sienna)' : 'var(--parchment)',
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'transform 0.3s ease, background-color 0.3s ease',
@@ -203,7 +203,7 @@ export default function SocialProof() {
           height: 100%;
           width: auto;
           object-fit: contain;
-          filter: grayscale(1) brightness(1.7);
+          filter: grayscale(1);
         }
         @keyframes logoScrollLtr {
           from { transform: translateX(-33.333%); }
