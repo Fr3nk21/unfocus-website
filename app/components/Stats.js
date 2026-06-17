@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import RevealWrapper from './RevealWrapper';
 
 const stats = [
   { number: 6,  suffix: '+', label: 'Years' },
@@ -60,6 +61,20 @@ function CountUp({ target, suffix, duration = 2000 }) {
       >
         {count}{suffix}
       </div>
+      {/* Animated sienna underline */}
+      <div
+        aria-hidden="true"
+        style={{
+          width: '24px',
+          height: '2px',
+          background: 'var(--sienna)',
+          margin: '0 auto 0.75rem',
+          transform: started ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'center',
+          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+          pointerEvents: 'none',
+        }}
+      />
     </div>
   );
 }
@@ -72,10 +87,12 @@ export default function Stats() {
         backgroundColor: 'var(--stats-bg)',
       }}
     >
-      <div className="site-container" style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <p className="t-eyebrow" style={{ color: 'var(--stats-label)' }}>By the numbers</p>
-        <h2 className="t-h2" style={{ color: 'var(--stats-num)' }}>A few figures</h2>
-      </div>
+      <RevealWrapper variant="reveal" className="site-container">
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <p className="t-eyebrow" style={{ color: 'var(--stats-label)' }}>By the numbers</p>
+          <h2 className="t-h2" style={{ color: 'var(--stats-num)' }}>A few figures</h2>
+        </div>
+      </RevealWrapper>
       <div
         style={{
           display: 'grid',

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import RevealWrapper from './RevealWrapper';
 
 const reviews = [
   {
@@ -65,8 +66,10 @@ export default function Testimonial() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <p className="t-eyebrow">Testimonials</p>
-        <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What clients say</h2>
+        <RevealWrapper variant="reveal">
+          <p className="t-eyebrow">Testimonials</p>
+          <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What clients say</h2>
+        </RevealWrapper>
 
         {/* Stars */}
         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', gap: '4px' }}>

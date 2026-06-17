@@ -1,5 +1,8 @@
 'use client';
 
+import RevealWrapper from './RevealWrapper';
+import SectionLabel from './SectionLabel';
+
 const LOGOS = [
   '/images/partners/rhd.png',
   '/images/partners/gtano.png',
@@ -33,8 +36,11 @@ export default function Partners() {
   return (
     <section className="site-section" style={{ backgroundColor: '#1E1B14' /* fixed dark, matches Gallery */ }}>
       <div className="site-container" style={{ textAlign: 'center' }}>
-        <p className="t-eyebrow">Clients</p>
-        <h2 className="t-h2" style={{ color: '#F4EFE5' }}>Trusted by</h2>
+        <RevealWrapper variant="reveal">
+          <SectionLabel number="03" align="center" />
+          <p className="t-eyebrow">Clients</p>
+          <h2 className="t-h2" style={{ color: '#F4EFE5' }}>Trusted by</h2>
+        </RevealWrapper>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2.5rem' }}>
         <LogoRow logos={ROW_ONE} direction="left" speed={25} />

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import RevealWrapper from './RevealWrapper';
+import SectionLabel from './SectionLabel';
 
 const services = [
   { word: 'Social media videos', image: '/videos/pickle-jar-thumb.jpg' },
@@ -21,15 +23,22 @@ export default function Services() {
       <div className="site-container">
         {/* Two columns aligned */}
         <div className="services-grid" style={{
+          position: 'relative',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '4rem',
           alignItems: 'start',
         }}>
+          {/* Faint vertical divider between columns */}
+          <span aria-hidden="true" className="services-divider" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: 'var(--ink)', opacity: 0.06, pointerEvents: 'none' }} />
+
           {/* Left: header + service list together */}
           <div>
-            <p className="t-eyebrow">Services</p>
-            <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What I create</h2>
+            <RevealWrapper variant="reveal">
+              <SectionLabel number="01" />
+              <p className="t-eyebrow">Services</p>
+              <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What I create</h2>
+            </RevealWrapper>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             {services.map((service, i) => (
               <div
@@ -107,6 +116,7 @@ export default function Services() {
             order: -1;
             margin-bottom: 1.5rem;
           }
+          .services-divider { display: none !important; }
         }
       `}</style>
     </section>

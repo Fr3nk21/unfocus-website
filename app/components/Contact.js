@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
+import SectionLabel from './SectionLabel';
 
 export default function Contact() {
   const [status, setStatus] = useState('idle');
@@ -76,6 +77,7 @@ export default function Contact() {
         >
           {/* Left column */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <SectionLabel number="04" />
             <p className="t-eyebrow">Contact</p>
             <h2
               className="t-h2"

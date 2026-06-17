@@ -49,6 +49,24 @@ export default function PhotoGallery() {
 
   return (
     <section className="gallery-section" aria-label="Photo gallery">
+      {/* Decorative film timecode */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '1.25rem',
+          left: '1.5rem',
+          zIndex: 3,
+          fontFamily: "'Courier New', monospace",
+          fontSize: '0.65rem',
+          letterSpacing: '0.1em',
+          color: 'var(--taupe)',
+          opacity: 0.4,
+          pointerEvents: 'none',
+        }}
+      >
+        ● REC  00:24:17:08
+      </span>
       <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
       <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
 
@@ -106,6 +124,7 @@ export default function PhotoGallery() {
 
       <style>{`
         .gallery-section {
+          position: relative;
           background-color: var(--ivory);
           padding: 3rem 0;
           overflow: hidden;

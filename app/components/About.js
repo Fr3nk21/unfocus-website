@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import RevealWrapper from './RevealWrapper';
+import SectionLabel from './SectionLabel';
 
 export default function About() {
   return (
@@ -10,10 +11,36 @@ export default function About() {
       className="site-section"
       style={{
         backgroundColor: 'var(--ivory)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Giant faint watermark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '-2%',
+          transform: 'translateY(-50%)',
+          fontFamily: 'var(--font-manrope), system-ui, sans-serif',
+          fontSize: 'clamp(8rem, 20vw, 18rem)',
+          fontWeight: 800,
+          color: 'var(--ink)',
+          opacity: 0.03,
+          pointerEvents: 'none',
+          zIndex: 0,
+          letterSpacing: '-0.05em',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        STORIES
+      </span>
+
       <div
         style={{
+          position: 'relative',
+          zIndex: 1,
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '5rem',
@@ -54,12 +81,18 @@ export default function About() {
               }}
             />
 
+            {/* Viewfinder corner marks */}
+            <span aria-hidden="true" style={{ position: 'absolute', top: -6, left: -6, width: 16, height: 16, borderTop: '2px solid var(--sienna)', borderLeft: '2px solid var(--sienna)', pointerEvents: 'none', zIndex: 2 }} />
+            <span aria-hidden="true" style={{ position: 'absolute', top: -6, right: -6, width: 16, height: 16, borderTop: '2px solid var(--sienna)', borderRight: '2px solid var(--sienna)', pointerEvents: 'none', zIndex: 2 }} />
+            <span aria-hidden="true" style={{ position: 'absolute', bottom: -6, left: -6, width: 16, height: 16, borderBottom: '2px solid var(--sienna)', borderLeft: '2px solid var(--sienna)', pointerEvents: 'none', zIndex: 2 }} />
+            <span aria-hidden="true" style={{ position: 'absolute', bottom: -6, right: -6, width: 16, height: 16, borderBottom: '2px solid var(--sienna)', borderRight: '2px solid var(--sienna)', pointerEvents: 'none', zIndex: 2 }} />
           </div>
         </RevealWrapper>
 
         {/* Right: text */}
         <div className="about-text-col">
           <RevealWrapper variant="reveal" delay={0}>
+            <SectionLabel number="02" />
             <p className="t-eyebrow">About</p>
           </RevealWrapper>
 
