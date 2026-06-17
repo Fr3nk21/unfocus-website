@@ -88,9 +88,9 @@ export default function Stats() {
       }}
     >
       <RevealWrapper variant="reveal" className="site-container">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <div style={{ textAlign: 'left', marginBottom: '3rem' }}>
           <p className="t-eyebrow" style={{ color: 'var(--stats-label)' }}>By the numbers</p>
-          <h2 className="t-h2" style={{ color: 'var(--stats-num)' }}>A few figures</h2>
+          <h2 className="t-h2" style={{ color: 'var(--stats-num)' }}>A few <span style={{ color: 'var(--sienna)' }}>figures</span></h2>
         </div>
       </RevealWrapper>
       <div

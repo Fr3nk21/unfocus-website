@@ -209,7 +209,7 @@ export default function CookieBanner() {
                 fontFamily: 'var(--font-playfair), Georgia, serif',
                 fontSize: '1.75rem',
                 fontWeight: 600,
-                color: 'var(--ivory)',
+                color: '#F0EBE1',
                 marginBottom: '1.5rem',
               }}
             >
@@ -219,40 +219,40 @@ export default function CookieBanner() {
             <div
               style={{
                 fontSize: '0.85rem',
-                color: 'rgba(244,239,229,0.7)',
+                color: 'rgba(240,235,225,0.7)',
                 lineHeight: 1.8,
                 fontWeight: 300,
               }}
             >
-              <p><strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Last updated:</strong> May 2026</p>
+              <p><strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Last updated:</strong> May 2026</p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Who I am</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Who I am</strong><br />
                 This website is operated by Francesco Bugugnoli, a freelance videographer and photographer based in Richmond, Melbourne, Australia.
               </p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>What data I collect</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>What data I collect</strong><br />
                 When you use the contact form, I collect your name, email address, service interest, location, and message. This information is used solely to respond to your enquiry.
               </p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Analytics</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Analytics</strong><br />
                 With your consent, this site uses Google Analytics to understand how visitors interact with the website. This includes pages visited, time on site, device type, and approximate location. IP addresses are anonymised. No personal data is sold or shared with third parties.
               </p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Cookies</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Cookies</strong><br />
                 This site uses essential cookies for basic functionality and, with your consent, analytics cookies from Google. You can withdraw consent at any time by clearing your browser cookies.
               </p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Your rights</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Your rights</strong><br />
                 Under the Australian Privacy Act 1988 and the EU General Data Protection Regulation (GDPR), you have the right to access, correct, or delete your personal data. Contact me at hello@francescobugugnoli.com for any privacy-related requests.
               </p>
 
               <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: 'var(--ivory)', fontWeight: 500 }}>Contact</strong><br />
+                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Contact</strong><br />
                 Francesco Bugugnoli<br />
                 Richmond, Melbourne VIC 3121, Australia<br />
                 hello@francescobugugnoli.com<br />

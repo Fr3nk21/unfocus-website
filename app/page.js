@@ -4,8 +4,7 @@ import Stats from './components/Stats';
 import Services from './components/Services';
 import About from './components/About';
 import PhotoGallery from './components/PhotoGallery';
-import Testimonial from './components/Testimonial';
-import Partners from './components/Partners';
+import SocialProof from './components/SocialProof';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -21,8 +20,7 @@ export default function Page() {
         <Services />
         <About />
         <PhotoGallery />
-        <Testimonial />
-        <Partners />
+        <SocialProof />
         <Contact />
       </main>
       <Footer />

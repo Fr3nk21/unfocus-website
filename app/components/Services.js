@@ -37,7 +37,7 @@ export default function Services() {
             <RevealWrapper variant="reveal">
               <SectionLabel number="01" />
               <p className="t-eyebrow">Services</p>
-              <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What I create</h2>
+              <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What I <span style={{ color: 'var(--sienna)' }}>create</span></h2>
             </RevealWrapper>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             {services.map((service, i) => (

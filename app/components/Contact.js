@@ -71,7 +71,7 @@ export default function Contact() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '4rem',
-            alignItems: 'start',
+            alignItems: 'stretch',
           }}
           className="contact-grid site-container"
         >
@@ -167,14 +167,15 @@ export default function Contact() {
             </address>
 
             {/* Service area map */}
-            <div style={{ marginTop: '2.5rem' }}>
+            <div style={{ marginTop: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
               <p className="t-eyebrow">
                 Based in Richmond · Serving Greater Melbourne
               </p>
               <div style={{
                 position: 'relative',
                 width: '100%',
-                height: '260px',
+                flex: 1,
+                minHeight: '240px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 filter: 'grayscale(0.3) contrast(1.05)',
@@ -334,7 +335,7 @@ export default function Contact() {
               type="submit"
               disabled={status === 'sending' || status === 'sent'}
               style={{
-                marginTop: '1rem',
+                marginTop: 'auto',
                 width: '100%',
                 padding: '1rem 2rem',
                 backgroundColor: status === 'sent' ? '#3a6a3a' : 'var(--sienna)',
