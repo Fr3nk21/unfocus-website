@@ -184,18 +184,64 @@ export default function Contact() {
                 minHeight: '240px',
                 borderRadius: '12px',
                 overflow: 'hidden',
-                filter: 'grayscale(0.3) contrast(1.05)',
               }}>
                 <iframe
                   title="Francesco Bugugnoli service area — Richmond, Melbourne"
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d50410.0!2d144.99!3d-37.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sau!4v1700000000000"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d100000.0!2d144.96!3d-37.84!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sau!4v1700000000000"
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                  style={{ border: 0, width: '100%', height: '100%', filter: 'grayscale(0.3) contrast(1.05)' }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
+
+                {/* Service-area circle overlay */}
+                <div aria-hidden="true" style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '55%',
+                  aspectRatio: '1 / 1',
+                  borderRadius: '50%',
+                  background: 'rgba(193,120,60,0.18)',
+                  border: '2px solid rgba(193,120,60,0.6)',
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }}>
+                  <span style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: '0.7rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    color: '#fff',
+                    textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                  }}>
+                    Service Area
+                  </span>
+                </div>
+
+                {/* Center pin dot */}
+                <div aria-hidden="true" style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: 'var(--sienna)',
+                  border: '2px solid #fff',
+                  pointerEvents: 'none',
+                  zIndex: 2,
+                }} />
               </div>
             </div>
           </div>

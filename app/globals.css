@@ -26,7 +26,7 @@
   --parchment:  #E2D9CA;
   --ink:        #18150F;
   --charcoal:   #2E2B24;
-  --taupe:      #6B6158;
+  --taupe:      #5C5347;
   --sienna:     #8B4513;
   --rule:       rgba(24,21,15,0.12);
   --nav-bg:     rgba(244,239,229,0.97);
@@ -126,6 +126,13 @@ body {
 
 .snap-slide {
   scroll-snap-align: start;
+}
+
+/* Readable placeholders (browsers default to extra-faint) */
+input::placeholder,
+textarea::placeholder {
+  color: var(--taupe);
+  opacity: 1;
 }
 
 body::after {
