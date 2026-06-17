@@ -65,98 +65,101 @@ export default function SocialProof() {
     <section id="testimonial" className="site-section" style={{ backgroundColor: '#1E1B14', position: 'relative', overflow: 'hidden' }}>
       <SectionWatermark text="TRUSTED" position="left" />
 
-      {/* Testimonials — centered, contained */}
       <div
-        className="site-container"
+        className="site-container socialproof-grid"
         style={{
           position: 'relative',
           zIndex: 1,
-          maxWidth: '760px',
-          textAlign: 'center',
-          marginBottom: '4rem',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '4rem',
+          alignItems: 'center',
         }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
       >
-        <RevealWrapper variant="reveal">
-          <SectionLabel number="03" align="center" />
-          <p className="t-eyebrow">Testimonials</p>
-          <h2 className="t-h2" style={{ color: '#F4EFE5', marginBottom: '2rem' }}>
-            What clients <span style={{ color: 'var(--sienna)' }}>say</span>
-          </h2>
-        </RevealWrapper>
-
-        {/* Stars */}
-        <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', gap: '4px' }}>
-          {[...Array(reviews[active].stars)].map((_, i) => (
-            <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="var(--sienna)" stroke="none">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-          ))}
-        </div>
-
-        {/* Review text */}
-        <blockquote
-          style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
-            fontWeight: 400,
-            color: '#F0EBE1',
-            lineHeight: 1.7,
-            fontStyle: 'italic',
-            margin: '0 auto 1rem',
-            maxWidth: '640px',
-            minHeight: '110px',
-            transition: 'opacity 0.4s ease',
-          }}
+        {/* LEFT: testimonials */}
+        <div
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          &ldquo;{reviews[active].text}&rdquo;
-        </blockquote>
+          <RevealWrapper variant="reveal">
+            <SectionLabel number="03" />
+            <p className="t-eyebrow">Testimonials</p>
+            <h2 className="t-h2" style={{ color: '#F4EFE5', marginBottom: '2rem' }}>
+              What clients <span style={{ color: 'var(--sienna)' }}>say</span>
+            </h2>
+          </RevealWrapper>
 
-        {/* Author */}
-        <div style={{ marginBottom: '2rem' }}>
-          <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'rgba(240,235,225,0.7)' }}>
-            {reviews[active].name}
-          </p>
-        </div>
+          {/* Stars */}
+          <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '4px' }}>
+            {[...Array(reviews[active].stars)].map((_, i) => (
+              <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="var(--sienna)" stroke="none">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            ))}
+          </div>
 
-        {/* Dots navigation */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
-          {reviews.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              aria-label={`Review ${i + 1}`}
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: active === i ? 'var(--sienna)' : 'rgba(240,235,225,0.25)',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'transform 0.3s ease, background-color 0.3s ease',
-                transform: active === i ? 'scale(1.3)' : 'scale(1)',
-                padding: 0,
-              }}
-            />
-          ))}
-        </div>
-      </div>
+          {/* Review text */}
+          <blockquote
+            style={{
+              fontFamily: 'var(--font-playfair), Georgia, serif',
+              fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
+              fontWeight: 400,
+              color: '#F0EBE1',
+              lineHeight: 1.7,
+              fontStyle: 'italic',
+              margin: '0 0 1rem',
+              minHeight: '110px',
+              transition: 'opacity 0.4s ease',
+            }}
+          >
+            &ldquo;{reviews[active].text}&rdquo;
+          </blockquote>
 
-      {/* Client logos — full-width dual carousels with edge fade */}
-      <div className="logos-wrap" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="logo-row">
-          <div className="logo-track logo-track--ltr">
-            {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
-              <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+          {/* Author */}
+          <div style={{ marginBottom: '2rem' }}>
+            <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'rgba(240,235,225,0.7)' }}>
+              {reviews[active].name}
+            </p>
+          </div>
+
+          {/* Dots navigation */}
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                aria-label={`Review ${i + 1}`}
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  backgroundColor: active === i ? 'var(--sienna)' : 'rgba(240,235,225,0.25)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'transform 0.3s ease, background-color 0.3s ease',
+                  transform: active === i ? 'scale(1.3)' : 'scale(1)',
+                  padding: 0,
+                }}
+              />
             ))}
           </div>
         </div>
-        <div className="logo-row">
-          <div className="logo-track logo-track--rtl">
-            {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
-              <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
-            ))}
+
+        {/* RIGHT: two client logo carousels with edge fade */}
+        <div className="logos-wrap">
+          <div className="logo-row">
+            <div className="logo-track logo-track--ltr">
+              {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
+                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+              ))}
+            </div>
+          </div>
+          <div className="logo-row">
+            <div className="logo-track logo-track--rtl">
+              {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
+                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -165,26 +168,26 @@ export default function SocialProof() {
         .logos-wrap {
           display: flex;
           flex-direction: column;
-          gap: 2.5rem;
+          gap: 2rem;
           /* Edge fade mask: logos dissolve at left and right edges */
-          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
         }
         .logo-row { width: 100%; overflow: hidden; }
         .logo-track {
           display: flex;
-          gap: 4rem;
+          gap: 3rem;
           width: max-content;
           align-items: center;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
         }
-        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 30s; }
-        .logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 38s; }
+        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 28s; }
+        .logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 34s; }
         .logo-track:hover { animation-play-state: paused; }
         .logo-item {
           flex-shrink: 0;
-          height: 46px;
+          height: 42px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -207,6 +210,7 @@ export default function SocialProof() {
           to { transform: translateX(-33.333%); }
         }
         @media (max-width: 768px) {
+          .socialproof-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
           .logo-item { height: 36px; }
         }
       `}</style>
