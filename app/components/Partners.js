@@ -1,91 +1,76 @@
 'use client';
 
-const partners = [
-  { name: 'Red Herring Digital', logo: '/images/partners/rhd.png' },
-  { name: 'GTano', logo: '/images/partners/gtano.png' },
-  { name: 'Atti.Co', logo: '/images/partners/attico.webp' },
-  { name: 'AOD', logo: '/images/partners/aod.png' },
-  { name: 'Filmonick', logo: '/images/partners/filmonick.png' },
-  { name: 'Fratellino', logo: '/images/partners/fratellino.png' },
-  { name: 'CoASIt', logo: '/images/partners/coasit_logo2_new.png' },
-  { name: 'Del Bocia', logo: '/images/partners/delbocia.png' },
+const LOGOS = [
+  '/images/partners/rhd.png',
+  '/images/partners/gtano.png',
+  '/images/partners/attico.webp',
+  '/images/partners/aod.png',
+  '/images/partners/filmonick.png',
+  '/images/partners/fratellino.png',
+  '/images/partners/coasit_logo2_new.png',
+  '/images/partners/delbocia.png',
 ];
 
-function LogoSet() {
+const ROW_ONE = LOGOS.slice(0, 4);
+const ROW_TWO = LOGOS.slice(4);
+
+function LogoRow({ logos, direction = 'left', speed = 40 }) {
+  const doubled = [...logos, ...logos, ...logos]; // triple for seamless wide loop
   return (
-    <>
-      {partners.map((partner, i) => (
-        <div
-          key={i}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 4.5rem',
-            minWidth: '220px',
-            height: '64px',
-            flexShrink: 0,
-          }}
-        >
-          <img
-            src={partner.logo}
-            alt={partner.name}
-            style={{
-              maxHeight: '52px',
-              maxWidth: '160px',
-              objectFit: 'contain',
-              opacity: 0.35,
-              filter: 'brightness(0) invert(0.9) sepia(0.1)',
-              transition: 'opacity 0.3s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '0.7';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '0.35';
-            }}
-          />
-        </div>
-      ))}
-    </>
+    <div className="logo-row">
+      <div className="logo-track" style={{ animationDuration: speed + 's', animationDirection: direction === 'left' ? 'normal' : 'reverse' }}>
+        {doubled.map((src, i) => (
+          <div key={i} className="logo-item">
+            <img src={src} alt="" loading="lazy" draggable={false} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
 export default function Partners() {
   return (
-    <section
-      className="site-section"
-      style={{
-        backgroundColor: 'var(--ivory)',
-        borderTop: '1px solid var(--parchment)',
-        borderBottom: '1px solid var(--parchment)',
-        overflow: 'hidden',
-      }}
-    >
-      <div className="site-container" style={{ marginBottom: '1.5rem' }}>
-        <p className="t-eyebrow" style={{ textAlign: 'center', marginBottom: 0 }}>
-          Clients
-        </p>
+    <section className="site-section" style={{ backgroundColor: 'var(--charcoal)' /* MATCH About/Gallery bg */ }}>
+      <div className="site-container">
+        <p className="t-eyebrow" style={{ textAlign: 'center' }}>Clients</p>
       </div>
-      <div className="partners-track-container" style={{ overflow: 'hidden' }}>
-        <div className="partners-track">
-          <LogoSet />
-          <LogoSet />
-        </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2.5rem' }}>
+        <LogoRow logos={ROW_ONE} direction="left" speed={45} />
+        <LogoRow logos={ROW_TWO} direction="right" speed={55} />
       </div>
 
       <style>{`
-        .partners-track {
+        .logo-row { width: 100%; overflow: hidden; }
+        .logo-track {
           display: flex;
-          animation: partnerScroll 40s linear infinite;
+          gap: 4rem;
           width: max-content;
+          align-items: center;
+          animation-name: logoScroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
         }
-        @keyframes partnerScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        .logo-track:hover { animation-play-state: paused; }
+        .logo-item {
+          flex-shrink: 0;
+          height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.55;
+          transition: opacity 0.3s ease;
         }
-        .partners-track:hover {
-          animation-play-state: paused;
+        .logo-item:hover { opacity: 1; }
+        .logo-item img {
+          height: 100%;
+          width: auto;
+          object-fit: contain;
+          filter: grayscale(1) brightness(1.6);
+        }
+        @keyframes logoScroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-33.333%); }
         }
       `}</style>
     </section>

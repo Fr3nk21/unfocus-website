@@ -353,7 +353,7 @@ export default function HeroNew() {
             </div>
 
             {/* Carousel controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.5rem', zIndex: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '1rem', marginTop: '0.5rem', zIndex: 20 }}>
               <button
                 onClick={toPrev}
                 aria-label="Previous project"
@@ -426,6 +426,11 @@ export default function HeroNew() {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
             padding-top: 2rem !important;
+          }
+          /* carousel column + controls centered */
+          .hero-split > div:last-child {
+            align-items: center !important;
+            justify-content: center !important;
           }
           .carousel-stage {
             height: 360px !important;

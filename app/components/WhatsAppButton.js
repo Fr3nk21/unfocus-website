@@ -1,6 +1,24 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 export default function WhatsAppButton() {
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+      const footerTop = footer.getBoundingClientRect().top;
+      const vh = window.innerHeight;
+      // Fade out just before the footer overlaps the button
+      setHidden(footerTop < vh - 40);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
       <a
@@ -9,6 +27,12 @@ export default function WhatsAppButton() {
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
         className="wa-btn"
+        style={{
+          opacity: hidden ? 0 : 1,
+          pointerEvents: hidden ? 'none' : 'auto',
+          transform: hidden ? 'translateY(20px)' : 'translateY(0)',
+          transition: 'opacity 0.4s ease, transform 0.4s ease',
+        }}
       >
         <span className="wa-content">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--sienna)">
