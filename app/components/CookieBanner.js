@@ -248,15 +248,7 @@ export default function CookieBanner() {
 
               <p style={{ marginTop: '1.25rem' }}>
                 <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Your rights</strong><br />
-                Under the Australian Privacy Act 1988 and the EU General Data Protection Regulation (GDPR), you have the right to access, correct, or delete your personal data. Contact me at hello@francescobugugnoli.com for any privacy-related requests.
-              </p>
-
-              <p style={{ marginTop: '1.25rem' }}>
-                <strong style={{ color: '#F0EBE1', fontWeight: 500 }}>Contact</strong><br />
-                Francesco Bugugnoli<br />
-                Richmond, Melbourne VIC 3121, Australia<br />
-                hello@francescobugugnoli.com<br />
-                +61 476 278 891
+                Under the Australian Privacy Act 1988 and the EU General Data Protection Regulation (GDPR), you have the right to access, correct, or delete your personal data. Contact me at bugugnolifrancesco@gmail.com for any privacy-related requests.
               </p>
             </div>
 

@@ -60,9 +60,20 @@
   --ivory: #F4EFE5;
 }
 
+/* Contact bg is always dark, so muted labels must stay light in BOTH themes
+   (light-mode --taupe is too dark to read on the dark contact bg). */
+.contact-section {
+  --taupe: #A89E91;
+}
+
 .contact-section h2,
 .contact-section .contact-heading {
   color: var(--ivory) !important;
+}
+
+.contact-section input::placeholder,
+.contact-section textarea::placeholder {
+  color: rgba(244,239,229,0.5);
 }
 
 *, *::before, *::after {
