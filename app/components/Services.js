@@ -17,9 +17,9 @@ export default function Services() {
   return (
     <section id="services" style={{
       backgroundColor: 'var(--cream)',
-      padding: '5rem 2rem',
+      padding: '5rem 0',
     }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
         {/* Header */}
         <div style={{ marginBottom: '3rem' }}>
           <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
@@ -79,7 +79,7 @@ export default function Services() {
             maxWidth: '480px',
             borderRadius: '12px',
             overflow: 'hidden',
-            justifySelf: 'center',
+            justifySelf: 'end',
           }}>
             {services.map((service, i) => (
               <img

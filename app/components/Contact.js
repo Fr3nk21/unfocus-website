@@ -62,14 +62,16 @@ export default function Contact() {
       className="contact-section"
       style={{
         backgroundColor: 'var(--charcoal)',
-        padding: '5rem 2rem',
+        padding: '5rem 0',
       }}
     >
       <RevealWrapper>
         <div
           style={{
-            maxWidth: '1280px',
+            maxWidth: '1440px',
             margin: '0 auto',
+            padding: '0 2rem',
+            width: '100%',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '3rem',

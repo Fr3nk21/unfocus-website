@@ -158,7 +158,7 @@ export default function HeroNew() {
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
 
-  const CARD_W = 'clamp(340px, 38vw, 560px)';
+  const CARD_W = 'clamp(360px, 40vw, 600px)';
 
   return (
     <>
@@ -190,7 +190,7 @@ export default function HeroNew() {
             padding: '0 2rem',
             width: '100%',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: '1.15fr 0.85fr',
             gap: '2rem',
             alignItems: 'center',
           }}
@@ -241,7 +241,7 @@ export default function HeroNew() {
                 color: 'var(--taupe)',
                 fontWeight: 300,
                 lineHeight: 1.6,
-                maxWidth: '440px',
+                maxWidth: '480px',
                 marginBottom: '2rem',
               }}
             >
@@ -292,7 +292,7 @@ export default function HeroNew() {
             ref={carouselRef}
             style={{
               position: 'relative',
-              height: '70vh',
+              height: 'auto',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -300,7 +300,7 @@ export default function HeroNew() {
             }}
           >
             {/* Carousel stage */}
-            <div style={{ position: 'relative', width: '100%', height: '100%', perspective: '1200px' }}>
+            <div className="carousel-stage" style={{ position: 'relative', width: '100%', height: 'clamp(380px, 44vw, 520px)', perspective: '1200px' }}>
               {portfolioItems.map((item, i) => {
                 let offset = i - activeIndex;
                 const half = portfolioItems.length / 2;
@@ -370,7 +370,7 @@ export default function HeroNew() {
             </div>
 
             {/* Carousel controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.75rem', zIndex: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.5rem', zIndex: 20 }}>
               <button
                 onClick={toPrev}
                 aria-label="Previous project"
@@ -444,8 +444,8 @@ export default function HeroNew() {
             gap: 2rem !important;
             padding-top: 2rem !important;
           }
-          .hero-split > div:last-child {
-            height: 55vh !important;
+          .carousel-stage {
+            height: 360px !important;
           }
         }
       `}</style>

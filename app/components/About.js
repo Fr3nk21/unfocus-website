@@ -9,13 +9,15 @@ export default function About() {
       id="about"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '5rem 2rem',
+        padding: '5rem 0',
       }}
     >
       <div
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1440px',
           margin: '0 auto',
+          padding: '0 2rem',
+          width: '100%',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '5rem',
@@ -25,13 +27,14 @@ export default function About() {
       >
         {/* Left: portrait placeholder */}
         <RevealWrapper variant="reveal-scale">
-          <div style={{ position: 'relative', maxWidth: '400px', margin: '0 auto' }}>
+          <div style={{ position: 'relative', maxWidth: '400px', margin: 0 }}>
             {/* Offset ornamental frame */}
             <div
               style={{
                 position: 'absolute',
                 inset: '-16px',
                 border: '1px solid var(--parchment)',
+                borderRadius: '16px',
                 pointerEvents: 'none',
                 zIndex: 0,
               }}

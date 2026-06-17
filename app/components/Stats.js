@@ -70,13 +70,15 @@ export default function Stats() {
       className="stats-section"
       style={{
         backgroundColor: 'var(--stats-bg)',
-        padding: '3.5rem 2rem',
+        padding: '3.5rem 0',
       }}
     >
       <div
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1440px',
           margin: '0 auto',
+          padding: '0 2rem',
+          width: '100%',
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
         }}
