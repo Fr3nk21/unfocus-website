@@ -203,7 +203,10 @@ export default function SocialProof() {
           height: 100%;
           width: auto;
           object-fit: contain;
-          filter: grayscale(1);
+          filter: brightness(0);            /* solid black in light mode */
+        }
+        .dark .logo-item img {
+          filter: brightness(0) invert(1);  /* solid white in dark mode */
         }
         @keyframes logoScrollLtr {
           from { transform: translateX(-33.333%); }

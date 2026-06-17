@@ -401,7 +401,7 @@ export default function HeroNew() {
         </div>
 
         {/* Scroll indicator */}
-        <div style={{ position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', zIndex: 2, animation: 'gentleBounce 2s ease-in-out infinite' }}>
+        <div className="hero-scroll-indicator" style={{ position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', zIndex: 2, animation: 'gentleBounce 2s ease-in-out infinite' }}>
           <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 1L10 10L19 1" stroke="var(--taupe)" strokeWidth="1.5" strokeLinecap="round" /></svg>
         </div>
       </section>
@@ -434,6 +434,10 @@ export default function HeroNew() {
           }
           .carousel-stage {
             height: 360px !important;
+          }
+          /* Hide the scroll chevron on mobile so it can't overlap the carousel controls */
+          .hero-scroll-indicator {
+            display: none !important;
           }
         }
       `}</style>
