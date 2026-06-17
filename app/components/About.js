@@ -9,7 +9,7 @@ export default function About() {
       id="about"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '5rem 0',
+        padding: '7rem 0',
       }}
     >
       <div

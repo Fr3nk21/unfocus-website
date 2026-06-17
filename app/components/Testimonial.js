@@ -51,8 +51,8 @@ export default function Testimonial() {
     <section
       id="testimonial"
       style={{
-        backgroundColor: 'var(--cream)',
-        padding: '5rem 2rem',
+        backgroundColor: 'var(--ivory)',
+        padding: '7rem 2rem',
       }}
     >
       <div

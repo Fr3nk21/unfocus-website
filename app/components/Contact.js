@@ -62,7 +62,7 @@ export default function Contact() {
       className="contact-section"
       style={{
         backgroundColor: 'var(--charcoal)',
-        padding: '5rem 0',
+        padding: '7rem 0',
       }}
     >
       <RevealWrapper>
@@ -75,12 +75,12 @@ export default function Contact() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '3rem',
-            alignItems: 'start',
+            alignItems: 'stretch',
           }}
           className="contact-grid"
         >
           {/* Left column */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h2
               style={{
                 fontFamily: 'var(--font-playfair), Georgia, serif',
@@ -178,14 +178,15 @@ export default function Contact() {
             </address>
 
             {/* Service area map */}
-            <div style={{ marginTop: '2.5rem' }}>
+            <div style={{ marginTop: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
               <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.75rem' }}>
                 Based in Richmond · Serving Greater Melbourne
               </p>
               <div style={{
                 position: 'relative',
                 width: '100%',
-                height: '280px',
+                flex: 1,
+                minHeight: '240px',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 filter: 'grayscale(0.3) contrast(1.05)',

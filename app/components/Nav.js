@@ -16,22 +16,26 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const sections = ['portfolio', 'stats', 'services', 'about', 'testimonial', 'contact'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-50% 0px -50% 0px' }
-    );
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    // Section IDs in document order, matching the nav links below.
+    const sectionIds = ['hero', 'services', 'about', 'contact'];
+
+    function onSpyScroll() {
+      const navHeight = 80;
+      const scrollPos = window.scrollY + navHeight + 50; // a bit below the nav
+
+      let current = sectionIds[0];
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    }
+
+    window.addEventListener('scroll', onSpyScroll, { passive: true });
+    onSpyScroll(); // run once on mount
+    return () => window.removeEventListener('scroll', onSpyScroll);
   }, []);
 
   return (

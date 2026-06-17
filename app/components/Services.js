@@ -17,24 +17,21 @@ export default function Services() {
   return (
     <section id="services" style={{
       backgroundColor: 'var(--cream)',
-      padding: '5rem 0',
+      padding: '7rem 0',
     }}>
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
-        {/* Header */}
-        <div style={{ marginBottom: '3rem' }}>
-          <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
-          <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)' }}>What I create</h2>
-        </div>
-
         {/* Two columns aligned */}
         <div className="services-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '4rem',
-          alignItems: 'center',
+          alignItems: 'start',
         }}>
-          {/* Left: compact service list */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+          {/* Left: header + service list together */}
+          <div>
+            <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
+            <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)', marginBottom: '2.5rem' }}>What I create</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             {services.map((service, i) => (
               <div
                 key={i}
@@ -69,14 +66,14 @@ export default function Services() {
                 </span>
               </div>
             ))}
+            </div>
           </div>
 
-          {/* Right: contained square image that changes with active service */}
+          {/* Right: large square image, top-aligned with heading, right edge to container edge */}
           <div style={{
             position: 'relative',
             aspectRatio: '1 / 1',
             width: '100%',
-            maxWidth: '480px',
             borderRadius: '12px',
             overflow: 'hidden',
             justifySelf: 'end',

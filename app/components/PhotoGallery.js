@@ -106,7 +106,7 @@ export default function PhotoGallery() {
 
       <style>{`
         .gallery-section {
-          background-color: #1E1B14;
+          background-color: var(--ivory);
           padding: 3rem 0;
           overflow: hidden;
           display: flex;
@@ -128,7 +128,7 @@ export default function PhotoGallery() {
           flex-shrink: 0;
           border-radius: 12px;
           overflow: hidden;
-          cursor: zoom-in;
+          cursor: pointer;
           transition: transform 0.3s ease;
         }
         .gallery-item:hover { transform: scale(1.03); }
