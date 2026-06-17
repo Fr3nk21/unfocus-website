@@ -19,21 +19,8 @@ export default function Footer() {
           gap: '1rem',
         }}
       >
-        {/* Left: name */}
-        <span
-          style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: '1rem',
-            fontWeight: 700,
-            color: '#F4EFE5',
-            letterSpacing: '-0.01em',
-          }}
-        >
-          Francesco Bugugnoli
-        </span>
-
-        {/* Center: copyright */}
-        <span style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.3)' }}>
+        {/* Left: copyright (no more name) */}
+        <span style={{ fontSize: '0.75rem', color: 'rgba(244,239,229,0.4)' }}>
           © 2026 Francesco Bugugnoli. All rights reserved.
         </span>
 

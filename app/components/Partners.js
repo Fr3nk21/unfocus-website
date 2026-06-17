@@ -31,13 +31,14 @@ function LogoRow({ logos, direction = 'left', speed = 40 }) {
 
 export default function Partners() {
   return (
-    <section className="site-section" style={{ backgroundColor: 'var(--charcoal)' /* MATCH About/Gallery bg */ }}>
-      <div className="site-container">
-        <p className="t-eyebrow" style={{ textAlign: 'center' }}>Clients</p>
+    <section className="site-section" style={{ backgroundColor: '#1E1B14' /* fixed dark, matches Gallery */ }}>
+      <div className="site-container" style={{ textAlign: 'center' }}>
+        <p className="t-eyebrow">Clients</p>
+        <h2 className="t-h2" style={{ color: '#F4EFE5' }}>Trusted by</h2>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2.5rem' }}>
-        <LogoRow logos={ROW_ONE} direction="left" speed={45} />
-        <LogoRow logos={ROW_TWO} direction="right" speed={55} />
+        <LogoRow logos={ROW_ONE} direction="left" speed={25} />
+        <LogoRow logos={ROW_TWO} direction="right" speed={32} />
       </div>
 
       <style>{`

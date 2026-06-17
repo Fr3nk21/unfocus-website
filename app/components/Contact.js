@@ -76,6 +76,7 @@ export default function Contact() {
         >
           {/* Left column */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <p className="t-eyebrow">Contact</p>
             <h2
               className="t-h2"
               style={{ marginBottom: 'var(--space-title-to-body)' }}
