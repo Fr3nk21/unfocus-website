@@ -10,6 +10,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CookieBanner from './components/CookieBanner';
+import KonamiEasterEgg from './components/KonamiEasterEgg';
 
 export default function Page() {
   return (
@@ -28,6 +29,7 @@ export default function Page() {
       <Footer />
       <WhatsAppButton />
       <CookieBanner />
+      <KonamiEasterEgg />
     </>
   );
 }
