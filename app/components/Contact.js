@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
+import SectionWatermark from './SectionWatermark';
 
 export default function Contact() {
   const [status, setStatus] = useState('idle');
@@ -63,11 +64,16 @@ export default function Contact() {
       className="contact-section site-section"
       style={{
         backgroundColor: 'var(--charcoal)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      <SectionWatermark text="CONNECT" position="right" />
       <RevealWrapper>
         <div
           style={{
+            position: 'relative',
+            zIndex: 1,
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '4rem',

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
+import SectionWatermark from './SectionWatermark';
 
 const services = [
   { word: 'Social media videos', image: '/videos/pickle-jar-thumb.jpg' },
@@ -19,8 +20,11 @@ export default function Services() {
   return (
     <section id="services" className="site-section" style={{
       backgroundColor: 'var(--cream)',
+      position: 'relative',
+      overflow: 'hidden',
     }}>
-      <div className="site-container">
+      <SectionWatermark text="CREATE" position="right" />
+      <div className="site-container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Two columns aligned */}
         <div className="services-grid" style={{
           position: 'relative',

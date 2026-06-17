@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SectionWatermark from './SectionWatermark';
 
 const PHOTOS = [
   '/images/portfolio/fratellino/01.webp',
@@ -49,6 +50,7 @@ export default function PhotoGallery() {
 
   return (
     <section className="gallery-section" aria-label="Photo gallery">
+      <SectionWatermark text="FRAMES" position="right" />
       {/* Decorative film timecode */}
       <span
         aria-hidden="true"
@@ -132,7 +134,7 @@ export default function PhotoGallery() {
           flex-direction: column;
           gap: 1.5rem;
         }
-        .gallery-row { width: 100%; overflow: hidden; }
+        .gallery-row { width: 100%; overflow: hidden; position: relative; z-index: 1; }
         .gallery-track {
           display: flex;
           gap: 1.5rem;

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
+import SectionWatermark from './SectionWatermark';
 
 export default function About() {
   return (
@@ -16,26 +17,7 @@ export default function About() {
       }}
     >
       {/* Giant faint watermark */}
-      <span
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          right: '-2%',
-          transform: 'translateY(-50%)',
-          fontFamily: 'var(--font-manrope), system-ui, sans-serif',
-          fontSize: 'clamp(8rem, 20vw, 18rem)',
-          fontWeight: 800,
-          color: 'var(--ink)',
-          opacity: 0.03,
-          pointerEvents: 'none',
-          zIndex: 0,
-          letterSpacing: '-0.05em',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        STORIES
-      </span>
+      <SectionWatermark text="STORYTELLING" position="right" />
 
       <div
         style={{

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
+import SectionWatermark from './SectionWatermark';
 
 const reviews = [
   {
@@ -61,10 +62,13 @@ export default function SocialProof() {
   }, [paused]);
 
   return (
-    <section id="testimonial" className="site-section" style={{ backgroundColor: '#1E1B14' }}>
+    <section id="testimonial" className="site-section" style={{ backgroundColor: '#1E1B14', position: 'relative', overflow: 'hidden' }}>
+      <SectionWatermark text="TRUSTED" position="left" />
       <div
         className="site-container social-grid"
         style={{
+          position: 'relative',
+          zIndex: 1,
           display: 'grid',
           gridTemplateColumns: '1.2fr 0.8fr',
           gap: '4rem',
