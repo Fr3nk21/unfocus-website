@@ -78,6 +78,7 @@ export default function SocialProof() {
       >
         {/* LEFT: testimonials */}
         <div
+          style={{ minWidth: 0 }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -146,7 +147,7 @@ export default function SocialProof() {
         </div>
 
         {/* RIGHT: two client logo carousels with edge fade */}
-        <div className="logos-wrap">
+        <div className="logos-wrap" style={{ minWidth: 0, overflow: 'hidden' }}>
           <div className="logo-row">
             <div className="logo-track logo-track--ltr">
               {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
@@ -166,12 +167,15 @@ export default function SocialProof() {
 
       <style>{`
         .logos-wrap {
+          position: relative;
           display: flex;
           flex-direction: column;
           gap: 2rem;
+          width: 100%;
+          overflow: hidden;
           /* Edge fade mask: logos dissolve at left and right edges */
-          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
         }
         .logo-row { width: 100%; overflow: hidden; }
         .logo-track {
