@@ -181,14 +181,10 @@ export default function HeroNew() {
 
         {/* Two-column container */}
         <div
-          className="hero-split"
+          className="hero-split site-container"
           style={{
             position: 'relative',
             zIndex: 2,
-            maxWidth: '1440px',
-            margin: '0 auto',
-            padding: '0 2rem',
-            width: '100%',
             display: 'grid',
             gridTemplateColumns: '1.15fr 0.85fr',
             gap: '2rem',
@@ -223,27 +219,14 @@ export default function HeroNew() {
               Richmond · Melbourne, Australia
             </p>
             <h1
-              style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
-                fontWeight: 800,
-                color: 'var(--ink)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.05,
-                marginBottom: '1.5rem',
-              }}
+              className="t-h1"
+              style={{ marginBottom: 'var(--space-title-to-body)' }}
             >
-              <span style={{ fontWeight: 800, color: 'var(--sienna)' }}>Crafted,</span> not created.
+              <span style={{ color: 'var(--sienna)' }}>Crafted,</span> not created.
             </h1>
             <p
-              style={{
-                fontSize: 'clamp(0.9rem, 1.1vw, 1.05rem)',
-                color: 'var(--taupe)',
-                fontWeight: 300,
-                lineHeight: 1.6,
-                maxWidth: '480px',
-                marginBottom: '2rem',
-              }}
+              className="t-body"
+              style={{ maxWidth: '480px', marginBottom: 'var(--space-body-to-cta)' }}
             >
               Video and photography for hospitality, corporate, and social brands. Based in Melbourne.
             </p>

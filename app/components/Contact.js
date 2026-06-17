@@ -59,38 +59,26 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="contact-section"
+      className="contact-section site-section"
       style={{
         backgroundColor: 'var(--charcoal)',
-        padding: '7rem 0',
       }}
     >
       <RevealWrapper>
         <div
           style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            padding: '0 2rem',
-            width: '100%',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '3rem',
             alignItems: 'stretch',
           }}
-          className="contact-grid"
+          className="contact-grid site-container"
         >
           {/* Left column */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h2
-              style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 'clamp(2rem, 4vw, 3.25rem)',
-                lineHeight: 1.12,
-                fontWeight: 700,
-                color: 'var(--ivory)',
-                marginBottom: '1.5rem',
-                letterSpacing: '-0.02em',
-              }}
+              className="t-h2"
+              style={{ marginBottom: 'var(--space-title-to-body)' }}
             >
               Let&apos;s{' '}
               <em
@@ -105,11 +93,9 @@ export default function Contact() {
             </h2>
 
             <p
+              className="t-body"
               style={{
-                fontSize: '1rem',
-                lineHeight: 1.72,
                 color: 'rgba(244,239,229,0.65)',
-                fontWeight: 300,
                 marginBottom: '2.5rem',
                 maxWidth: '400px',
               }}
@@ -179,7 +165,7 @@ export default function Contact() {
 
             {/* Service area map */}
             <div style={{ marginTop: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.75rem' }}>
+              <p className="t-eyebrow">
                 Based in Richmond · Serving Greater Melbourne
               </p>
               <div style={{

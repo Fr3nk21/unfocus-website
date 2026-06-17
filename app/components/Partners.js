@@ -54,33 +54,16 @@ function LogoSet() {
 export default function Partners() {
   return (
     <section
+      className="site-section"
       style={{
         backgroundColor: 'var(--ivory)',
         borderTop: '1px solid var(--parchment)',
         borderBottom: '1px solid var(--parchment)',
-        padding: '7rem 0',
         overflow: 'hidden',
       }}
     >
-      <div
-        style={{
-          maxWidth: '1440px',
-          margin: '0 auto',
-          padding: '0 2rem',
-          width: '100%',
-          marginBottom: '1.5rem',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '0.7rem',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--taupe)',
-            fontWeight: 400,
-            textAlign: 'center',
-          }}
-        >
+      <div className="site-container" style={{ marginBottom: '1.5rem' }}>
+        <p className="t-eyebrow" style={{ textAlign: 'center', marginBottom: 0 }}>
           Clients
         </p>
       </div>

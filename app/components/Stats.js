@@ -67,22 +67,17 @@ function CountUp({ target, suffix, duration = 2000 }) {
 export default function Stats() {
   return (
     <section
-      className="stats-section"
+      className="stats-section site-section"
       style={{
         backgroundColor: 'var(--stats-bg)',
-        padding: '7rem 0',
       }}
     >
       <div
         style={{
-          maxWidth: '1440px',
-          margin: '0 auto',
-          padding: '0 2rem',
-          width: '100%',
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
         }}
-        className="stats-grid"
+        className="stats-grid site-container"
       >
         {stats.map((stat, i) => (
           <div

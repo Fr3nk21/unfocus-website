@@ -52,11 +52,8 @@ export default function Nav() {
       }}
     >
       <div
+        className="site-container"
         style={{
-          maxWidth: '1440px',
-          margin: '0 auto',
-          padding: '0 2rem',
-          width: '100%',
           height: '72px',
           display: 'flex',
           alignItems: 'center',

@@ -15,11 +15,10 @@ export default function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section id="services" style={{
+    <section id="services" className="site-section" style={{
       backgroundColor: 'var(--cream)',
-      padding: '7rem 0',
     }}>
-      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
+      <div className="site-container">
         {/* Two columns aligned */}
         <div className="services-grid" style={{
           display: 'grid',
@@ -29,8 +28,8 @@ export default function Services() {
         }}>
           {/* Left: header + service list together */}
           <div>
-            <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--taupe)', marginBottom: '0.5rem' }}>Services</p>
-            <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 700, color: 'var(--ink)', marginBottom: '2.5rem' }}>What I create</h2>
+            <p className="t-eyebrow">Services</p>
+            <h2 className="t-h2" style={{ marginBottom: '2.5rem' }}>What I create</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             {services.map((service, i) => (
               <div

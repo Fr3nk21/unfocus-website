@@ -441,3 +441,123 @@ body::after {
   white-space: nowrap;
   animation: tickerRoll 20s linear infinite;
 }
+
+/* =========================================================================
+   CENTRALIZED DESIGN SYSTEM — typography scale + spacing tokens
+   Single source of truth. Headings use Manrope; body uses DM Sans.
+   ========================================================================= */
+:root {
+  /* ===== TYPOGRAPHY SCALE ===== */
+  /* Section eyebrow label (e.g. "SERVICES", "ABOUT", "CLIENTS") */
+  --eyebrow-size: 0.7rem;
+  --eyebrow-spacing: 0.2em;
+  --eyebrow-weight: 500;
+
+  /* H1 — hero only */
+  --h1-size: clamp(2.5rem, 6vw, 4.5rem);
+  --h1-weight: 800;
+  --h1-line: 1.05;
+  --h1-spacing: -0.03em;
+
+  /* H2 — section titles */
+  --h2-size: clamp(2rem, 4.5vw, 3.5rem);
+  --h2-weight: 700;
+  --h2-line: 1.1;
+  --h2-spacing: -0.02em;
+
+  /* H3 — card titles, project titles */
+  --h3-size: clamp(1.1rem, 2vw, 1.5rem);
+  --h3-weight: 600;
+  --h3-line: 1.2;
+
+  /* Body / paragraph */
+  --body-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  --body-weight: 300;
+  --body-line: 1.6;
+
+  /* Small / meta text */
+  --small-size: 0.8rem;
+
+  /* ===== SPACING SCALE ===== */
+  --section-padding-y: 7rem;     /* vertical padding top & bottom of every section */
+  --section-padding-y-mobile: 4rem;
+  --container-max: 1440px;
+  --container-padding-x: 2.5rem;
+  --container-padding-x-mobile: 1.5rem;
+
+  /* Spacing between elements inside a section */
+  --space-eyebrow-to-title: 0.75rem;  /* gap between eyebrow label and H2 */
+  --space-title-to-body: 1.5rem;      /* gap between title and paragraph */
+  --space-body-to-cta: 2rem;          /* gap between paragraph and button */
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Shared container — use on every section's inner wrapper */
+.site-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
+  width: 100%;
+}
+
+/* Section wrapper — consistent vertical rhythm */
+.site-section {
+  padding-top: var(--section-padding-y);
+  padding-bottom: var(--section-padding-y);
+}
+
+/* Typography classes */
+.t-eyebrow {
+  font-size: var(--eyebrow-size);
+  letter-spacing: var(--eyebrow-spacing);
+  text-transform: uppercase;
+  font-weight: var(--eyebrow-weight);
+  color: var(--taupe);
+  margin: 0 0 var(--space-eyebrow-to-title);
+}
+.t-h1 {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: var(--h1-size);
+  font-weight: var(--h1-weight);
+  line-height: var(--h1-line);
+  letter-spacing: var(--h1-spacing);
+  color: var(--ink);
+  margin: 0;
+}
+.t-h2 {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: var(--h2-size);
+  font-weight: var(--h2-weight);
+  line-height: var(--h2-line);
+  letter-spacing: var(--h2-spacing);
+  color: var(--ink);
+  margin: 0;
+}
+.t-h3 {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: var(--h3-size);
+  font-weight: var(--h3-weight);
+  line-height: var(--h3-line);
+  color: var(--ink);
+  margin: 0;
+}
+.t-body {
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line);
+  color: var(--taupe);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .site-section {
+    padding-top: var(--section-padding-y-mobile);
+    padding-bottom: var(--section-padding-y-mobile);
+  }
+  .site-container {
+    padding-left: var(--container-padding-x-mobile);
+    padding-right: var(--container-padding-x-mobile);
+  }
+}

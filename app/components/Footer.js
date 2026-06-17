@@ -10,11 +10,8 @@ export default function Footer() {
       }}
     >
       <div
+        className="site-container"
         style={{
-          maxWidth: '1440px',
-          margin: '0 auto',
-          padding: '0 2rem',
-          width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',

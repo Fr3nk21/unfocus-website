@@ -50,11 +50,12 @@ export default function Testimonial() {
   return (
     <section
       id="testimonial"
+      className="site-section"
       style={{
         backgroundColor: 'var(--ivory)',
-        padding: '7rem 2rem',
       }}
     >
+      <div className="site-container">
       <div
         style={{
           maxWidth: '800px',
@@ -64,16 +65,7 @@ export default function Testimonial() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <p
-          style={{
-            fontSize: '0.7rem',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'var(--taupe)',
-            marginBottom: '2.5rem',
-            fontWeight: 400,
-          }}
-        >
+        <p className="t-eyebrow" style={{ marginBottom: '2.5rem' }}>
           What clients say
         </p>
 
@@ -137,6 +129,7 @@ export default function Testimonial() {
             />
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
