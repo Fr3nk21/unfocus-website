@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 const PHOTOS = [
   '/images/portfolio/fratellino/01.webp',
   '/images/portfolio/fratellino/02.webp',
@@ -21,32 +23,86 @@ const PHOTOS = [
 const ROW_ONE = PHOTOS.slice(0, 8);
 const ROW_TWO = PHOTOS.slice(7).concat(PHOTOS.slice(0, 3));
 
-function PhotoRow({ photos, direction = 'left', speed = 60 }) {
-  const doubled = [...photos, ...photos];
-  return (
-    <div className="gallery-row">
-      <div
-        className="gallery-track"
-        style={{
-          animationDuration: speed + 's',
-          animationDirection: direction === 'left' ? 'normal' : 'reverse',
-        }}
-      >
-        {doubled.map((src, i) => (
-          <div key={i} className="gallery-item">
-            <img src={src} alt="" loading="lazy" draggable={false} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function PhotoGallery() {
+  const [lightbox, setLightbox] = useState(null);
+
+  function PhotoRow({ photos, direction = 'left', speed = 60 }) {
+    const doubled = [...photos, ...photos];
+    return (
+      <div className="gallery-row">
+        <div
+          className="gallery-track"
+          style={{
+            animationDuration: speed + 's',
+            animationDirection: direction === 'left' ? 'normal' : 'reverse',
+          }}
+        >
+          {doubled.map((src, i) => (
+            <div key={i} className="gallery-item" onClick={() => setLightbox(src)}>
+              <img src={src} alt="" loading="lazy" draggable={false} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="gallery-section" aria-label="Photo gallery">
       <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
       <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
+
+      {/* Lightbox overlay */}
+      {lightbox && (
+        <div
+          onClick={() => setLightbox(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            backgroundColor: 'rgba(14,12,8,0.92)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem',
+            cursor: 'zoom-out',
+            animation: 'lightboxFade 0.25s ease',
+          }}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); setLightbox(null); }}
+            aria-label="Close"
+            style={{
+              position: 'absolute',
+              top: '1.5rem',
+              right: '1.5rem',
+              background: 'none',
+              border: 'none',
+              color: 'rgba(244,239,229,0.7)',
+              fontSize: '2rem',
+              cursor: 'pointer',
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+          <img
+            src={lightbox}
+            alt=""
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '85vh',
+              width: 'auto',
+              height: 'auto',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              boxShadow: '0 20px 80px rgba(0,0,0,0.5)',
+              cursor: 'default',
+            }}
+          />
+        </div>
+      )}
 
       <style>{`
         .gallery-section {
@@ -72,7 +128,10 @@ export default function PhotoGallery() {
           flex-shrink: 0;
           border-radius: 12px;
           overflow: hidden;
+          cursor: zoom-in;
+          transition: transform 0.3s ease;
         }
+        .gallery-item:hover { transform: scale(1.03); }
         .gallery-item img {
           height: 100%;
           width: auto;
@@ -82,6 +141,10 @@ export default function PhotoGallery() {
         @keyframes galleryScroll {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+        @keyframes lightboxFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
         @media (max-width: 768px) {
           .gallery-item { height: 180px; }
