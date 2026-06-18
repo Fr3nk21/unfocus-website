@@ -158,17 +158,27 @@ function CardOverlay({ item }) {
 function MobileProjectStack({ items, onClickItem }) {
   return (
     <div className="mobile-project-stack">
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="mobile-project-card"
-          onClick={() => onClickItem(item)}
-          style={{ cursor: (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images) ? 'pointer' : 'default' }}
-        >
-          <ProjectCardMedia item={item} />
-          <CardOverlay item={item} />
-        </div>
-      ))}
+      {items.map((item) => {
+        const clickable = (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images);
+        return (
+          <div
+            key={item.id}
+            onClick={() => onClickItem(item)}
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '16/9',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              cursor: clickable ? 'pointer' : 'default',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
+            }}
+          >
+            <ProjectCardMedia item={item} />
+            <CardOverlay item={item} />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -458,16 +468,8 @@ export default function HeroNew() {
         .mobile-project-stack {
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: 1.5rem;
           width: 100%;
-        }
-        .mobile-project-card {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 16/9;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
         @media (max-width: 767px) {
           .hero-split {
