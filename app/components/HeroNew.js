@@ -14,6 +14,7 @@ const portfolioItems = [
     title: 'Toyota Finance',
     sub: 'with Red Herring Digital',
     video: '/videos/toyota-loop.mp4',
+    poster: '/videos/toyota-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
@@ -50,6 +51,7 @@ const portfolioItems = [
     title: 'Pickle Jar',
     sub: 'with GTano',
     video: '/videos/pickle-jar-loop.mp4',
+    poster: '/videos/pickle-jar-thumb.jpg',
     youtubeId: 'R9qTTNp8zTg',
     vertical: false,
   },
@@ -59,6 +61,7 @@ const portfolioItems = [
     title: 'Wake Up and Live',
     sub: 'with the AOD',
     video: '/videos/liam-loop.mp4',
+    poster: '/videos/liam-thumb.jpg',
     youtubeId: '',
     vertical: false,
   },
@@ -94,6 +97,7 @@ const portfolioItems = [
     title: 'Floridia',
     sub: 'with Atti.Co',
     video: '/videos/floridia-night-loop.mp4',
+    poster: '/videos/floridia-night-thumb.jpg',
     youtubeId: 'N-tIYwkcpAE',
     vertical: false,
   },
@@ -103,6 +107,7 @@ const portfolioItems = [
     title: 'Fratellino Pizzeria',
     sub: '',
     video: '/videos/fratellino-loop.mp4',
+    poster: '/videos/fratellino-thumb.jpg',
     youtubeId: 'akSOmj9-SVs',
     vertical: true,
   },
@@ -124,7 +129,7 @@ const portfolioItems = [
 function ProjectCardMedia({ item }) {
   if (item.category === 'Video' && item.video) {
     return (
-      <video autoPlay muted loop playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+      <video autoPlay muted loop playsInline preload="metadata" poster={item.poster} style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
         <source src={item.video} type="video/mp4" />
       </video>
     );
@@ -508,6 +513,7 @@ export default function HeroNew() {
           border-radius: 12px;
           overflow: hidden;
           box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+          background-color: var(--ivory);
         }
         @media (max-width: 767px) {
           .hero-split {

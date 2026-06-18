@@ -1,63 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import SectionWatermark from './SectionWatermark';
-import useIsMobile from '../hooks/useIsMobile';
-
-function MobilePhotoRow({ photos, direction, onLightbox }) {
-  const ref = useRef(null);
-  const paused = useRef(false);
-  const dir = direction === 'right' ? -1 : 1;
-  const doubled = [...photos, ...photos];
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (dir === -1) el.scrollLeft = el.scrollWidth / 2;
-
-    let raf;
-    let last = performance.now();
-    const speed = 0.5; // px per 16.67ms frame
-
-    const step = (now) => {
-      const dt = now - last;
-      last = now;
-      if (!paused.current) {
-        el.scrollLeft += dir * speed * (dt / 16.67);
-        const half = el.scrollWidth / 2; // recalculate each frame (images may load)
-        if (dir > 0 && el.scrollLeft >= half) el.scrollLeft -= half;
-        if (dir < 0 && el.scrollLeft <= 0)   el.scrollLeft += half;
-      }
-      raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-
-    const pause = () => { paused.current = true; };
-    const resume = () => { paused.current = false; };
-    el.addEventListener('pointerdown', pause);
-    el.addEventListener('pointerup', resume);
-    el.addEventListener('pointercancel', resume);
-    el.addEventListener('pointerleave', resume);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener('pointerdown', pause);
-      el.removeEventListener('pointerup', resume);
-      el.removeEventListener('pointercancel', resume);
-      el.removeEventListener('pointerleave', resume);
-    };
-  }, []);
-
-  return (
-    <div ref={ref} className="gallery-row-mobile">
-      {doubled.map((src, i) => (
-        <div key={i} className="gallery-item" onClick={() => onLightbox(src)}>
-          <img src={src} alt="" loading="lazy" draggable={false} />
-        </div>
-      ))}
-    </div>
-  );
-}
 
 const PHOTOS = [
   '/images/portfolio/fratellino/01.webp',
@@ -81,7 +25,6 @@ const ROW_ONE = PHOTOS.slice(0, 8);
 const ROW_TWO = PHOTOS.slice(7).concat(PHOTOS.slice(0, 3));
 
 export default function PhotoGallery() {
-  const isMobile = useIsMobile();
   const [lightbox, setLightbox] = useState(null);
 
   function PhotoRow({ photos, direction = 'left', speed = 60 }) {
@@ -108,17 +51,8 @@ export default function PhotoGallery() {
   return (
     <section className="gallery-section" aria-label="Photo gallery">
       <SectionWatermark text="FRAMES" position="right" />
-      {isMobile ? (
-        <>
-          <MobilePhotoRow photos={ROW_ONE} direction="left" onLightbox={setLightbox} />
-          <MobilePhotoRow photos={ROW_TWO} direction="right" onLightbox={setLightbox} />
-        </>
-      ) : (
-        <>
-          <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
-          <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
-        </>
-      )}
+      <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
+      <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
 
       {/* Lightbox overlay */}
       {lightbox && (
@@ -190,8 +124,12 @@ export default function PhotoGallery() {
           animation-name: galleryScroll;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+          will-change: transform;
+          transform: translateZ(0);
+          backface-visibility: hidden;
         }
         .gallery-track:hover { animation-play-state: paused; }
+        .gallery-track:active { animation-play-state: paused; }
         .gallery-item {
           height: 260px;
           flex-shrink: 0;
@@ -215,16 +153,6 @@ export default function PhotoGallery() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        .gallery-row-mobile {
-          display: flex;
-          overflow-x: auto;
-          overflow-y: hidden;
-          gap: 1rem;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .gallery-row-mobile::-webkit-scrollbar { display: none; }
         @media (max-width: 768px) {
           .gallery-item { height: 180px; }
           .gallery-track { gap: 1rem; }
