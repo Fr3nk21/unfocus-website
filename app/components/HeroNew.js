@@ -156,13 +156,38 @@ function CardOverlay({ item }) {
 }
 
 function MobileProjectCarousel({ items, onClickItem }) {
+  const ref = useRef(null);
+  // Triple the list so the user always has cards in both directions
+  const tripled = [...items, ...items, ...items];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.scrollLeft = el.scrollWidth / 3; // start in the middle set
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const t = el.scrollWidth / 3;
+        if (el.scrollLeft < t * 0.5) el.scrollLeft += t;
+        else if (el.scrollLeft > t * 1.5) el.scrollLeft -= t;
+        ticking = false;
+      });
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <div className="mobile-carousel">
-      {items.map((item) => {
+    <div ref={ref} className="mobile-carousel">
+      {tripled.map((item, i) => {
+        const setIdx = Math.floor(i / items.length);
         const clickable = (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images);
         return (
           <div
-            key={item.id}
+            key={`${item.id}-${setIdx}`}
             className="mobile-carousel-card"
             onClick={() => onClickItem(item)}
             style={{ cursor: clickable ? 'pointer' : 'default' }}
@@ -474,8 +499,8 @@ export default function HeroNew() {
         .mobile-carousel::-webkit-scrollbar { display: none; }
         .mobile-carousel-card {
           flex: 0 0 auto;
-          width: 85%;
-          max-width: 360px;
+          width: 90%;
+          max-width: 420px;
           scroll-snap-align: start;
           position: relative;
           aspect-ratio: 16/9;

@@ -4,8 +4,10 @@ import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
 import SectionWatermark from './SectionWatermark';
+import { useTheme } from './ThemeProvider';
 
 export default function Contact() {
+  const { theme, mounted } = useTheme();
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -190,7 +192,7 @@ export default function Contact() {
                   src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d100000.0!2d144.96!3d-37.84!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sau!4v1700000000000"
                   width="100%"
                   height="100%"
-                  style={{ border: 0, width: '100%', height: '100%', filter: 'grayscale(0.3) contrast(1.05)' }}
+                  style={{ border: 0, width: '100%', height: '100%', filter: mounted && theme === 'dark' ? 'invert(0.92) hue-rotate(180deg) grayscale(0.1)' : 'grayscale(0.3) contrast(1.05)' }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

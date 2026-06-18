@@ -203,29 +203,35 @@ export default function Nav() {
             { label: 'About', href: '#about' },
             { label: 'Services', href: '#services' },
             { label: 'Contact', href: '#contact' },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.querySelector(link.href);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-                setMenuOpen(false);
-              }}
-              style={{
-                display: 'block',
-                padding: '0.75rem 0',
-                color: link.label === 'Contact' ? 'var(--sienna)' : 'var(--ink)',
-                textDecoration: 'none',
-                fontSize: '1.125rem',
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                borderBottom: '1px solid rgba(24,21,15,0.06)',
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          ].map((link) => {
+            const sectionId = link.href.replace('#', '');
+            const isActive = activeSection === sectionId;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.querySelector(link.href);
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  setMenuOpen(false);
+                }}
+                style={{
+                  display: 'block',
+                  padding: '0.75rem 0',
+                  color: isActive ? 'var(--sienna)' : 'var(--ink)',
+                  fontWeight: isActive ? 400 : 300,
+                  textDecoration: 'none',
+                  fontSize: '1.125rem',
+                  fontFamily: 'var(--font-playfair), Georgia, serif',
+                  borderBottom: '1px solid rgba(24,21,15,0.06)',
+                  transition: 'color 0.2s ease',
+                }}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </div>
       )}
 
