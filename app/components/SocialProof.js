@@ -89,7 +89,7 @@ export default function SocialProof() {
                 What clients <span style={{ color: 'var(--sienna)' }}>say</span>
               </h2>
             </RevealWrapper>
-            <div className="reviews-carousel">
+            <div className="snap-carousel reviews-carousel">
               {reviews.map((review, i) => (
                 <div key={i} className="reviews-card">
                   <div style={{ display: 'flex', gap: '4px', marginBottom: '1rem' }}>
@@ -217,16 +217,8 @@ export default function SocialProof() {
           to { transform: translateX(-33.333%); }
         }
         .reviews-carousel {
-          display: flex;
           gap: 1rem;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          -webkit-overflow-scrolling: touch;
-          overscroll-behavior-x: contain;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
         }
-        .reviews-carousel::-webkit-scrollbar { display: none; }
         .reviews-card {
           flex: 0 0 90%;
           scroll-snap-align: start;

@@ -86,7 +86,7 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
 
         <div
           ref={trackRef}
-          className="lightbox-track-mobile"
+          className="snap-carousel lightbox-track-mobile"
           onScroll={() => {
             if (!trackRef.current) return;
             const idx = Math.round(trackRef.current.scrollLeft / trackRef.current.clientWidth);
@@ -108,15 +108,8 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
           .lightbox-track-mobile {
             position: absolute;
             inset: 0;
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
           }
-          .lightbox-track-mobile::-webkit-scrollbar { display: none; }
           .lightbox-slide-mobile {
             flex: 0 0 100%;
             scroll-snap-align: center;

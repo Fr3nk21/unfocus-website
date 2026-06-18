@@ -85,7 +85,7 @@ export default function Services() {
 
           {/* Right: hover image stack (desktop) or swipeable carousel (mobile) */}
           {isMobile ? (
-            <div className="services-carousel">
+            <div className="snap-carousel services-carousel">
               {services.map((service, i) => (
                 <figure key={i} className="services-carousel-card">
                   <img src={service.image} alt={service.word} loading="lazy" />
@@ -125,19 +125,11 @@ export default function Services() {
 
       <style>{`
         .services-carousel {
-          display: flex;
           gap: 1rem;
-          overflow-x: auto;
           overflow-y: visible;
-          scroll-snap-type: x mandatory;
           scroll-padding-inline-start: 0;
           padding: 0 0 1rem;
-          -webkit-overflow-scrolling: touch;
-          overscroll-behavior-x: contain;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
         }
-        .services-carousel::-webkit-scrollbar { display: none; }
         .services-carousel-card {
           position: relative;
           flex: 0 0 auto;

@@ -1,8 +1,6 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const rateMap = new Map();
 const RATE_LIMIT = 5;
 const RATE_WINDOW = 60 * 60 * 1000;
@@ -25,6 +23,12 @@ function isRateLimited(ip) {
 
 export async function POST(request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ error: 'Email service not configured.' }, { status: 500 });
+    }
+    const resend = new Resend(apiKey);
+
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
 
     if (isRateLimited(ip)) {
