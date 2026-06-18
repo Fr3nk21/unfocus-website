@@ -186,7 +186,7 @@ function MobileProjectCarousel({ items, onClickItem }) {
   }, []);
 
   return (
-    <div ref={ref} className="mobile-carousel">
+    <div ref={ref} className="snap-carousel mobile-carousel">
       {tripled.map((item, i) => {
         const setIdx = Math.floor(i / items.length);
         const clickable = (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images);
@@ -489,20 +489,12 @@ export default function HeroNew() {
 
       <style>{`
         .mobile-carousel {
-          display: flex;
           align-items: flex-start;
           gap: 1rem;
-          overflow-x: auto;
           overflow-y: visible;
-          scroll-snap-type: x mandatory;
           scroll-padding-inline-start: 0;
           padding: 0 1.5rem 1.75rem 0;
-          -webkit-overflow-scrolling: touch;
-          overscroll-behavior-x: contain;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
         }
-        .mobile-carousel::-webkit-scrollbar { display: none; }
         .mobile-carousel-card {
           flex: 0 0 auto;
           width: 90%;
