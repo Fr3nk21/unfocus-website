@@ -129,6 +129,20 @@ export default function WhatsAppButton() {
         @keyframes waSpin {
           to { rotate: 360deg; }
         }
+
+        @media (max-width: 767px) {
+          .wa-btn {
+            bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+            right: 1rem;
+          }
+          .wa-label,
+          .wa-online-dot {
+            display: none;
+          }
+          .wa-content {
+            padding: 0.875rem;
+          }
+        }
       `}</style>
     </>
   );

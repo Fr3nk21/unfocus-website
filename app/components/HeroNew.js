@@ -155,24 +155,17 @@ function CardOverlay({ item }) {
   );
 }
 
-function MobileProjectStack({ items, onClickItem }) {
+function MobileProjectCarousel({ items, onClickItem }) {
   return (
-    <div className="mobile-project-stack">
+    <div className="mobile-carousel">
       {items.map((item) => {
         const clickable = (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images);
         return (
           <div
             key={item.id}
+            className="mobile-carousel-card"
             onClick={() => onClickItem(item)}
-            style={{
-              position: 'relative',
-              width: '100%',
-              aspectRatio: '16/9',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              cursor: clickable ? 'pointer' : 'default',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
-            }}
+            style={{ cursor: clickable ? 'pointer' : 'default' }}
           >
             <ProjectCardMedia item={item} />
             <CardOverlay item={item} />
@@ -336,7 +329,7 @@ export default function HeroNew() {
 
           {/* RIGHT: mobile stack or desktop 3D carousel */}
           {isMobile ? (
-            <MobileProjectStack items={portfolioItems} onClickItem={handleClick} />
+            <MobileProjectCarousel items={portfolioItems} onClickItem={handleClick} />
           ) : (
           <div
             ref={carouselRef}
@@ -465,11 +458,30 @@ export default function HeroNew() {
       />
 
       <style>{`
-        .mobile-project-stack {
+        .mobile-carousel {
           display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          width: 100%;
+          gap: 1rem;
+          overflow-x: auto;
+          overflow-y: visible;
+          scroll-snap-type: x mandatory;
+          scroll-padding-inline: 1.25rem;
+          padding: 0.5rem 1.25rem 1.75rem;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .mobile-carousel::-webkit-scrollbar { display: none; }
+        .mobile-carousel-card {
+          flex: 0 0 auto;
+          width: 85%;
+          max-width: 360px;
+          scroll-snap-align: center;
+          position: relative;
+          aspect-ratio: 16/9;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.25);
         }
         @media (max-width: 767px) {
           .hero-split {
