@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 
-export default function SectionWatermark({ text, position = 'right' }) {
+export default function SectionWatermark({ text, position = 'right', extraStyle }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
 
@@ -28,6 +28,7 @@ export default function SectionWatermark({ text, position = 'right' }) {
           [position]: '-2%',
           y: '-50%',              // replaces transform: translateY(-50%)
           x: reduce ? 0 : x,     // parallax; disabled when prefers-reduced-motion
+          ...extraStyle,          // per-instance overrides (positioning only)
           fontFamily: 'var(--font-manrope), system-ui, sans-serif',
           fontSize: 'clamp(7rem, 18vw, 16rem)',
           fontWeight: 800,

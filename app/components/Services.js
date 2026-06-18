@@ -25,7 +25,7 @@ export default function Services() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      <SectionWatermark text="CREATE" position="right" />
+      <SectionWatermark text="CREATE" position="right" extraStyle={{ right: '12%' }} />
       <div className="site-container" style={{ position: 'relative', zIndex: 1 }}>
         {/* Two columns aligned */}
         <div className="services-grid" style={{
