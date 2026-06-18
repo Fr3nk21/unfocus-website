@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
 import SectionWatermark from './SectionWatermark';
+import useIsMobile from '../hooks/useIsMobile';
 
 const reviews = [
   {
@@ -50,6 +51,7 @@ const LOGOS = [
 ];
 
 export default function SocialProof() {
+  const isMobile = useIsMobile();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -77,74 +79,72 @@ export default function SocialProof() {
         }}
       >
         {/* LEFT: testimonials */}
-        <div
-          style={{ minWidth: 0 }}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <RevealWrapper variant="reveal">
-            <SectionLabel number="03" />
-            <p className="t-eyebrow">Testimonials</p>
-            <h2 className="t-h2" style={{ color: 'var(--ink)', marginBottom: '2rem' }}>
-              What clients <span style={{ color: 'var(--sienna)' }}>say</span>
-            </h2>
-          </RevealWrapper>
-
-          {/* Stars */}
-          <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '4px' }}>
-            {[...Array(reviews[active].stars)].map((_, i) => (
-              <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="var(--sienna)" stroke="none">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-            ))}
+        {isMobile ? (
+          /* Mobile: swipeable carousel */
+          <div style={{ minWidth: 0 }}>
+            <RevealWrapper variant="reveal">
+              <SectionLabel number="03" />
+              <p className="t-eyebrow">Testimonials</p>
+              <h2 className="t-h2" style={{ color: 'var(--ink)', marginBottom: '2rem' }}>
+                What clients <span style={{ color: 'var(--sienna)' }}>say</span>
+              </h2>
+            </RevealWrapper>
+            <div className="reviews-carousel">
+              {reviews.map((review, i) => (
+                <div key={i} className="reviews-card">
+                  <div style={{ display: 'flex', gap: '4px', marginBottom: '1rem' }}>
+                    {[...Array(review.stars)].map((_, s) => (
+                      <svg key={s} width="16" height="16" viewBox="0 0 24 24" fill="var(--sienna)" stroke="none">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ))}
+                  </div>
+                  <blockquote style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.125rem', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem' }}>
+                    &ldquo;{review.text}&rdquo;
+                  </blockquote>
+                  <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--taupe)', margin: 0 }}>{review.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-          {/* Review text */}
-          <blockquote
-            style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
-              fontWeight: 400,
-              color: 'var(--ink)',
-              lineHeight: 1.7,
-              fontStyle: 'italic',
-              margin: '0 0 1rem',
-              minHeight: '110px',
-              transition: 'opacity 0.4s ease',
-            }}
+        ) : (
+          /* Desktop: auto-rotating with dots */
+          <div
+            style={{ minWidth: 0 }}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
           >
-            &ldquo;{reviews[active].text}&rdquo;
-          </blockquote>
+            <RevealWrapper variant="reveal">
+              <SectionLabel number="03" />
+              <p className="t-eyebrow">Testimonials</p>
+              <h2 className="t-h2" style={{ color: 'var(--ink)', marginBottom: '2rem' }}>
+                What clients <span style={{ color: 'var(--sienna)' }}>say</span>
+              </h2>
+            </RevealWrapper>
 
-          {/* Author */}
-          <div style={{ marginBottom: '2rem' }}>
-            <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--taupe)' }}>
-              {reviews[active].name}
-            </p>
-          </div>
+            <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '4px' }}>
+              {[...Array(reviews[active].stars)].map((_, i) => (
+                <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="var(--sienna)" stroke="none">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              ))}
+            </div>
 
-          {/* Dots navigation */}
-          <div style={{ display: 'flex', gap: '8px' }}>
-            {reviews.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                aria-label={`Review ${i + 1}`}
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: active === i ? 'var(--sienna)' : 'var(--parchment)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'transform 0.3s ease, background-color 0.3s ease',
-                  transform: active === i ? 'scale(1.3)' : 'scale(1)',
-                  padding: 0,
-                }}
-              />
-            ))}
+            <blockquote style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem', minHeight: '110px', transition: 'opacity 0.4s ease' }}>
+              &ldquo;{reviews[active].text}&rdquo;
+            </blockquote>
+
+            <div style={{ marginBottom: '2rem' }}>
+              <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--taupe)' }}>{reviews[active].name}</p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {reviews.map((_, i) => (
+                <button key={i} onClick={() => setActive(i)} aria-label={`Review ${i + 1}`} style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: active === i ? 'var(--sienna)' : 'var(--parchment)', border: 'none', cursor: 'pointer', transition: 'transform 0.3s ease, background-color 0.3s ease', transform: active === i ? 'scale(1.3)' : 'scale(1)', padding: 0 }} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* RIGHT: two client logo carousels with edge fade */}
         <div className="logos-wrap" style={{ minWidth: 0, overflow: 'hidden' }}>
@@ -215,6 +215,26 @@ export default function SocialProof() {
         @keyframes logoScrollRtl {
           from { transform: translateX(0); }
           to { transform: translateX(-33.333%); }
+        }
+        .reviews-carousel {
+          display: flex;
+          gap: 1rem;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .reviews-carousel::-webkit-scrollbar { display: none; }
+        .reviews-card {
+          flex: 0 0 90%;
+          scroll-snap-align: start;
+          scroll-snap-stop: always;
+          padding: 1.5rem;
+          background: var(--cream);
+          border-radius: 12px;
+          border: 1px solid var(--parchment);
         }
         @media (max-width: 768px) {
           .socialproof-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }

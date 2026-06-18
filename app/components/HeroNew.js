@@ -502,6 +502,7 @@ export default function HeroNew() {
           width: 90%;
           max-width: 420px;
           scroll-snap-align: start;
+          scroll-snap-stop: always;
           position: relative;
           aspect-ratio: 16/9;
           border-radius: 12px;

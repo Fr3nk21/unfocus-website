@@ -13,17 +13,20 @@ function MobilePhotoRow({ photos, direction, onLightbox }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // Start in the middle of the doubled set to allow scrolling in both directions
     if (dir === -1) el.scrollLeft = el.scrollWidth / 2;
 
-    const speed = 0.5;
     let raf;
-    const step = () => {
+    let last = performance.now();
+    const speed = 0.5; // px per 16.67ms frame
+
+    const step = (now) => {
+      const dt = now - last;
+      last = now;
       if (!paused.current) {
-        el.scrollLeft += dir * speed;
-        const half = el.scrollWidth / 2;
-        if (el.scrollLeft >= half) el.scrollLeft -= half;
-        if (el.scrollLeft < 1) el.scrollLeft += half;
+        el.scrollLeft += dir * speed * (dt / 16.67);
+        const half = el.scrollWidth / 2; // recalculate each frame (images may load)
+        if (dir > 0 && el.scrollLeft >= half) el.scrollLeft -= half;
+        if (dir < 0 && el.scrollLeft <= 0)   el.scrollLeft += half;
       }
       raf = requestAnimationFrame(step);
     };
@@ -34,12 +37,14 @@ function MobilePhotoRow({ photos, direction, onLightbox }) {
     el.addEventListener('pointerdown', pause);
     el.addEventListener('pointerup', resume);
     el.addEventListener('pointercancel', resume);
+    el.addEventListener('pointerleave', resume);
 
     return () => {
       cancelAnimationFrame(raf);
       el.removeEventListener('pointerdown', pause);
       el.removeEventListener('pointerup', resume);
       el.removeEventListener('pointercancel', resume);
+      el.removeEventListener('pointerleave', resume);
     };
   }, []);
 
@@ -223,7 +228,7 @@ export default function PhotoGallery() {
         @media (max-width: 768px) {
           .gallery-item { height: 180px; }
           .gallery-track { gap: 1rem; }
-          .gallery-section { gap: 1rem; }
+          .gallery-section { gap: 1rem; padding-top: var(--section-padding-y-mobile); padding-bottom: var(--section-padding-y-mobile); }
         }
       `}</style>
     </section>

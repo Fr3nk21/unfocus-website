@@ -1,8 +1,11 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import useIsMobile from '../hooks/useIsMobile';
 
 export default function PhotoLightbox({ isOpen, onClose, images = [], title = '' }) {
   const [current, setCurrent] = useState(0);
+  const isMobile = useIsMobile();
+  const trackRef = useRef(null);
 
   const goNext = useCallback(() => {
     setCurrent((prev) => (prev + 1) % images.length);
@@ -15,6 +18,8 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
   useEffect(() => {
     if (!isOpen) return;
     setCurrent(0);
+    // Reset mobile track to first slide
+    if (isMobile && trackRef.current) trackRef.current.scrollLeft = 0;
     document.body.style.overflow = 'hidden';
 
     const handleKey = (e) => {
@@ -27,10 +32,106 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
       document.removeEventListener('keydown', handleKey);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose, goNext, goPrev]);
+  }, [isOpen, onClose, goNext, goPrev, isMobile]);
 
   if (!isOpen || images.length === 0) return null;
 
+  const closeBtn = (
+    <button
+      onClick={onClose}
+      aria-label="Close gallery"
+      style={{
+        position: 'absolute',
+        top: '1.5rem',
+        right: '1.5rem',
+        background: 'none',
+        border: 'none',
+        color: 'rgba(244,239,229,0.6)',
+        fontSize: '1.5rem',
+        cursor: 'pointer',
+        zIndex: 10,
+        transition: 'color 0.2s ease',
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sienna)')}
+      onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(244,239,229,0.6)')}
+    >
+      ✕
+    </button>
+  );
+
+  const titleBlock = (
+    <div style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', zIndex: 10 }}>
+      <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1rem', color: 'rgba(244,239,229,0.7)', fontWeight: 500, margin: 0 }}>
+        {title}
+      </p>
+      <p style={{ fontSize: '0.75rem', color: 'rgba(244,239,229,0.35)', fontWeight: 300, letterSpacing: '0.1em', margin: '0.25rem 0 0' }}>
+        {current + 1} / {images.length}
+      </p>
+    </div>
+  );
+
+  // ── Mobile: horizontal scroll-snap track ──────────────────────────
+  if (isMobile) {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          backgroundColor: 'rgba(14,12,8,0.95)',
+        }}
+      >
+        {closeBtn}
+        {titleBlock}
+
+        <div
+          ref={trackRef}
+          className="lightbox-track-mobile"
+          onScroll={() => {
+            if (!trackRef.current) return;
+            const idx = Math.round(trackRef.current.scrollLeft / trackRef.current.clientWidth);
+            setCurrent(Math.min(Math.max(idx, 0), images.length - 1));
+          }}
+        >
+          {images.map((src, i) => (
+            <div key={i} className="lightbox-slide-mobile">
+              <img
+                src={src}
+                alt={`${title} — photo ${i + 1}`}
+                style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '8px' }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <style>{`
+          .lightbox-track-mobile {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          .lightbox-track-mobile::-webkit-scrollbar { display: none; }
+          .lightbox-slide-mobile {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1.25rem 2rem;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // ── Desktop: existing layout with prev/next buttons ───────────────
   return (
     <div
       onClick={onClose}
@@ -45,60 +146,8 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
         cursor: 'pointer',
       }}
     >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        aria-label="Close gallery"
-        style={{
-          position: 'absolute',
-          top: '1.5rem',
-          right: '1.5rem',
-          background: 'none',
-          border: 'none',
-          color: 'rgba(244,239,229,0.6)',
-          fontSize: '1.5rem',
-          cursor: 'pointer',
-          zIndex: 10,
-          transition: 'color 0.2s ease',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--sienna)')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(244,239,229,0.6)')}
-      >
-        ✕
-      </button>
-
-      {/* Title + counter */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '1.5rem',
-          left: '1.5rem',
-          zIndex: 10,
-        }}
-      >
-        <p
-          style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: '1rem',
-            color: 'rgba(244,239,229,0.7)',
-            fontWeight: 500,
-            margin: 0,
-          }}
-        >
-          {title}
-        </p>
-        <p
-          style={{
-            fontSize: '0.75rem',
-            color: 'rgba(244,239,229,0.35)',
-            fontWeight: 300,
-            letterSpacing: '0.1em',
-            margin: '0.25rem 0 0',
-          }}
-        >
-          {current + 1} / {images.length}
-        </p>
-      </div>
+      {closeBtn}
+      {titleBlock}
 
       {/* Previous button */}
       {images.length > 1 && (
@@ -134,25 +183,12 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
       {/* Image */}
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          maxWidth: '85vw',
-          maxHeight: '85vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'default',
-        }}
+        style={{ maxWidth: '85vw', maxHeight: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'default' }}
       >
         <img
           src={images[current]}
           alt={`${title} — photo ${current + 1}`}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '85vh',
-            objectFit: 'contain',
-            display: 'block',
-            borderRadius: '8px',
-          }}
+          style={{ maxWidth: '100%', maxHeight: '85vh', objectFit: 'contain', display: 'block', borderRadius: '8px' }}
         />
       </div>
 
