@@ -490,12 +490,13 @@ export default function HeroNew() {
       <style>{`
         .mobile-carousel {
           display: flex;
+          align-items: flex-start;
           gap: 1rem;
           overflow-x: auto;
           overflow-y: visible;
           scroll-snap-type: x mandatory;
           scroll-padding-inline-start: 0;
-          padding: 0.5rem 1.5rem 1.75rem 0;
+          padding: 0 1.5rem 1.75rem 0;
           -webkit-overflow-scrolling: touch;
           overscroll-behavior-x: contain;
           scrollbar-width: none;
@@ -514,6 +515,14 @@ export default function HeroNew() {
           overflow: hidden;
           box-shadow: 0 20px 60px rgba(0,0,0,0.25);
           background-color: var(--ivory);
+        }
+        .mobile-carousel-card img,
+        .mobile-carousel-card video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         @media (max-width: 767px) {
           .hero-split {
