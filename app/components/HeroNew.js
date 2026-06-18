@@ -464,8 +464,8 @@ export default function HeroNew() {
           overflow-x: auto;
           overflow-y: visible;
           scroll-snap-type: x mandatory;
-          scroll-padding-inline: 1.25rem;
-          padding: 0.5rem 1.25rem 1.75rem;
+          scroll-padding-inline-start: 0;
+          padding: 0.5rem 1.5rem 1.75rem 0;
           -webkit-overflow-scrolling: touch;
           overscroll-behavior-x: contain;
           scrollbar-width: none;
@@ -476,7 +476,7 @@ export default function HeroNew() {
           flex: 0 0 auto;
           width: 85%;
           max-width: 360px;
-          scroll-snap-align: center;
+          scroll-snap-align: start;
           position: relative;
           aspect-ratio: 16/9;
           border-radius: 12px;

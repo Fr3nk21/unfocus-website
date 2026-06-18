@@ -4,6 +4,7 @@ import { useState } from 'react';
 import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
 import SectionWatermark from './SectionWatermark';
+import useIsMobile from '../hooks/useIsMobile';
 
 const services = [
   { word: 'Social media videos', image: '/videos/pickle-jar-thumb.jpg' },
@@ -15,6 +16,7 @@ const services = [
 ];
 
 export default function Services() {
+  const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -81,44 +83,101 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Right: large square image, top-aligned with heading, right edge to container edge */}
-          <div style={{
-            position: 'relative',
-            aspectRatio: '1 / 1',
-            width: '100%',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            justifySelf: 'end',
-          }}>
-            {services.map((service, i) => (
-              <img
-                key={i}
-                src={service.image}
-                alt={service.word}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: activeIndex === i ? 1 : 0,
-                  transition: 'opacity 0.5s ease',
-                }}
-              />
-            ))}
-          </div>
+          {/* Right: hover image stack (desktop) or swipeable carousel (mobile) */}
+          {isMobile ? (
+            <div className="services-carousel">
+              {services.map((service, i) => (
+                <figure key={i} className="services-carousel-card">
+                  <img src={service.image} alt={service.word} loading="lazy" />
+                  <figcaption className="services-carousel-label">{service.word}</figcaption>
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              position: 'relative',
+              aspectRatio: '1 / 1',
+              width: '100%',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              justifySelf: 'end',
+            }}>
+              {services.map((service, i) => (
+                <img
+                  key={i}
+                  src={service.image}
+                  alt={service.word}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: activeIndex === i ? 1 : 0,
+                    transition: 'opacity 0.5s ease',
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       <style>{`
+        .services-carousel {
+          display: flex;
+          gap: 1rem;
+          overflow-x: auto;
+          overflow-y: visible;
+          scroll-snap-type: x mandatory;
+          scroll-padding-inline-start: 0;
+          padding: 0 0 1rem;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .services-carousel::-webkit-scrollbar { display: none; }
+        .services-carousel-card {
+          position: relative;
+          flex: 0 0 auto;
+          width: 80%;
+          max-width: 340px;
+          aspect-ratio: 1 / 1;
+          scroll-snap-align: start;
+          border-radius: 12px;
+          overflow: hidden;
+          margin: 0;
+        }
+        .services-carousel-card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .services-carousel-card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%);
+          pointer-events: none;
+        }
+        .services-carousel-label {
+          position: absolute;
+          left: 1rem;
+          bottom: 1rem;
+          z-index: 1;
+          font-family: var(--font-playfair), Georgia, serif;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #F4EFE5;
+          margin: 0;
+          pointer-events: none;
+        }
         @media (max-width: 768px) {
           .services-grid {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
-          }
-          .services-grid > div:last-child {
-            order: -1;
-            margin-bottom: 1.5rem;
           }
           .services-divider { display: none !important; }
         }

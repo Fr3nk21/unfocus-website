@@ -1,7 +1,58 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SectionWatermark from './SectionWatermark';
+import useIsMobile from '../hooks/useIsMobile';
+
+function MobilePhotoRow({ photos, direction, onLightbox }) {
+  const ref = useRef(null);
+  const paused = useRef(false);
+  const dir = direction === 'right' ? -1 : 1;
+  const doubled = [...photos, ...photos];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Start in the middle of the doubled set to allow scrolling in both directions
+    if (dir === -1) el.scrollLeft = el.scrollWidth / 2;
+
+    const speed = 0.5;
+    let raf;
+    const step = () => {
+      if (!paused.current) {
+        el.scrollLeft += dir * speed;
+        const half = el.scrollWidth / 2;
+        if (el.scrollLeft >= half) el.scrollLeft -= half;
+        if (el.scrollLeft < 1) el.scrollLeft += half;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+
+    const pause = () => { paused.current = true; };
+    const resume = () => { paused.current = false; };
+    el.addEventListener('pointerdown', pause);
+    el.addEventListener('pointerup', resume);
+    el.addEventListener('pointercancel', resume);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener('pointerdown', pause);
+      el.removeEventListener('pointerup', resume);
+      el.removeEventListener('pointercancel', resume);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className="gallery-row-mobile">
+      {doubled.map((src, i) => (
+        <div key={i} className="gallery-item" onClick={() => onLightbox(src)}>
+          <img src={src} alt="" loading="lazy" draggable={false} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const PHOTOS = [
   '/images/portfolio/fratellino/01.webp',
@@ -25,6 +76,7 @@ const ROW_ONE = PHOTOS.slice(0, 8);
 const ROW_TWO = PHOTOS.slice(7).concat(PHOTOS.slice(0, 3));
 
 export default function PhotoGallery() {
+  const isMobile = useIsMobile();
   const [lightbox, setLightbox] = useState(null);
 
   function PhotoRow({ photos, direction = 'left', speed = 60 }) {
@@ -51,8 +103,17 @@ export default function PhotoGallery() {
   return (
     <section className="gallery-section" aria-label="Photo gallery">
       <SectionWatermark text="FRAMES" position="right" />
-      <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
-      <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
+      {isMobile ? (
+        <>
+          <MobilePhotoRow photos={ROW_ONE} direction="left" onLightbox={setLightbox} />
+          <MobilePhotoRow photos={ROW_TWO} direction="right" onLightbox={setLightbox} />
+        </>
+      ) : (
+        <>
+          <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
+          <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
+        </>
+      )}
 
       {/* Lightbox overlay */}
       {lightbox && (
@@ -149,6 +210,16 @@ export default function PhotoGallery() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+        .gallery-row-mobile {
+          display: flex;
+          overflow-x: auto;
+          overflow-y: hidden;
+          gap: 1rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .gallery-row-mobile::-webkit-scrollbar { display: none; }
         @media (max-width: 768px) {
           .gallery-item { height: 180px; }
           .gallery-track { gap: 1rem; }
