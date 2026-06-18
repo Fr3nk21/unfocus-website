@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import ThreeHero from './ThreeHero';
 import YoutubeModal from './YoutubeModal';
 import PhotoLightbox from './PhotoLightbox';
+import useIsMobile from '../hooks/useIsMobile';
 
 const portfolioItems = [
   {
@@ -120,7 +121,60 @@ const portfolioItems = [
   },
 ];
 
+function ProjectCardMedia({ item }) {
+  if (item.category === 'Video' && item.video) {
+    return (
+      <video autoPlay muted loop playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+        <source src={item.video} type="video/mp4" />
+      </video>
+    );
+  }
+  if (item.cover) {
+    return <img src={item.cover} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+  }
+  return null;
+}
+
+function CardOverlay({ item }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
+        padding: '2rem 1rem 1rem',
+        pointerEvents: 'none',
+      }}
+    >
+      <span style={{ fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--sienna)' }}>{item.category}</span>
+      <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.1rem', fontWeight: 600, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
+      {item.sub && <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.6)', margin: '0.1rem 0 0' }}>{item.sub}</p>}
+    </div>
+  );
+}
+
+function MobileProjectStack({ items, onClickItem }) {
+  return (
+    <div className="mobile-project-stack">
+      {items.map((item) => (
+        <div
+          key={item.id}
+          className="mobile-project-card"
+          onClick={() => onClickItem(item)}
+          style={{ cursor: (item.category === 'Video' && item.youtubeId) || (item.category === 'Photo' && item.images) ? 'pointer' : 'default' }}
+        >
+          <ProjectCardMedia item={item} />
+          <CardOverlay item={item} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function HeroNew() {
+  const isMobile = useIsMobile();
   const [activeIndex, setActiveIndex] = useState(Math.floor(portfolioItems.length / 2));
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
@@ -270,7 +324,10 @@ export default function HeroNew() {
             </div>
           </div>
 
-          {/* RIGHT: 3D portrait carousel */}
+          {/* RIGHT: mobile stack or desktop 3D carousel */}
+          {isMobile ? (
+            <MobileProjectStack items={portfolioItems} onClickItem={handleClick} />
+          ) : (
           <div
             ref={carouselRef}
             style={{
@@ -321,32 +378,8 @@ export default function HeroNew() {
                       boxShadow: offset === 0 ? '0 20px 60px rgba(0,0,0,0.25)' : '0 10px 30px rgba(0,0,0,0.15)',
                     }}
                   >
-                    {item.category === 'Video' && item.video ? (
-                      <video autoPlay muted loop playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-                        <source src={item.video} type="video/mp4" />
-                      </video>
-                    ) : item.cover ? (
-                      <img src={item.cover} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : null}
-
-                    {/* Info overlay on active card */}
-                    {offset === 0 && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                          padding: '2rem 1rem 1rem',
-                          pointerEvents: 'none',
-                        }}
-                      >
-                        <span style={{ fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--sienna)' }}>{item.category}</span>
-                        <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.1rem', fontWeight: 600, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
-                        {item.sub && <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.6)', margin: '0.1rem 0 0' }}>{item.sub}</p>}
-                      </div>
-                    )}
+                    <ProjectCardMedia item={item} />
+                    {offset === 0 && <CardOverlay item={item} />}
                   </motion.div>
                 );
               })}
@@ -398,6 +431,7 @@ export default function HeroNew() {
               </button>
             </div>
           </div>
+          )}
         </div>
 
         {/* Scroll indicator */}
@@ -421,21 +455,26 @@ export default function HeroNew() {
       />
 
       <style>{`
-        @media (max-width: 768px) {
+        .mobile-project-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+          width: 100%;
+        }
+        .mobile-project-card {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        @media (max-width: 767px) {
           .hero-split {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
             padding-top: 2rem !important;
           }
-          /* carousel column + controls centered */
-          .hero-split > div:last-child {
-            align-items: center !important;
-            justify-content: center !important;
-          }
-          .carousel-stage {
-            height: 360px !important;
-          }
-          /* Hide the scroll chevron on mobile so it can't overlap the carousel controls */
           .hero-scroll-indicator {
             display: none !important;
           }
