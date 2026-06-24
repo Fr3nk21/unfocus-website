@@ -26,7 +26,7 @@ const PHOTOS = [
   '/images/gallery/DSC00486.webp',
   '/images/gallery/06_03_possum.webp',
   '/images/gallery/06_04_possum.webp',
-  '/images/gallery/05_fratellino_thumbnail.webp',
+'/images/gallery/DSC01694-2.webp',
   '/images/gallery/04_04_venice.webp',
   '/images/gallery/03_ossou_thumbnail.webp',
   '/videos/carousel-01-web.mp4',
