@@ -17,40 +17,14 @@ const PHOTOS = [
   '/images/portfolio/possum/01.webp',
   '/images/portfolio/possum/02.webp',
   '/videos/carousel-01-web.mp4',
-  '/videos/carousel-02-web.mp4',
-  '/videos/carousel-03-web.mp4',
-  '/videos/carousel-04-web.mp4',
-  '/videos/carousel-05-web.mp4',
-  '/videos/carousel-06-web.mp4',
-  '/videos/carousel-07-web.mp4',
-  '/videos/carousel-08-web.mp4',
-  '/videos/carousel-09-web.mp4',
-  '/videos/carousel-10-web.mp4',
-  '/videos/carousel-11-web.mp4',
-  '/videos/carousel-12-web.mp4',
-  '/videos/carousel-13-web.mp4',
-  '/videos/carousel-14-web.mp4',
-  '/videos/carousel-15-web.mp4',
-  '/videos/carousel-16-web.mp4',
-  '/videos/carousel-17-web.mp4',
-  '/videos/carousel-18-web.mp4',
-  '/videos/carousel-19-web.mp4',
-  '/videos/carousel-20-web.mp4',
-  '/videos/pizza-doctor-loop-web.mp4',
-  '/videos/floridia-loop-web.mp4',
-  '/videos/floridia-adrian-loop-web.mp4',
-  '/videos/red-herring-loop-web.mp4',
   '/videos/queenscliff-loop-web.mp4',
-  '/videos/george-loop-web.mp4',
   '/videos/cleanup-loop-web.mp4',
-  '/videos/anchovies-butter-web.mp4',
   '/videos/gtano-dock-web.mp4',
-  '/videos/no-pain-no-gain-web.mp4',
-  '/videos/pickle-jar-web.mp4',
+  '/videos/floridia-loop-web.mp4',
 ];
 
-const ROW_ONE = PHOTOS.slice(0, 8);
-const ROW_TWO = PHOTOS.slice(7).concat(PHOTOS.slice(0, 3));
+const ROW_ONE = PHOTOS.slice(0, 9);
+const ROW_TWO = PHOTOS.slice(8);
 
 function GalleryItem({ src, onClick }) {
   const isVideo = src.endsWith('.mp4');
@@ -99,8 +73,8 @@ export default function PhotoGallery() {
   return (
     <section className="gallery-section" aria-label="Photo gallery">
       <SectionWatermark text="FRAMES" position="right" />
-      <PhotoRow photos={ROW_ONE} direction="left" speed={70} />
-      <PhotoRow photos={ROW_TWO} direction="right" speed={85} />
+<PhotoRow photos={ROW_ONE} direction="left" speed={70} />
+<PhotoRow photos={ROW_TWO} direction="right" speed={70} />
 
       {/* Lightbox overlay */}
       {lightbox && (
