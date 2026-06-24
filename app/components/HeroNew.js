@@ -124,6 +124,26 @@ const portfolioItems = [
       '/images/portfolio/possum/04.webp',
     ],
   },
+  {
+    id: 'v-venice',
+    category: 'Video',
+    title: 'Venice',
+    sub: '',
+    video: '/videos/venice-loop.mp4',
+    poster: '/videos/venice-thumb.jpg',
+    youtubeId: '',
+    vertical: false,
+  },
+  {
+    id: 'v-bmpro',
+    category: 'Video',
+    title: 'BMPRO',
+    sub: '',
+    video: '/videos/bmpro-loop.mp4',
+    poster: '/videos/bmpro-thumb.jpg',
+    youtubeId: '',
+    vertical: false,
+  },
 ];
 
 function ProjectCardMedia({ item }) {

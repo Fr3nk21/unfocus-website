@@ -16,13 +16,63 @@ const PHOTOS = [
   '/images/portfolio/agriturismo/02.webp',
   '/images/portfolio/possum/01.webp',
   '/images/portfolio/possum/02.webp',
-  '/videos/toyota-thumb.jpg',
-  '/videos/pickle-jar-thumb.jpg',
-  '/videos/floridia-night-thumb.jpg',
+  '/videos/carousel-01-web.mp4',
+  '/videos/carousel-02-web.mp4',
+  '/videos/carousel-03-web.mp4',
+  '/videos/carousel-04-web.mp4',
+  '/videos/carousel-05-web.mp4',
+  '/videos/carousel-06-web.mp4',
+  '/videos/carousel-07-web.mp4',
+  '/videos/carousel-08-web.mp4',
+  '/videos/carousel-09-web.mp4',
+  '/videos/carousel-10-web.mp4',
+  '/videos/carousel-11-web.mp4',
+  '/videos/carousel-12-web.mp4',
+  '/videos/carousel-13-web.mp4',
+  '/videos/carousel-14-web.mp4',
+  '/videos/carousel-15-web.mp4',
+  '/videos/carousel-16-web.mp4',
+  '/videos/carousel-17-web.mp4',
+  '/videos/carousel-18-web.mp4',
+  '/videos/carousel-19-web.mp4',
+  '/videos/carousel-20-web.mp4',
+  '/videos/pizza-doctor-loop-web.mp4',
+  '/videos/floridia-loop-web.mp4',
+  '/videos/floridia-adrian-loop-web.mp4',
+  '/videos/red-herring-loop-web.mp4',
+  '/videos/queenscliff-loop-web.mp4',
+  '/videos/george-loop-web.mp4',
+  '/videos/cleanup-loop-web.mp4',
+  '/videos/anchovies-butter-web.mp4',
+  '/videos/gtano-dock-web.mp4',
+  '/videos/no-pain-no-gain-web.mp4',
+  '/videos/pickle-jar-web.mp4',
 ];
 
 const ROW_ONE = PHOTOS.slice(0, 8);
 const ROW_TWO = PHOTOS.slice(7).concat(PHOTOS.slice(0, 3));
+
+function GalleryItem({ src, onClick }) {
+  const isVideo = src.endsWith('.mp4');
+  return (
+    <div className="gallery-item" onClick={() => onClick(src)}>
+      {isVideo ? (
+        <video
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="none"
+          style={{ height: '100%', width: 'auto', display: 'block', objectFit: 'cover' }}
+        />
+      ) : (
+        <img src={src} alt="" loading="lazy" draggable={false}
+          style={{ height: '100%', width: 'auto', display: 'block', objectFit: 'cover' }} />
+      )}
+    </div>
+  );
+}
 
 export default function PhotoGallery() {
   const [lightbox, setLightbox] = useState(null);
@@ -39,9 +89,7 @@ export default function PhotoGallery() {
           }}
         >
           {doubled.map((src, i) => (
-            <div key={i} className="gallery-item" onClick={() => setLightbox(src)}>
-              <img src={src} alt="" loading="lazy" draggable={false} />
-            </div>
+            <GalleryItem key={i} src={src} onClick={setLightbox} />
           ))}
         </div>
       </div>
@@ -88,21 +136,35 @@ export default function PhotoGallery() {
           >
             ×
           </button>
-          <img
-            src={lightbox}
-            alt=""
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: '90vw',
-              maxHeight: '85vh',
-              width: 'auto',
-              height: 'auto',
-              objectFit: 'contain',
-              borderRadius: '8px',
-              boxShadow: '0 20px 80px rgba(0,0,0,0.5)',
-              cursor: 'default',
-            }}
-          />
+          {lightbox.endsWith('.mp4') ? (
+            <video
+              src={lightbox}
+              autoPlay muted loop playsInline controls
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                maxWidth: '90vw',
+                maxHeight: '85vh',
+                borderRadius: '8px',
+                boxShadow: '0 20px 80px rgba(0,0,0,0.5)',
+              }}
+            />
+          ) : (
+            <img
+              src={lightbox}
+              alt=""
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                maxWidth: '90vw',
+                maxHeight: '85vh',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 20px 80px rgba(0,0,0,0.5)',
+                cursor: 'default',
+              }}
+            />
+          )}
         </div>
       )}
 
