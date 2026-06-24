@@ -7,12 +7,12 @@ import SectionWatermark from './SectionWatermark';
 import useIsMobile from '../hooks/useIsMobile';
 
 const services = [
-  { word: 'Social media videos', image: '/videos/pickle-jar-thumb.jpg' },
-  { word: 'Hospitality content', image: '/videos/fratellino-thumb.jpg' },
-  { word: 'Corporate films', image: '/videos/toyota-thumb.jpg' },
-  { word: 'Event coverage', image: '/videos/floridia-night-thumb.jpg' },
-  { word: 'Legacy videos', image: '/videos/liam-thumb.jpg' },
-  { word: 'Commercial photography', image: '/images/portfolio/bar-ussou/01.webp' },
+  { word: 'Social media videos', image: '/images/services/italpaint_project02_05.webp' },
+  { word: 'Hospitality content', image: '/images/services/05_01_fratellino.webp' },
+  { word: 'Corporate films', image: '/images/services/italpaint_project02_05.webp' },
+  { word: 'Event coverage', image: '/images/services/DSC08108.webp' },
+  { word: 'Legacy videos', image: '' },
+  { word: 'Commercial photography', image: '/images/services/DSC05443.webp' },
 ];
 
 export default function Services() {

@@ -5,17 +5,30 @@ import SectionWatermark from './SectionWatermark';
 
 const PHOTOS = [
   '/images/portfolio/fratellino/01.webp',
-  '/images/portfolio/fratellino/02.webp',
-  '/images/portfolio/fratellino/03.webp',
   '/images/portfolio/venice/01.webp',
-  '/images/portfolio/venice/02.webp',
-  '/images/portfolio/venice/03.webp',
   '/images/portfolio/bar-ussou/01.webp',
-  '/images/portfolio/bar-ussou/02.webp',
   '/images/portfolio/agriturismo/01.webp',
-  '/images/portfolio/agriturismo/02.webp',
   '/images/portfolio/possum/01.webp',
-  '/images/portfolio/possum/02.webp',
+  '/images/gallery/DSC08281.webp',
+  '/images/gallery/DSC08534.webp',
+  '/images/gallery/DSC08796.webp',
+  '/images/gallery/italpaint_project06_04.webp',
+  '/images/gallery/italpaint_staff_03.webp',
+  '/images/gallery/DSC05717.webp',
+  '/images/gallery/DSC04983.webp',
+  '/images/gallery/DSC03997.webp',
+  '/images/gallery/DSC03232.webp',
+  '/images/gallery/DSC02720.webp',
+  '/images/gallery/DSC03090.webp',
+  '/images/gallery/DSC01985-Enhanced-NR.webp',
+  '/images/gallery/DSC01690-2.webp',
+  '/images/gallery/DSC01484.webp',
+  '/images/gallery/DSC00486.webp',
+  '/images/gallery/06_03_possum.webp',
+  '/images/gallery/06_04_possum.webp',
+  '/images/gallery/05_fratellino_thumbnail.webp',
+  '/images/gallery/04_04_venice.webp',
+  '/images/gallery/03_ossou_thumbnail.webp',
   '/videos/carousel-01-web.mp4',
   '/videos/queenscliff-loop-web.mp4',
   '/videos/cleanup-loop-web.mp4',
@@ -23,8 +36,8 @@ const PHOTOS = [
   '/videos/floridia-loop-web.mp4',
 ];
 
-const ROW_ONE = PHOTOS.slice(0, 9);
-const ROW_TWO = PHOTOS.slice(8);
+const ROW_ONE = PHOTOS.slice(0, 15);
+const ROW_TWO = PHOTOS.slice(14);
 
 function GalleryItem({ src, onClick }) {
   const isVideo = src.endsWith('.mp4');
