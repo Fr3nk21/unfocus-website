@@ -7,11 +7,11 @@ import SectionWatermark from './SectionWatermark';
 import useIsMobile from '../hooks/useIsMobile';
 
 const services = [
-  { word: 'Social media videos', image: '/images/services/italpaint_project02_05.webp' },
+  { word: 'Social media videos', image: '/images/services/DSC08931.webp' },
   { word: 'Hospitality content', image: '/images/services/05_01_fratellino.webp' },
   { word: 'Corporate films', image: '/images/services/italpaint_project02_05.webp' },
   { word: 'Event coverage', image: '/images/services/DSC08108.webp' },
-  { word: 'Legacy videos', image: '' },
+  { word: 'Legacy videos', image: '/images/services/DSC03098.webp' },
   { word: 'Commercial photography', image: '/images/services/DSC05443.webp' },
 ];
 

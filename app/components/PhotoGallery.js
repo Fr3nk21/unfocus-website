@@ -36,8 +36,18 @@ const PHOTOS = [
   '/videos/floridia-loop-web.mp4',
 ];
 
-const ROW_ONE = PHOTOS.slice(0, 15);
-const ROW_TWO = PHOTOS.slice(14);
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const SHUFFLED = shuffle(PHOTOS);
+const ROW_ONE = SHUFFLED.slice(0, 15);
+const ROW_TWO = SHUFFLED.slice(14);
 
 function GalleryItem({ src, onClick }) {
   const isVideo = src.endsWith('.mp4');
