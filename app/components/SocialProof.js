@@ -41,18 +41,18 @@ const reviews = [
 
 const LOGOS = [
   '/images/partners/rhd.png',
-  '/images/partners/gtano.webp',
-  '/images/partners/attico.webp',
-  '/images/partners/aod.png',
-  '/images/partners/filmonick.png',
-  '/images/partners/fratellino.png',
-  '/images/partners/delbocia.webp',
-  '/images/partners/agriturismo.png',
-  '/images/partners/evans.svg',
   '/images/partners/italpaint.webp',
-  '/images/partners/ogi.webp',
-  '/images/partners/starlight.webp',
+  '/images/partners/gtano.webp',
   '/images/partners/toyota.webp',
+  '/images/partners/attico.webp',
+  '/images/partners/evans.svg',
+  '/images/partners/aod.png',
+  '/images/partners/ogi.webp',
+  '/images/partners/filmonick.png',
+  '/images/partners/starlight.webp',
+  '/images/partners/fratellino.png',
+  '/images/partners/agriturismo.png',
+  '/images/partners/delbocia.webp',
 ];
 
 export default function SocialProof() {
