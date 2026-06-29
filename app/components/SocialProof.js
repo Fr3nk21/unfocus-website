@@ -199,9 +199,9 @@ export default function SocialProof() {
           animation-timing-function: linear;
           animation-iteration-count: infinite;
         }
-        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 140s; }
-        .logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 220s; }
-        .logo-track--ltr2 { animation-name: logoScrollLtr; animation-duration: 170s; }
+        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 250s; }
+.logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 350s; }
+.logo-track--ltr2 { animation-name: logoScrollLtr; animation-duration: 300s; }
         .logo-item {
           flex-shrink: 0;
           height: 42px;
