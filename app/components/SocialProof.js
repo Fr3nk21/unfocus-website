@@ -169,7 +169,7 @@ export default function SocialProof() {
           </div>
           <div className="logo-row">
   <div className="logo-track logo-track--ltr2">
-    {[...logos, ...logos].map((src, i) => (
+    {[...LOGOS, ...LOGOS].map((src, i) => (
       <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
     ))}
   </div>
