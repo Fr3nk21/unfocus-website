@@ -539,7 +539,6 @@ useEffect(() => {
           aspect-ratio: 16/9;
           border-radius: 12px;
           overflow: hidden;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.25);
           background-color: var(--ivory);
         }
         .mobile-carousel-card img,
