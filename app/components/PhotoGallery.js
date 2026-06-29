@@ -4,36 +4,36 @@ import { useState } from 'react';
 import SectionWatermark from './SectionWatermark';
 
 const PHOTOS = [
-  '/images/portfolio/fratellino/01.webp',
-  '/images/portfolio/venice/01.webp',
-  '/images/portfolio/bar-ussou/01.webp',
-  '/images/portfolio/agriturismo/01.webp',
-  '/images/portfolio/possum/01.webp',
-  '/images/gallery/DSC08281.webp',
-  '/images/gallery/DSC08534.webp',
-  '/images/gallery/DSC08796.webp',
-  '/images/gallery/italpaint_project06_04.webp',
-  '/images/gallery/italpaint_staff_03.webp',
-  '/images/gallery/DSC05717.webp',
-  '/images/gallery/DSC04983.webp',
-  '/images/gallery/DSC03997.webp',
-  '/images/gallery/DSC03232.webp',
+  '/images/gallery/01_02_laghi_gemelli.webp',
+  '/images/gallery/01_04_laghi_gemelli.webp',
+  '/images/gallery/04_01_venice.webp',
+  '/images/gallery/04_02_venice.webp',
+  '/images/gallery/04_04_venice.webp',
+  '/images/gallery/05_03_fratellino.webp',
+  '/images/gallery/DSC00486.webp',
+  '/images/gallery/DSC00624.webp',
+  '/images/gallery/DSC01484.webp',
+  '/images/gallery/DSC01690-2.webp',
+  '/images/gallery/DSC01694-2.webp',
+  '/images/gallery/DSC01765-2.webp',
+  '/images/gallery/DSC01855-2.webp',
+  '/images/gallery/DSC01985-Enhanced-NR.webp',
+  '/images/gallery/DSC02294.webp',
   '/images/gallery/DSC02720.webp',
   '/images/gallery/DSC03090.webp',
-  '/images/gallery/DSC01985-Enhanced-NR.webp',
-  '/images/gallery/DSC01690-2.webp',
-  '/images/gallery/DSC01484.webp',
-  '/images/gallery/DSC00486.webp',
-  '/images/gallery/06_03_possum.webp',
-  '/images/gallery/06_04_possum.webp',
-'/images/gallery/DSC01694-2.webp',
-  '/images/gallery/04_04_venice.webp',
-  '/images/gallery/03_ossou_thumbnail.webp',
-  '/videos/carousel-01-web.mp4',
-  '/videos/queenscliff-loop-web.mp4',
-  '/videos/cleanup-loop-web.mp4',
-  '/videos/gtano-dock-web.mp4',
-  '/videos/floridia-loop-web.mp4',
+  '/images/gallery/DSC03575.webp',
+  '/images/gallery/DSC05443.webp',
+  '/images/gallery/DSC05518.webp',
+  '/images/gallery/DSC05717.webp',
+  '/images/gallery/DSC06730.webp',
+  '/images/gallery/DSC06967.webp',
+  '/images/gallery/DSC07391.webp',
+  '/images/gallery/DSC08281.webp',
+  '/images/gallery/DSC08502.webp',
+  '/images/gallery/DSC08796.webp',
+  '/images/gallery/DSC08856.webp',
+  '/images/gallery/DSC09069.webp',
+  '/images/gallery/DSC09640.webp',
 ];
 
 function shuffle(arr) {
@@ -47,7 +47,7 @@ function shuffle(arr) {
 
 const SHUFFLED = shuffle(PHOTOS);
 const ROW_ONE = SHUFFLED.slice(0, 15);
-const ROW_TWO = SHUFFLED.slice(14);
+const ROW_TWO = SHUFFLED.slice(15);
 
 function GalleryItem({ src, onClick }) {
   const isVideo = src.endsWith('.mp4');
