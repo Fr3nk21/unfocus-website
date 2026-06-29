@@ -197,6 +197,13 @@ export default function SocialProof() {
         .logo-item {
           flex-shrink: 0;
           height: 42px;
+          .logo-item img {
+  height: 100%;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
           display: flex;
           align-items: center;
           justify-content: center;
