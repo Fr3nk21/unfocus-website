@@ -32,7 +32,7 @@ export default function ThreeHero() {
     resize();
 
     const isMobile = window.innerWidth < 768;
-    const count    = isMobile ? 150 : 300;
+    const count = isMobile ? 40 : 300;
 
     let particles = Array.from({ length: count }, () =>
       makeParticle(canvas.width, canvas.height)
