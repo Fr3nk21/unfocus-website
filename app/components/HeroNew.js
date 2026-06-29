@@ -459,7 +459,7 @@ useEffect(() => {
                 aria-label="Previous project"
                 style={{
                   background: 'transparent',
-                  border: '1.5px solid var(--sienna)',
+                  border: '1.5px solid var(--taupe)',
                   borderRadius: '50%',
                   width: '44px',
                   height: '44px',
@@ -467,7 +467,7 @@ useEffect(() => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  color: 'var(--sienna)',
+                  color: 'var(--taupe)',
                   transition: 'background 0.2s ease, color 0.2s ease',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = '#F4EFE5'; }}
@@ -480,7 +480,7 @@ useEffect(() => {
                 aria-label="Next project"
                 style={{
                   background: 'transparent',
-                  border: '1.5px solid var(--sienna)',
+                  border: '1.5px solid var(--taupe)',
                   borderRadius: '50%',
                   width: '44px',
                   height: '44px',
@@ -488,7 +488,7 @@ useEffect(() => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  color: 'var(--sienna)',
+                  color: 'var(--taupe)',
                   transition: 'background 0.2s ease, color 0.2s ease',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--sienna)'; e.currentTarget.style.color = '#F4EFE5'; }}

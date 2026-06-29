@@ -42,7 +42,7 @@ export default function LoadingScreen() {
         fontFamily: 'var(--font-manrope), sans-serif',
         fontSize: 'clamp(0.65rem, 2.5vw, 0.8rem)',
         fontWeight: 300,
-        letterSpacing: '0.30em',
+        letterSpacing: '0.28em',
         color: '#C47A4A',
         margin: 0,
         textTransform: 'uppercase',
