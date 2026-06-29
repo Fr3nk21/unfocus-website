@@ -5,18 +5,18 @@ import SectionLabel from './SectionLabel';
 
 const LOGOS = [
   '/images/partners/rhd.png',
-  '/images/partners/gtano.png',
+  '/images/partners/gtano.webp',
   '/images/partners/attico.webp',
   '/images/partners/aod.png',
   '/images/partners/filmonick.png',
   '/images/partners/fratellino.png',
-  '/images/partners/delbocia.png',
+  '/images/partners/delbocia.webp',
   '/images/partners/agriturismo.png',
   '/images/partners/evans.svg',
-  '/images/partners/italpaint.png',
-  '/images/partners/ogi.png',
+  '/images/partners/italpaint.webp',
+  '/images/partners/ogi.webp',
   '/images/partners/starlight.webp',
-  '/images/partners/toyota.svg',
+  '/images/partners/toyota.webp',
 ];
 
 const ROW_ONE = LOGOS.slice(0, 4);
