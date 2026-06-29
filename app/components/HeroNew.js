@@ -154,7 +154,12 @@ function CardOverlay({ item }) {
 function MobileProjectCarousel({ items, onClickItem }) {
   const ref = useRef(null);
   // Triple the list so the user always has cards in both directions
-  const tripled = [...items, ...items, ...items];
+  const mobileItems = [
+  items.find(i => i.id === 'p-gtano'),
+  items.find(i => i.id === 'v-toyota'),
+  ...items.filter(i => i.id !== 'p-gtano' && i.id !== 'v-toyota'),
+];
+const tripled = [...mobileItems, ...mobileItems, ...mobileItems];
 
   useEffect(() => {
     const el = ref.current;
