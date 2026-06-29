@@ -46,8 +46,13 @@ const LOGOS = [
   '/images/partners/aod.png',
   '/images/partners/filmonick.png',
   '/images/partners/fratellino.png',
-  '/images/partners/coasit_logo2_new.png',
   '/images/partners/delbocia.png',
+  '/images/partners/agriturismo.png',
+  '/images/partners/evans.svg',
+  '/images/partners/italpaint.png',
+  '/images/partners/ogi.png',
+  '/images/partners/starlight.webp',
+  '/images/partners/toyota.svg',
 ];
 
 export default function SocialProof() {
