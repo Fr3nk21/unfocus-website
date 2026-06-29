@@ -102,11 +102,16 @@ const portfolioItems = [
   },
 ];
 
-function ProjectCardMedia({ item }) {
+function ProjectCardMedia({ item, isActive }) {
   if (item.category === 'Video' && item.video) {
     return (
-      <video autoPlay muted loop playsInline preload="metadata" poster={item.poster} style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-        <source src={item.video} type="video/mp4" />
+      <video
+        autoPlay muted loop playsInline
+        preload={isActive ? 'auto' : 'none'}
+        poster={item.poster}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      >
+        {isActive && <source src={item.video} type="video/mp4" />}
       </video>
     );
   }
@@ -387,7 +392,7 @@ export default function HeroNew() {
                       boxShadow: offset === 0 ? '0 20px 60px rgba(0,0,0,0.25)' : '0 10px 30px rgba(0,0,0,0.15)',
                     }}
                   >
-                    <ProjectCardMedia item={item} />
+                    <ProjectCardMedia item={item} isActive={offset === 0} />
                     {offset === 0 && <CardOverlay item={item} />}
                   </motion.div>
                 );
