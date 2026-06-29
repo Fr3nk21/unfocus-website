@@ -242,10 +242,40 @@ export default function HeroNew() {
           alignItems: 'center',
         }}
       >
-        {/* Canvas line network background */}
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.85 }}>
-          <ThreeHero />
-        </div>
+        {/* Canvas line network background — desktop only */}
+{!isMobile && (
+  <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.85 }}>
+    <ThreeHero />
+  </div>
+)}
+
+{/* SVG statico mobile — stesso feeling, zero JS */}
+{isMobile && (
+  <svg
+    aria-hidden="true"
+    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.5 }}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g stroke="var(--taupe)" strokeWidth="0.5" opacity="0.4">
+      <line x1="10%" y1="15%" x2="35%" y2="40%"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/></line>
+      <line x1="35%" y1="40%" x2="70%" y2="20%"><animate attributeName="opacity" values="0.5;0.2;0.5" dur="5s" repeatCount="indefinite"/></line>
+      <line x1="70%" y1="20%" x2="90%" y2="55%"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3.5s" repeatCount="indefinite"/></line>
+      <line x1="90%" y1="55%" x2="60%" y2="80%"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="6s" repeatCount="indefinite"/></line>
+      <line x1="60%" y1="80%" x2="25%" y2="65%"><animate attributeName="opacity" values="0.3;0.5;0.3" dur="4.5s" repeatCount="indefinite"/></line>
+      <line x1="25%" y1="65%" x2="10%" y2="15%"><animate attributeName="opacity" values="0.5;0.3;0.5" dur="5.5s" repeatCount="indefinite"/></line>
+      <line x1="35%" y1="40%" x2="60%" y2="80%"><animate attributeName="opacity" values="0.2;0.4;0.2" dur="7s" repeatCount="indefinite"/></line>
+      <line x1="70%" y1="20%" x2="25%" y2="65%"><animate attributeName="opacity" values="0.4;0.2;0.4" dur="6.5s" repeatCount="indefinite"/></line>
+    </g>
+    <g fill="var(--taupe)" opacity="0.5">
+      <circle cx="10%" cy="15%" r="2"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="35%" cy="40%" r="2"><animate attributeName="opacity" values="0.5;1;0.5" dur="5s" repeatCount="indefinite"/></circle>
+      <circle cx="70%" cy="20%" r="2"><animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/></circle>
+      <circle cx="90%" cy="55%" r="2"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="6s" repeatCount="indefinite"/></circle>
+      <circle cx="60%" cy="80%" r="2"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="4.5s" repeatCount="indefinite"/></circle>
+      <circle cx="25%" cy="65%" r="2"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="5.5s" repeatCount="indefinite"/></circle>
+    </g>
+  </svg>
+)}
 
         {/* Two-column container */}
         <div
