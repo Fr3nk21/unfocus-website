@@ -65,7 +65,8 @@ function GalleryItem({ src, onClick }) {
         />
       ) : (
         <img src={src} alt="" loading="lazy" draggable={false}
-          style={{ height: '100%', width: 'auto', display: 'block', objectFit: 'cover' }} />
+  width="400" height="260"
+  style={{ height: '100%', width: 'auto', display: 'block', objectFit: 'cover' }} />
       )}
     </div>
   );

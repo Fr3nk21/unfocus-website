@@ -6,6 +6,7 @@ import ThreeHero from './ThreeHero';
 import YoutubeModal from './YoutubeModal';
 import PhotoLightbox from './PhotoLightbox';
 import useIsMobile from '../hooks/useIsMobile';
+import Image from 'next/image';
 
 const portfolioItems = [
   {
@@ -116,7 +117,16 @@ function ProjectCardMedia({ item, isActive }) {
     );
   }
   if (item.cover) {
-    return <img src={item.cover} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+    return (
+      <Image
+        src={item.cover}
+        alt={item.title}
+        fill
+        sizes="(max-width: 767px) 90vw, 40vw"
+        style={{ objectFit: 'cover' }}
+        priority={false}
+      />
+    );
   }
   return null;
 }

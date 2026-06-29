@@ -29,7 +29,7 @@ function LogoRow({ logos, direction = 'left', speed = 40 }) {
       <div className="logo-track" style={{ animationDuration: speed + 's', animationDirection: direction === 'left' ? 'normal' : 'reverse' }}>
         {doubled.map((src, i) => (
           <div key={i} className="logo-item">
-            <img src={src} alt="" loading="lazy" draggable={false} />
+            <img src={src} alt="" loading="lazy" draggable={false} width="160" height="42" style={{ width: 'auto', height: '100%', objectFit: 'contain' }} />
           </div>
         ))}
       </div>

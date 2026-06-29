@@ -156,21 +156,21 @@ export default function SocialProof() {
           <div className="logo-row">
             <div className="logo-track logo-track--ltr">
               {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
-                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} width="160" height="42" style={{ width: 'auto', height: '100%', objectFit: 'contain' }} /></div>
               ))}
             </div>
           </div>
           <div className="logo-row">
             <div className="logo-track logo-track--rtl">
               {[...LOGOS, ...LOGOS, ...LOGOS].map((src, i) => (
-                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+                <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} width="160" height="42" style={{ width: 'auto', height: '100%', objectFit: 'contain' }} /></div>
               ))}
             </div>
           </div>
           <div className="logo-row">
   <div className="logo-track logo-track--ltr2">
     {[...LOGOS, ...LOGOS].map((src, i) => (
-      <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+      <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} width="160" height="42" style={{ width: 'auto', height: '100%', objectFit: 'contain' }} /></div>
     ))}
   </div>
 </div>

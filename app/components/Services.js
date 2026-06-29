@@ -5,6 +5,7 @@ import RevealWrapper from './RevealWrapper';
 import SectionLabel from './SectionLabel';
 import SectionWatermark from './SectionWatermark';
 import useIsMobile from '../hooks/useIsMobile';
+import Image from 'next/image';
 
 const services = [
   { word: 'Social media videos', image: '/images/services/DSC08931.webp' },
@@ -88,7 +89,13 @@ export default function Services() {
             <div className="snap-carousel services-carousel">
               {services.map((service, i) => (
                 <figure key={i} className="services-carousel-card">
-                  <img src={service.image} alt={service.word} loading="lazy" />
+                  <Image
+  src={service.image}
+  alt={service.word}
+  fill
+  sizes="(max-width: 767px) 80vw, 40vw"
+  style={{ objectFit: 'cover' }}
+/>
                   <figcaption className="services-carousel-label">{service.word}</figcaption>
                 </figure>
               ))}
