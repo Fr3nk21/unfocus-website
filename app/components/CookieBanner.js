@@ -176,6 +176,7 @@ export default function CookieBanner() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
+            className="privacy-scroll"
             style={{
               backgroundColor: '#1E1B14',
               borderRadius: '12px',
@@ -183,6 +184,8 @@ export default function CookieBanner() {
               width: '100%',
               maxHeight: '80vh',
               overflowY: 'auto',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
               padding: '2.5rem',
               position: 'relative',
             }}
@@ -278,6 +281,7 @@ export default function CookieBanner() {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+          .privacy-scroll::-webkit-scrollbar { display: none; }
       `}</style>
     </>
   );
