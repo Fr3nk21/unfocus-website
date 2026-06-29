@@ -178,16 +178,10 @@ export default function PhotoGallery() {
 }
 .gallery-row {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   position: relative;
   z-index: 1;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  cursor: grab;
 }
-.gallery-row::-webkit-scrollbar { display: none; }
-.gallery-row:active { cursor: grabbing; }
 .gallery-track {
   display: flex;
   gap: 1.5rem;
