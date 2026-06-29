@@ -184,7 +184,7 @@ function MobileProjectCarousel({ items, onClickItem }) {
 
 export default function HeroNew() {
   const isMobile = useIsMobile();
-  const [activeIndex, setActiveIndex] = useState(Math.floor(portfolioItems.length / 2));
+  const [activeIndex, setActiveIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
