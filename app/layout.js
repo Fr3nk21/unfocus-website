@@ -14,7 +14,8 @@ const manrope = Manrope({
 const dmSans = DM_Sans({
   variable: '--font-dmsans',
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500'],
+  weight: ['300', '400', '500'],
+  display: 'swap',
 });
 
 const imFell = IM_Fell_English({
@@ -22,6 +23,7 @@ const imFell = IM_Fell_English({
   subsets: ['latin'],
   weight: ['400'],
   style: ['italic'],
+  display: 'swap',
 });
 
 const jsonLd = {
