@@ -3,6 +3,7 @@ import './globals.css';
 import ThemeProvider from './components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import LoadingScreen from './components/LoadingScreen';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -109,6 +110,7 @@ export default function RootLayout({ children }) {
 />
       </head>
       <body suppressHydrationWarning>
+      <LoadingScreen />
         <ThemeProvider>
           {children}
         </ThemeProvider>
