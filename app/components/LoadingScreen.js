@@ -46,7 +46,7 @@ export default function LoadingScreen() {
           fontFamily: 'var(--font-manrope), sans-serif',
           fontSize: 'clamp(0.65rem, 2.5vw, 0.8rem)',
           fontWeight: 300,
-          letterSpacing: '0.2em',
+          letterSpacing: '0.52em',
           color: 'var(--sienna)',
           margin: 0,
           textTransform: 'uppercase',
