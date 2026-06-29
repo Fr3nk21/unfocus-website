@@ -101,6 +101,12 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link
+  rel="preload"
+  as="image"
+  href="/videos/toyota-thumb.webp"
+  fetchPriority="high"
+/>
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>

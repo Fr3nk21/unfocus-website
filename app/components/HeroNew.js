@@ -124,7 +124,7 @@ function ProjectCardMedia({ item, isActive }) {
         fill
         sizes="(max-width: 767px) 90vw, 40vw"
         style={{ objectFit: 'cover' }}
-        priority={false}
+        priority={isActive}
       />
     );
   }
