@@ -24,7 +24,7 @@ export default function CookieBanner() {
 
   function loadAnalytics() {
     if (window.gtag) return;
-    const GA_ID = 'G-XXXXXXXXXX';
+    const GA_ID = 'G-Y4ZKMCE62V';
     if (GA_ID === 'G-XXXXXXXXXX') return;
 
     const script = document.createElement('script');
