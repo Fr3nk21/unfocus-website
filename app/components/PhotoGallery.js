@@ -96,8 +96,8 @@ export default function PhotoGallery() {
   return (
     <section className="gallery-section" aria-label="Photo gallery">
       <SectionWatermark text="FRAMES" position="right" />
-<PhotoRow photos={ROW_ONE} direction="left" speed={70} />
-<PhotoRow photos={ROW_TWO} direction="right" speed={70} />
+      <PhotoRow photos={ROW_ONE} direction="left" speed={120} />
+      <PhotoRow photos={ROW_TWO} direction="right" speed={150} />
 
       {/* Lightbox overlay */}
       {lightbox && (

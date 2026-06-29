@@ -167,6 +167,13 @@ export default function SocialProof() {
               ))}
             </div>
           </div>
+          <div className="logo-row">
+  <div className="logo-track logo-track--ltr2">
+    {[...logos, ...logos].map((src, i) => (
+      <div key={i} className="logo-item"><img src={src} alt="" loading="lazy" draggable={false} /></div>
+    ))}
+  </div>
+</div>
         </div>
       </div>
 
@@ -187,13 +194,14 @@ export default function SocialProof() {
           display: flex;
           gap: 3rem;
           width: max-content;
+          will-change: transform;
           align-items: center;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
         }
-        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 90s; }
-.logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 160s; }
-        .logo-track:hover { animation-play-state: paused; }
+        .logo-track--ltr { animation-name: logoScrollLtr; animation-duration: 140s; }
+        .logo-track--rtl { animation-name: logoScrollRtl; animation-duration: 220s; }
+        .logo-track--ltr2 { animation-name: logoScrollLtr; animation-duration: 170s; }
         .logo-item {
           flex-shrink: 0;
           height: 42px;
