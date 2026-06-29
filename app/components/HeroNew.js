@@ -194,6 +194,12 @@ export default function HeroNew() {
   const [activeVideo, setActiveVideo] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activePhoto, setActivePhoto] = useState(null);
+  const [canvasReady, setCanvasReady] = useState(false);
+
+useEffect(() => {
+  const t = setTimeout(() => setCanvasReady(true), 300);
+  return () => clearTimeout(t);
+}, []);
 
   // Infinite circular navigation
   const toPrev = () => setActiveIndex((p) => (p - 1 + portfolioItems.length) % portfolioItems.length);
@@ -242,9 +248,13 @@ export default function HeroNew() {
           alignItems: 'center',
         }}
       >
-        {/* Canvas line network background */}
-<div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.85 }}>
-  <ThreeHero />
+        {/* Canvas line network background — lazy mount dopo il primo paint */}
+<div style={{
+  position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+  opacity: canvasReady ? 0.85 : 0,
+  transition: 'opacity 1s ease',
+}}>
+  {canvasReady && <ThreeHero />}
 </div>
 
 {/* SVG statico mobile — stesso feeling, zero JS */}
