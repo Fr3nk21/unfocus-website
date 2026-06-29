@@ -17,7 +17,7 @@ export default function LoadingScreen() {
       position: 'fixed',
       inset: 0,
       zIndex: 99999,
-      backgroundColor: 'var(--ivory)',
+      backgroundColor: '#18150F',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -32,7 +32,7 @@ export default function LoadingScreen() {
         fontSize: 'clamp(1.1rem, 4vw, 1.4rem)',
         fontWeight: 600,
         letterSpacing: '0.08em',
-        color: 'var(--ink)',
+        color: '#F0EBE1',
         margin: 0,
         textTransform: 'uppercase',
       }}>
@@ -42,8 +42,8 @@ export default function LoadingScreen() {
         fontFamily: 'var(--font-manrope), sans-serif',
         fontSize: 'clamp(0.65rem, 2.5vw, 0.8rem)',
         fontWeight: 300,
-        letterSpacing: '0.38em',
-        color: 'var(--sienna)',
+        letterSpacing: '0.30em',
+        color: '#C47A4A',
         margin: 0,
         textTransform: 'uppercase',
       }}>
