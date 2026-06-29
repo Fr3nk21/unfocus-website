@@ -14,7 +14,7 @@ const portfolioItems = [
     title: 'Toyota Finance',
     sub: 'with Red Herring Digital',
     video: '/videos/toyota-loop.mp4',
-    poster: '/videos/toyota-thumb.jpg',
+    poster: '/videos/toyota-thumb.webp',
     youtubeId: '05wzY7a7NIw',
     vertical: false,
   },
