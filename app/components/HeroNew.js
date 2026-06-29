@@ -238,7 +238,7 @@ useEffect(() => {
     let lastScroll = 0;
     function onWheel(e) {
       const now = Date.now();
-      if (now - lastScroll < 400) return; // throttle
+      if (now - lastScroll < 900) return; // throttle
       lastScroll = now;
       if (e.deltaY > 0 || e.deltaX > 0) toNext();
       else toPrev();
