@@ -242,12 +242,10 @@ export default function HeroNew() {
           alignItems: 'center',
         }}
       >
-        {/* Canvas line network background — desktop only */}
-{!isMobile && (
-  <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.85 }}>
-    <ThreeHero />
-  </div>
-)}
+        {/* Canvas line network background */}
+<div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.85 }}>
+  <ThreeHero />
+</div>
 
 {/* SVG statico mobile — stesso feeling, zero JS */}
 {isMobile && (
