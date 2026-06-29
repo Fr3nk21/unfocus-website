@@ -83,7 +83,7 @@ export default function Testimonial() {
         {/* Review text */}
         <blockquote
           style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontFamily: 'var(--font-manrope), sans-serif',
             fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
             fontWeight: 400,
             color: 'var(--ink)',

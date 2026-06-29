@@ -69,7 +69,7 @@ export default function Services() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span style={{
-                  fontFamily: 'var(--font-playfair), Georgia, serif',
+                  fontFamily: 'var(--font-manrope), sans-serif',
                   fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
                   fontWeight: 500,
                   color: activeIndex === i ? 'var(--ink)' : 'var(--taupe)',
@@ -159,7 +159,7 @@ export default function Services() {
           left: 1rem;
           bottom: 1rem;
           z-index: 1;
-          font-family: var(--font-playfair), Georgia, serif;
+          font-family: var(--font-manrope), sans-serif;
           font-size: 1.1rem;
           font-weight: 600;
           color: #F4EFE5;

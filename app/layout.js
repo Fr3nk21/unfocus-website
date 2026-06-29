@@ -1,4 +1,4 @@
-import { Manrope, DM_Sans, IM_Fell_English } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from './components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
@@ -6,23 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const manrope = Manrope({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-manrope',
-  display: 'swap',
-});
-
-const dmSans = DM_Sans({
-  variable: '--font-dmsans',
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  display: 'swap',
-});
-
-const imFell = IM_Fell_English({
-  variable: '--font-imfell',
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['italic'],
   display: 'swap',
 });
 
@@ -96,7 +81,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${dmSans.variable} ${imFell.variable}`}
+      className={`${manrope.variable}`}
       suppressHydrationWarning
     >
       <head>

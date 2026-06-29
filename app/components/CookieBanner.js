@@ -206,7 +206,7 @@ export default function CookieBanner() {
 
             <h2
               style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
+                fontFamily: 'var(--font-manrope), sans-serif',
                 fontSize: '1.75rem',
                 fontWeight: 600,
                 color: '#F0EBE1',

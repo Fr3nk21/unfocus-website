@@ -64,7 +64,7 @@ export default function Nav() {
         <a
           href="/"
           style={{
-            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontFamily: 'var(--font-manrope), sans-serif',
             fontSize: '1.125rem',
             color: 'var(--ink)',
             textDecoration: 'none',
@@ -206,7 +206,7 @@ export default function Nav() {
                   fontWeight: isActive ? 400 : 300,
                   textDecoration: 'none',
                   fontSize: '1.125rem',
-                  fontFamily: 'var(--font-playfair), Georgia, serif',
+                  fontFamily: 'var(--font-manrope), sans-serif',
                   borderBottom: '1px solid rgba(24,21,15,0.06)',
                   transition: 'color 0.2s ease',
                 }}

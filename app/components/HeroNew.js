@@ -135,7 +135,7 @@ function CardOverlay({ item }) {
       }}
     >
       <span style={{ fontSize: '0.6rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--sienna)' }}>{item.category}</span>
-      <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.1rem', fontWeight: 600, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
+      <h3 style={{ fontFamily: 'var(--font-manrope), sans-serif', fontSize: '1.1rem', fontWeight: 600, color: '#F4EFE5', margin: '0.25rem 0 0' }}>{item.title}</h3>
       {item.sub && <p style={{ fontSize: '0.7rem', color: 'rgba(244,239,229,0.6)', margin: '0.1rem 0 0' }}>{item.sub}</p>}
     </div>
   );

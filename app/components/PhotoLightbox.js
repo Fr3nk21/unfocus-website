@@ -61,7 +61,7 @@ export default function PhotoLightbox({ isOpen, onClose, images = [], title = ''
 
   const titleBlock = (
     <div style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', zIndex: 10 }}>
-      <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1rem', color: 'rgba(244,239,229,0.7)', fontWeight: 500, margin: 0 }}>
+      <p style={{ fontFamily: 'var(--font-manrope), sans-serif', fontSize: '1rem', color: 'rgba(244,239,229,0.7)', fontWeight: 500, margin: 0 }}>
         {title}
       </p>
       <p style={{ fontSize: '0.75rem', color: 'rgba(244,239,229,0.35)', fontWeight: 300, letterSpacing: '0.1em', margin: '0.25rem 0 0' }}>

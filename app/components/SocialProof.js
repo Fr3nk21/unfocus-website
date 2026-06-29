@@ -104,7 +104,7 @@ export default function SocialProof() {
                       </svg>
                     ))}
                   </div>
-                  <blockquote style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: '1.125rem', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem' }}>
+                  <blockquote style={{ fontFamily: 'var(--font-manrope), sans-serif', fontSize: '1.125rem', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem' }}>
                     &ldquo;{review.text}&rdquo;
                   </blockquote>
                   <p style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--taupe)', margin: 0 }}>{review.name}</p>
@@ -135,7 +135,7 @@ export default function SocialProof() {
               ))}
             </div>
 
-            <blockquote style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem', minHeight: '110px', transition: 'opacity 0.4s ease' }}>
+            <blockquote style={{ fontFamily: 'var(--font-manrope), sans-serif', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 400, color: 'var(--ink)', lineHeight: 1.7, fontStyle: 'italic', margin: '0 0 1rem', minHeight: '110px', transition: 'opacity 0.4s ease' }}>
               &ldquo;{reviews[active].text}&rdquo;
             </blockquote>
 

@@ -50,7 +50,7 @@ function CountUp({ target, suffix, duration = 2000 }) {
     <div ref={ref}>
       <div
         style={{
-          fontFamily: 'var(--font-playfair), Georgia, serif',
+          fontFamily: 'var(--font-manrope), sans-serif',
           fontSize: 'clamp(2.5rem, 5vw, 4rem)',
           fontWeight: 700,
           color: 'var(--stats-num)',
