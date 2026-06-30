@@ -23,7 +23,7 @@ const portfolioItems = [
     id: 'p-gtano',
     category: 'Photo',
     title: 'GTano',
-    sub: 'with GTano',
+    sub: '',
     cover: '/images/portfolio/gtano/thumb.webp',
     images: [
       '/images/portfolio/gtano/01.webp',
