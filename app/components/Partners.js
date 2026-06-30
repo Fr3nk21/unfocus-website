@@ -20,9 +20,6 @@ const LOGOS = [
   '/images/partners/toyota.webp',
 ];
 
-const ROW_ONE = LOGOS.slice(0, 4);
-const ROW_TWO = LOGOS.slice(4);
-
 function LogoRow({ logos, direction = 'left', speed = 40 }) {
   const doubled = [...logos, ...logos, ...logos]; // triple for seamless wide loop
   return (
@@ -49,8 +46,7 @@ export default function Partners() {
         </RevealWrapper>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2.5rem' }}>
-        <LogoRow logos={ROW_ONE} direction="left" speed={25} />
-        <LogoRow logos={ROW_TWO} direction="right" speed={32} />
+        <LogoRow logos={LOGOS} direction="left" speed={45} />
       </div>
 
       <style>{`

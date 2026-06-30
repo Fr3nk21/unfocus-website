@@ -46,7 +46,7 @@ const LOGOS = [
   '/images/partners/toyota.webp',
   '/images/partners/attico.webp',
   '/images/partners/evans.svg',
-  '/images/partners/aod.png',
+  '/images/partners/aod.svg',
   '/images/partners/ogi.webp',
   '/images/partners/filmonick.png',
   '/images/partners/starlight.webp',
