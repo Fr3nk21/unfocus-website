@@ -96,7 +96,7 @@ export default function About() {
               className="t-body"
               style={{ color: 'var(--charcoal)', marginBottom: '1.25rem' }}
             >
-              Born in northern Italy. Raised around architecture, food, and a culture where aesthetics are not optional. Melbourne gave me a new lens — same eye, different light.
+              Born in Italy, where beauty is a given and the eye learns early. Melbourne gave me new stories to tell, and changed the light, not the way I look.
             </p>
           </RevealWrapper>
 
@@ -105,7 +105,7 @@ export default function About() {
               className="t-body"
               style={{ color: 'var(--charcoal)', marginBottom: '1.5rem' }}
             >
-              Every frame is considered. Every edit, intentional. I work with light, texture, and the quiet moments between action.
+              I work for brands that care about what they put into the world: ones that understand visual identity is not decoration, but the first thing people feel.
             </p>
           </RevealWrapper>
 
