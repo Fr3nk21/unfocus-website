@@ -8,7 +8,7 @@ const LOGOS = [
   '/images/partners/coasit.png',
   '/images/partners/gtano.webp',
   '/images/partners/attico.webp',
-  '/images/partners/aod.png',
+  '/images/partners/aod.svg',
   '/images/partners/filmonick.png',
   '/images/partners/fratellino.png',
   '/images/partners/delbocia.webp',
