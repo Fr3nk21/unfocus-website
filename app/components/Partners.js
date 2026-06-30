@@ -5,6 +5,7 @@ import SectionLabel from './SectionLabel';
 
 const LOGOS = [
   '/images/partners/rhd.png',
+  '/images/partners/coasit.png',
   '/images/partners/gtano.webp',
   '/images/partners/attico.webp',
   '/images/partners/aod.png',
