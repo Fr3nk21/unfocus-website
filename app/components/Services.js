@@ -13,9 +13,9 @@ const services = [
   { word: 'Corporate films', image: '/images/services/corporate-02.webp' },
   { word: 'Event coverage', image: '/images/services/DSC08108.webp' },
   { word: 'Legacy videos', image: '/images/services/DSC01535.webp' },
-  { word: 'Commercial photography', image: '/images/services/DSC05443.webp', position: 'center 15%' },
-  { word: 'Short film', image: '/images/services/short-film.webp', position: 'center 15%' },
-  { word: 'Documentary', image: '/images/services/documentary.webp', position: 'center 15%' },
+  { word: 'Commercial photography', image: '/images/services/DSC05443.webp', position: 'center 30%' },
+  { word: 'Short film', image: '/images/services/short-film.webp', position: 'center 30%' },
+  { word: 'Documentary', image: '/images/services/documentary.webp', position: 'center 30%' },
 ];
 
 export default function Services() {
