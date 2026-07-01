@@ -13,9 +13,9 @@ const services = [
   { word: 'Corporate films', image: '/images/services/corporate-02.webp' },
   { word: 'Event coverage', image: '/images/services/DSC08108.webp' },
   { word: 'Legacy videos', image: '/images/services/DSC01535.webp' },
-  { word: 'Commercial photography', image: '/images/services/DSC05443.webp' },
-  { word: 'Short film', image: '/images/services/short-film.webp' },
-  { word: 'Documentary', image: '/images/services/documentary.webp' },
+  { word: 'Commercial photography', image: '/images/services/DSC05443.webp', position: 'center 15%' },
+  { word: 'Short film', image: '/images/services/short-film.webp', position: 'center 15%' },
+  { word: 'Documentary', image: '/images/services/documentary.webp', position: 'center 15%' },
 ];
 
 export default function Services() {
@@ -36,7 +36,7 @@ export default function Services() {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '4rem',
-          alignItems: 'start',
+          alignItems: 'stretch',
         }}>
           {/* Faint vertical divider between columns */}
           <span aria-hidden="true" className="services-divider" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '1px', background: 'var(--ink)', opacity: 0.06, pointerEvents: 'none' }} />
@@ -92,12 +92,12 @@ export default function Services() {
               {services.map((service, i) => (
                 <figure key={i} className="services-carousel-card">
                   <Image
-  src={service.image}
-  alt={service.word}
-  fill
-  sizes="(max-width: 767px) 80vw, 40vw"
-  style={{ objectFit: 'cover' }}
-/>
+                    src={service.image}
+                    alt={service.word}
+                    fill
+                    sizes="(max-width: 767px) 80vw, 40vw"
+                    style={{ objectFit: 'cover', objectPosition: service.position || 'center' }}
+                  />
                   <figcaption className="services-carousel-label">{service.word}</figcaption>
                 </figure>
               ))}
@@ -105,7 +105,7 @@ export default function Services() {
           ) : (
             <div style={{
               position: 'relative',
-              aspectRatio: '1 / 1',
+              height: '100%',
               width: '100%',
               borderRadius: '12px',
               overflow: 'hidden',
@@ -122,6 +122,7 @@ export default function Services() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
+                    objectPosition: service.position || 'center',
                     opacity: activeIndex === i ? 1 : 0,
                     transition: 'opacity 0.5s ease',
                   }}
