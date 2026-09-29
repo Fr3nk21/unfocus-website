@@ -84,7 +84,7 @@ const portfolioItems = [
     title: 'Fratellino Pizzeria',
     sub: '',
     video: '/videos/fratellino-loop.mp4',
-    poster: '/videos/fratellino-thumb.jpg',
+    poster: '/videos/fratellino-thumb.webp',
     youtubeId: 'm8Hx8bqjomU',
     vertical: true,
   },
