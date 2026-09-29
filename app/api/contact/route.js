@@ -1,6 +1,17 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
+const MAX_LENGTHS = { name: 100, email: 200, service: 100, location: 100, message: 5000 };
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 const rateMap = new Map();
 const RATE_LIMIT = 5;
 const RATE_WINDOW = 60 * 60 * 1000;
@@ -46,23 +57,40 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
     }
 
+    const fields = { name, email, service, location, message };
+    for (const [key, value] of Object.entries(fields)) {
+      if (value && String(value).length > MAX_LENGTHS[key]) {
+        return NextResponse.json({ error: `The ${key} field is too long.` }, { status: 400 });
+      }
+    }
+
+    const safe = {
+      name: escapeHtml(name.trim()),
+      email: escapeHtml(email.trim()),
+      service: service ? escapeHtml(service.trim()) : '',
+      location: location ? escapeHtml(location.trim()) : '',
+      message: escapeHtml(message.trim()),
+    };
+    const subjectName = name.trim().replace(/[\r\n]+/g, ' ');
+    const subjectService = service ? service.trim().replace(/[\r\n]+/g, ' ') : '';
+
     const { data, error } = await resend.emails.send({
       from: 'Francesco Bugugnoli <noreply@francescobugugnoli.com>',
       to: ['bugugnolifrancesco@gmail.com'],
       replyTo: email,
-      subject: `New enquiry from ${name}${service ? ` — ${service}` : ''}`,
+      subject: `New enquiry from ${subjectName}${subjectService ? ` — ${subjectService}` : ''}`,
       html: `
         <div style="font-family: Georgia, serif; max-width: 560px; color: #18150F;">
           <h2 style="font-size: 1.25rem; font-weight: 500; margin-bottom: 1.5rem;">New enquiry via francescobugugnoli.com</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 0.9375rem;">
-            <tr><td style="padding: 0.5rem 0; color: #8A7E6B; width: 100px;">Name</td><td style="padding: 0.5rem 0;">${name}</td></tr>
-            <tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Email</td><td style="padding: 0.5rem 0;">${email}</td></tr>
-            ${service ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Service</td><td style="padding: 0.5rem 0;">${service}</td></tr>` : ''}
-            ${location ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Location</td><td style="padding: 0.5rem 0;">${location}</td></tr>` : ''}
+            <tr><td style="padding: 0.5rem 0; color: #8A7E6B; width: 100px;">Name</td><td style="padding: 0.5rem 0;">${safe.name}</td></tr>
+            <tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Email</td><td style="padding: 0.5rem 0;">${safe.email}</td></tr>
+            ${safe.service ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Service</td><td style="padding: 0.5rem 0;">${safe.service}</td></tr>` : ''}
+            ${safe.location ? `<tr><td style="padding: 0.5rem 0; color: #8A7E6B;">Location</td><td style="padding: 0.5rem 0;">${safe.location}</td></tr>` : ''}
           </table>
           <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E8E0D0;">
             <p style="color: #8A7E6B; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem;">Message</p>
-            <p style="line-height: 1.7; white-space: pre-wrap;">${message}</p>
+            <p style="line-height: 1.7; white-space: pre-wrap;">${safe.message}</p>
           </div>
         </div>
       `,
