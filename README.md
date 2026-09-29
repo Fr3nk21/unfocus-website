@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# francescobugugnoli.com
 
-## Getting Started
+My personal portfolio — video production, photography and web work under the [UnFocus](https://unfocus.com.au) studio name.
 
-First, run the development server:
+**Live:** [francescobugugnoli.com](https://www.francescobugugnoli.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## What's inside
+
+- **Project showcase** — video loops, galleries and a lightbox for client work (corporate, documentary, brand and social content).
+- **Animated hero** — a custom particle animation drawn on HTML Canvas.
+- **Contact form** — a Next.js API route that sends enquiries through [Resend](https://resend.com), with input validation and rate limiting.
+- **Light and dark theme**, cookie banner, scroll-reveal animations and a mobile-first layout.
+
+## Stack
+
+- Next.js 16 (App Router) · React 19
+- Tailwind CSS 4
+- HTML Canvas animation
+- Resend (transactional email)
+- Deployed on Vercel
+
+## Structure
+
+```
+app/
+  components/   UI sections (Hero, Services, Gallery, Contact, …)
+  api/contact/  Contact form endpoint
+  hooks/        Shared React hooks
+public/         Images and video assets
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The contact form needs a `RESEND_API_KEY` environment variable.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [Francesco Bugugnoli](https://www.francescobugugnoli.com) · [LinkedIn](https://www.linkedin.com/in/francesco-bugugnoli-3325b656/)
